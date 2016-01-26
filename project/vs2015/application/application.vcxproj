@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E17F8BD0-E6BF-402D-90E8-62BA46E37AE3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>application</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)..\..\..\nctoolkit\project\extern\windows\libs_32\debug;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)..\..\..\nctoolkit\project\extern\windows\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>../../../ncktoolkit/extern/windows/libs_32/release;$(LibraryPath)</LibraryPath>
+    <IncludePath>../../../ncktoolkit/extern/windows/include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
+    <IncludePath>../../extern/include;$(IncludePath)</IncludePath>
+    <LibraryPath>../../extern/lib/release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\nctoolkit\source\bxon\;$(SolutionDir)..\..\..\nctoolkit\source\core\;$(SolutionDir)..\..\..\nctoolkit\source\graphics\;$(SolutionDir)..\..\..\nctoolkit\source\audio;$(SolutionDir)..\..\..\nctoolkit\source\gui;$(SolutionDir)..\..\..\nctoolkit\source\math;$(SolutionDir)..\..\..\nctoolkit\source\scene;$(SolutionDir)..\..\..\nctoolkit\source\network;$(SolutionDir)..\..\..\nctoolkit\source\xml;$(SolutionDir)..\..\..\nctoolkit\source\video;$(SolutionDir)\..\..\..\nctoolkit\source\io</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\nctoolkit\source\bxon\;$(SolutionDir)..\..\..\nctoolkit\source\core\;$(SolutionDir)..\..\..\nctoolkit\source\graphics\;$(SolutionDir)..\..\..\nctoolkit\source\audio;$(SolutionDir)..\..\..\nctoolkit\source\gui;$(SolutionDir)..\..\..\nctoolkit\source\math;$(SolutionDir)..\..\..\nctoolkit\source\scene;$(SolutionDir)..\..\..\nctoolkit\source\network;$(SolutionDir)..\..\..\nctoolkit\source\xml;$(SolutionDir)..\..\..\nctoolkit\source\video;$(SolutionDir)\..\..\..\nctoolkit\source\io</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;zlibstat.lib;libpng16.lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\source\bxporter;$(SolutionDir)\..\..\source\core\;$(SolutionDir)\..\..\source\graphics\;$(SolutionDir)\..\..\source\audio;$(SolutionDir)\..\..\source\gui;$(SolutionDir)\..\..\source\math;$(SolutionDir)\..\..\source\scene;$(SolutionDir)\..\..\source\network;$(SolutionDir)\..\..\source\xml</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;zlibstat.lib;libpng16.lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="..\..\..\source\win32\appicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\source\win32\resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\dConfig.h" />
+    <ClInclude Include="..\..\..\source\dSettings.h" />
+    <ClInclude Include="..\..\..\source\dSubtitles.h" />
+    <ClInclude Include="..\..\..\source\dUtils.h" />
+    <ClInclude Include="..\..\..\source\win32\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\dSettings.cpp" />
+    <ClCompile Include="..\..\..\source\dSubtitles.cpp" />
+    <ClCompile Include="..\..\..\source\dUtils.cpp" />
+    <ClCompile Include="..\..\..\source\dMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">
+      <Project>{e29d2e2e-2d8d-4d7d-8cc5-8b1681e5dea9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\bxon\bxon.vcxproj">
+      <Project>{7ef41192-d2d5-4a3e-aed9-fec97c599a79}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\core\core.vcxproj">
+      <Project>{c4b8e54b-9035-4728-8963-cc9f08e330e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\graphics\graphics.vcxproj">
+      <Project>{a7f70601-e0b9-481d-9891-d2b0d41062d1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\gui\gui.vcxproj">
+      <Project>{89d139b7-4583-4241-b851-540949559e16}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\io\io.vcxproj">
+      <Project>{db951cd7-57e2-4761-81fa-bba23e7fcdee}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\math\math.vcxproj">
+      <Project>{7fe95ac8-8993-429d-a961-5ac145b5eeab}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\network\network.vcxproj">
+      <Project>{71af2ec4-6f87-432d-aca8-3eae072cb33c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\scene\scene.vcxproj">
+      <Project>{8864a343-acda-400c-8b9b-92310e38c8ba}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\tinyxml\tinyxml.vcxproj">
+      <Project>{c2308909-2d84-4b03-997f-2298d5fb72f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\video\video.vcxproj">
+      <Project>{837a4da2-d573-47fb-966c-a71838b33630}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
