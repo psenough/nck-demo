@@ -112,17 +112,29 @@
     <ResourceCompile Include="..\..\..\source\win32\resources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\dConfig.h" />
-    <ClInclude Include="..\..\..\source\dSettings.h" />
-    <ClInclude Include="..\..\..\source\dSubtitles.h" />
-    <ClInclude Include="..\..\..\source\dUtils.h" />
+    <ClInclude Include="..\..\..\source\dsAudioPlayer.h" />
+    <ClInclude Include="..\..\..\source\dsCompound.h" />
+    <ClInclude Include="..\..\..\source\dsConfig.h" />
+    <ClInclude Include="..\..\..\source\dsAudioFFT.h" />
+    <ClInclude Include="..\..\..\source\dsData.h" />
+    <ClInclude Include="..\..\..\source\dsStage.h" />
+    <ClInclude Include="..\..\..\source\dsScratch.h" />
+    <ClInclude Include="..\..\..\source\dsSettings.h" />
+    <ClInclude Include="..\..\..\source\dsSubtitles.h" />
+    <ClInclude Include="..\..\..\source\dsUtils.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\dSettings.cpp" />
-    <ClCompile Include="..\..\..\source\dSubtitles.cpp" />
-    <ClCompile Include="..\..\..\source\dUtils.cpp" />
-    <ClCompile Include="..\..\..\source\dMain.cpp" />
+    <ClCompile Include="..\..\..\source\dsAudioPlayer.cpp" />
+    <ClCompile Include="..\..\..\source\dsAudioFFT.cpp" />
+    <ClCompile Include="..\..\..\source\dsCompound.cpp" />
+    <ClCompile Include="..\..\..\source\dsData.cpp" />
+    <ClCompile Include="..\..\..\source\dsMain.cpp" />
+    <ClCompile Include="..\..\..\source\dsStage.cpp" />
+    <ClCompile Include="..\..\..\source\dsScratch.cpp" />
+    <ClCompile Include="..\..\..\source\dsSettings.cpp" />
+    <ClCompile Include="..\..\..\source\dsSubtitles.cpp" />
+    <ClCompile Include="..\..\..\source\dsUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">

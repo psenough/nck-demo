@@ -1,12 +1,13 @@
 
-#ifndef DEMO_SUBTITLES_H
-#define DEMO_SUBTITLES_H
+/**
+* NCK-DEMO SCENE
+* https://github.com/nczeroshift/nck-demo
+*/
 
-#include <string>
-#include "nckGraphics.h"
-#include "nckVec2.h"
-#include "nckColor4.h"
-#include "nckFont.h"
+#ifndef DS_SUBTITLES_H
+#define DS_SUBTITLES_H
+
+#include "dsConfig.h"
 
 class Subtitle {
 public:

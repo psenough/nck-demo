@@ -13,8 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Demo Source">
-      <UniqueIdentifier>{69a262e3-16ac-40e3-bc80-ca46e01cb618}</UniqueIdentifier>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{43179657-12bf-4b62-aa42-cdeb895f14fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\demo">
+      <UniqueIdentifier>{708ca4f3-4cd4-4b5c-b16b-fc35ebe4240f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,31 +34,67 @@
     <ClInclude Include="..\..\..\source\win32\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dConfig.h">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClInclude Include="..\..\..\source\dsAudioFFT.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dSettings.h">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClInclude Include="..\..\..\source\dsAudioPlayer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dSubtitles.h">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClInclude Include="..\..\..\source\dsCompound.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dUtils.h">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClInclude Include="..\..\..\source\dsConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsSubtitles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsScratch.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsStage.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\dMain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
+      <Filter>Source Files\demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\dSettings.cpp">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClCompile Include="..\..\..\source\dsAudioPlayer.cpp">
+      <Filter>Source Files\demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\dSubtitles.cpp">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClCompile Include="..\..\..\source\dsCompound.cpp">
+      <Filter>Source Files\demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\dUtils.cpp">
-      <Filter>Source Files\Demo Source</Filter>
+    <ClCompile Include="..\..\..\source\dsData.cpp">
+      <Filter>Source Files\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsSettings.cpp">
+      <Filter>Source Files\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsSubtitles.cpp">
+      <Filter>Source Files\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsUtils.cpp">
+      <Filter>Source Files\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsMain.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsScratch.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsStage.cpp">
+      <Filter>Source Files\demo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

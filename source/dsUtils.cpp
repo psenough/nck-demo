@@ -1,5 +1,12 @@
 
-#include "dUtils.h"
+/**
+* NCK-DEMO SCENE
+* https://github.com/nczeroshift/nck-demo
+*/
+
+#include "dsUtils.h"
+
+_DS_BEGIN
 
 void RenderLoading(Core::Window * wnd, Graph::Device * dev) {
 	dev->Clear();
@@ -35,3 +42,5 @@ void RenderLoading(Core::Window * wnd, Graph::Device * dev) {
 	}
 	dev->PresentAll();
 }
+
+_DS_END

@@ -1,9 +1,13 @@
 
-#include "dSettings.h"
-#include "nckUtils.h"
-#include "nckException.h"
-#include "dUtils.h"
-#include "nckMathUtils.h"
+/**
+* NCK-DEMO SCENE
+* https://github.com/nczeroshift/nck-demo
+*/
+
+#include "dsSettings.h"
+#include "dsUtils.h"
+
+_DS_BEGIN
 
 DemoSettings::DemoSettings() {
 	wnd = Core::CreateWindow("Configuration", 230 * Core::Window::GetDisplayDensity(), 70 * Core::Window::GetDisplayDensity(), false);
@@ -172,3 +176,5 @@ void DemoSettings::OnButtonUp(Gui::Widget * widget) {
 void DemoSettings::OnValueChanged(Gui::Widget * widget) {
 
 }
+
+_DS_END

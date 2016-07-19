@@ -1,12 +1,15 @@
 
-#ifndef DEMO_SETTINGS_H
-#define DEMO_SETTINGS_H
+/**
+* NCK-DEMO SCENE
+* https://github.com/nczeroshift/nck-demo
+*/
 
-#include "nckWindow.h"
-#include "nckThread.h"
-#include "nckGraphics.h"
-#include "nckFont.h"
-#include "nckWidget.h"
+#ifndef DS_SETTINGS_H
+#define DS_SETTINGS_H
+
+#include "dsConfig.h"
+
+_DS_BEGIN
 
 class DemoSettings : public Gui::CallbackHandler {
 public:
@@ -40,6 +43,6 @@ public:
 	Gui::WidgetRenderer * wgtRender;
 };
 
-
-
 #endif
+
+_DS_END

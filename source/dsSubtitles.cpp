@@ -1,5 +1,10 @@
 
-#include "dSubtitles.h"
+/**
+* NCK-DEMO SCENE
+* https://github.com/nczeroshift/nck-demo
+*/
+
+#include "dsSubtitles.h"
 #include "nckUtils.h"
 
 Subtitle::Subtitle() {
@@ -22,6 +27,12 @@ void Subtitle::Render(float t, float start, float duration) {
 	if (t >= start && t <= start + duration) {
 		float fadeIn = MIN((t - start) * 2, 1.0);
 		float fadeOut = MIN((start + duration - t) * 2, 1.0);
+
+        dev->Color(0, 0, 0, 0.5 * color.GetA() * fadeIn * fadeOut);
+        fontTex->Enable();
+        fontMap->Draw(position.GetX() + 2, position.GetY() + 2, size, text, true, Gui::FONT_ALIGNMENT_MIDDLE);
+        fontTex->Disable();
+
 		dev->Color(color.GetR(), color.GetG(), color.GetB(), color.GetA() * fadeIn * fadeOut);
 		fontTex->Enable();
 		fontMap->Draw(position.GetX(), position.GetY(), size, text, true, Gui::FONT_ALIGNMENT_MIDDLE);
