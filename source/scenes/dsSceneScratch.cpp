@@ -1,20 +1,21 @@
-#include "dsScratch.h"
+
+#include "dsSceneScratch.h"
 #include "nckCamera.h"
 
-dsScratch1::dsScratch1(DS::Data * data) : DS::Stage(data) {
+dsSceneScratch::dsSceneScratch(DS::Data * data) : DS::Stage(data) {
     
 }
 
-dsScratch1::~dsScratch1() {
+dsSceneScratch::~dsSceneScratch() {
 
 }
 
-void dsScratch1::Load() {
+void dsSceneScratch::Load() {
     s1 = m_Data->LoadCompound("model://piramide.bxon");
     p = m_Data->LoadProgram("shader://simple.cpp");
 }
 
-void dsScratch1::Render(int64_t start, int64_t end, int64_t time) {
+void dsSceneScratch::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(s1->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));

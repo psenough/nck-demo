@@ -50,6 +50,8 @@ public:
     Gui::FontMap * GetFontMap(const std::string & filename);
       
     float GetAspect();
+    float GetHeight();
+    float GetWidth();
 private:
     Core::Window * window;
     Graph::Device * gDevice;

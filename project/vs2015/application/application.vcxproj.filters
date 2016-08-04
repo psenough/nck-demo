@@ -58,11 +58,14 @@
     <ClInclude Include="..\..\..\source\dsUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dsScratch.h">
-      <Filter>Source Files\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\dsStage.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneScratch.h">
+      <Filter>Source Files\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,11 +93,14 @@
     <ClCompile Include="..\..\..\source\dsMain.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\dsScratch.cpp">
-      <Filter>Source Files\app</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\dsStage.cpp">
       <Filter>Source Files\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneScratch.cpp">
+      <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

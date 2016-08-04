@@ -165,4 +165,11 @@ float Data::GetAspect() {
     return window->GetWidth() / (float)window->GetHeight();
 }
 
+float Data::GetHeight() {
+    return window->GetHeight();
+}
+
+float Data::GetWidth() {
+    return window->GetWidth();
+}
 _DS_END

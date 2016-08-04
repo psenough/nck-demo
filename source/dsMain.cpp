@@ -10,7 +10,8 @@
 #include "dsSubtitles.h"
 #include "dsAudioPlayer.h"
 
-#include "dsScratch.h"
+#include "scenes/dsSceneScratch.h"
+#include "scenes/dsSceneLoading.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
@@ -67,11 +68,12 @@ public:
     }
     
     void Run() {
-        dsScratch1 * s1 = NULL;
-
+      
         Graph::Texture * iconTexture;
         Graph::Texture * iconCompound;
         Graph::Texture * iconShader;
+
+        Math::TimelineNode<DS::Stage*> timeline;
 
         try {
             dev = Graph::CreateDevice(wnd, Graph::DEVICE_AUTO, wnd->GetWidth(), wnd->GetHeight());
@@ -105,8 +107,15 @@ public:
             else
                 mutePlayback = true;
 
-            s1 = new dsScratch1(data);
-            s1->Load();
+            dsSceneLoading *loading = new dsSceneLoading(data);
+            loading->Load();
+
+            dsSceneScratch *scratch = new dsSceneScratch(data);
+            scratch->Load();
+
+            // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 10, loading));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(10, 40, scratch));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -115,6 +124,9 @@ public:
             return;
         }
                
+
+        timeline.Build();
+
         if(player)
             player->Play();
 
@@ -122,11 +134,10 @@ public:
         frTime->Start();
 
         ReloadResult rCompounds, rShaders, rTextures;
-
+        dev->ClearColor(0.3, 0.3, 0.3, 1.0);
+        
         while (!IsTearingDown())
         {
-            dev->ClearColor(0.3, 0.3, 0.3, 1.0);
-
             dev->Clear();
             dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
 
@@ -137,8 +148,11 @@ public:
                 reloadResources = false;
             }
 
-                     
-            s1->Render(0, 0, GetTime());
+            std::list<Math::TimelineItem<DS::Stage*>> items;
+            timeline.Get(timer->GetElapsedTime() / 1e6, &items); // Nota: Ir buscar em segundos
+            ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
+                i->GetObject()->Render(i->GetStart(), i->GetEnd(), timer->GetElapsedTime()); // Nota: Aqui já é microsegundos.
+            }
 
             const double fps = UpdateFPS();
             if (showUI) {
