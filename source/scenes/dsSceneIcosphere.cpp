@@ -50,10 +50,13 @@ void dsSceneIcosphere::Render(int64_t start, int64_t end, int64_t time) {
 Geometry::Mesh * dsSceneIcosphere::HandleGeometry(Geometry::Mesh * mesh) {
     Geometry::VertexIterator vlast = mesh->m_Vertices.end();
     vlast--;
+    mesh->m_UVLayers.push_back("layer");
 
     // Vexter Iterators are a bit odd, you can use temporary lists or the iterators won't be valid if the list 
     // is copied else where.
     int vCount = 0;
+
+    
     ListFor(Geometry::Face*, mesh->m_Faces, f)
     {
         
@@ -70,7 +73,16 @@ Geometry::Mesh * dsSceneIcosphere::HandleGeometry(Geometry::Mesh * mesh) {
             vi--;
 
             (*f)->m_Verts[vId] = vi;
+
+           
         }     
+        float rId = Math::RandomValue(0, mesh->m_Faces.size());
+        std::vector<Math::Vec2> uvvec;
+        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
+        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
+        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
+
+        (*f)->m_UV.push_back(uvvec);
 
         if ((*f)->m_Verts.size() == 3) {
             Math::Vec3 v1 = (*(*f)->m_Verts[0])->m_Pos;
