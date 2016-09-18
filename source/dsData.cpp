@@ -107,6 +107,15 @@ Compound * Data::LoadCompound(const std::string & filename) {
     m_Compounds.insert(std::pair<std::string, Compound*>(filename,ret));
     return ret;
 }
+Compound * Data::LoadCompound(const std::string & filename, Scene::Processor * processor) {
+    std::map<std::string, Compound*>::iterator i = m_Compounds.find(filename);
+    if (i != m_Compounds.end())
+        return i->second;
+    Compound * ret = new Compound(gDevice);
+    ret->Load(filename,processor);
+    m_Compounds.insert(std::pair<std::string, Compound*>(filename, ret));
+    return ret;
+}
 
 Graph::Texture * Data::LoadTexture(const std::string & filename) {
     std::map<std::string, Graph::Texture*>::iterator i = m_Textures.find(filename);

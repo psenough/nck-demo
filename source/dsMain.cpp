@@ -12,6 +12,8 @@
 
 #include "scenes/dsSceneScratch.h"
 #include "scenes/dsSceneLoading.h"
+#include "scenes/dsScene80Grid.h"
+#include "scenes/dsSceneIcosphere.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
@@ -113,9 +115,16 @@ public:
             dsSceneScratch *scratch = new dsSceneScratch(data);
             scratch->Load();
 
+            dsScene80Grid *grid80 = new dsScene80Grid(data);
+            grid80->Load();
+
+            dsSceneIcosphere * ico = new dsSceneIcosphere(data);
+            ico->Load();
+
             // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 10, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(10, 40, scratch));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 1, loading));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(1, 2000, grid80));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(1, 2000, ico));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();

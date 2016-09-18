@@ -25,6 +25,14 @@ void Compound::Load(const std::string & filename) {
     m_Compound = cb;
 }
 
+void Compound::Load(const std::string & filename, Scene::Processor * processor) {
+    m_Filename = filename;
+    Scene::Compound_Basic * cb = new Scene::Compound_Basic(m_Device);
+    cb->Load(filename,processor);
+    m_LastModifed = Core::GetFileLastModified(filename);
+    m_Compound = cb;
+}
+
 int Compound::Reload() {
     int64_t lastModified = Core::GetFileLastModified(m_Filename);
     if (m_LastModifed != lastModified) {

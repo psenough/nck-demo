@@ -43,6 +43,7 @@ public:
     Graph::Texture * LoadTexture(const std::string & filename);
     Compound * LoadCompound(const std::string & filename);
     Gui::FontMap * LoadFontMap(const std::string & filename);
+    Compound * LoadCompound(const std::string & filename, Scene::Processor * processor);
 
     Graph::Program * GetProgram(const std::string & filename);
     Graph::Texture * GetTexture(const std::string & filename);

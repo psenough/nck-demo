@@ -67,6 +67,15 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneScratch.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsScene80Grid.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneCapture.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneIcosphere.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -100,6 +109,15 @@
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneScratch.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsScene80Grid.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneCapture.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneIcosphere.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>
