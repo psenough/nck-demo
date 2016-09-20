@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:App/Demo.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Libraries">
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/bxon/BXON.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Audio/Audio.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/XML/XML.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Scene/Scene.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Network/Network.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Math/Math.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/IO/IO.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/GUI/GUI.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Graphics/Graphics.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../nctoolkit/project/xcode/Core/Core.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>

@@ -1,0 +1,945 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC7DC50F1D91E65800E86824 /* dsAudioFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC4FD1D91E65800E86824 /* dsAudioFFT.cpp */; };
+		CC7DC5101D91E65800E86824 /* dsAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC4FF1D91E65800E86824 /* dsAudioPlayer.cpp */; };
+		CC7DC5111D91E65800E86824 /* dsCompound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5011D91E65800E86824 /* dsCompound.cpp */; };
+		CC7DC5121D91E65800E86824 /* dsData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5041D91E65800E86824 /* dsData.cpp */; };
+		CC7DC5131D91E65800E86824 /* dsMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5061D91E65800E86824 /* dsMain.cpp */; };
+		CC7DC5141D91E65800E86824 /* dsSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5071D91E65800E86824 /* dsSettings.cpp */; };
+		CC7DC5151D91E65800E86824 /* dsStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5091D91E65800E86824 /* dsStage.cpp */; };
+		CC7DC5161D91E65800E86824 /* dsSubtitles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC50B1D91E65800E86824 /* dsSubtitles.cpp */; };
+		CC7DC5171D91E65800E86824 /* dsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC50D1D91E65800E86824 /* dsUtils.cpp */; };
+		CC7DC5231D91E69F00E86824 /* dsScene80Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */; };
+		CC7DC5241D91E69F00E86824 /* dsSceneCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */; };
+		CC7DC5251D91E69F00E86824 /* dsSceneIcosphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */; };
+		CC7DC5261D91E69F00E86824 /* dsSceneLoading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */; };
+		CC7DC5271D91E69F00E86824 /* dsSceneScratch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */; };
+		CC7DC52A1D91E6F200E86824 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5281D91E6F200E86824 /* libjpeg.a */; };
+		CC7DC52B1D91E6F200E86824 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5291D91E6F200E86824 /* libpng.a */; };
+		CC7DC5801D91E72000E86824 /* libAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC54C1D91E70A00E86824 /* libAudio.a */; };
+		CC7DC5811D91E72000E86824 /* libBXON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC54F1D91E70A00E86824 /* libBXON.a */; };
+		CC7DC5821D91E72000E86824 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5521D91E70A00E86824 /* libCore.a */; };
+		CC7DC5831D91E72000E86824 /* libGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5551D91E70A00E86824 /* libGraphics.a */; };
+		CC7DC5841D91E72000E86824 /* libGUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5581D91E70A00E86824 /* libGUI.a */; };
+		CC7DC5851D91E72000E86824 /* libIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC55B1D91E70A00E86824 /* libIO.a */; };
+		CC7DC5861D91E72000E86824 /* libMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC55E1D91E70A00E86824 /* libMath.a */; };
+		CC7DC5871D91E72000E86824 /* libNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5611D91E70A00E86824 /* libNetwork.a */; };
+		CC7DC5881D91E72000E86824 /* libScene.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5641D91E70A00E86824 /* libScene.a */; };
+		CC7DC5891D91E72000E86824 /* libXML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5671D91E70A00E86824 /* libXML.a */; };
+		CC7ED01318DF350900706A97 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7ED01218DF350900706A97 /* libz.dylib */; };
+		CCBBB72818DD0F9700430F06 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBBB72718DD0F9700430F06 /* OpenGL.framework */; };
+		CCC9B33318D62D8800B5B400 /* NCKMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC6113FC1899C3C3003538E8 /* NCKMainMenu.xib */; };
+		CCC9B5591897111200771D4E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC9B5581897111200771D4E /* Cocoa.framework */; };
+		CCC9B5631897111200771D4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCC9B5611897111200771D4E /* InfoPlist.strings */; };
+		CCC9B5711897111200771D4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC9B5701897111200771D4E /* Images.xcassets */; };
+		CCD7EF1618D4A939009D1489 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1518D4A939009D1489 /* libstdc++.dylib */; };
+		CCD7EF1818D4A94C009D1489 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1718D4A94C009D1489 /* libc++.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC7DC54B1D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B5211897104400771D4E;
+			remoteInfo = Audio;
+		};
+		CC7DC54E1D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC39BEC21B676AC10001365F;
+			remoteInfo = BXON;
+		};
+		CC7DC5511D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5471D91E70A00E86824 /* Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183901895CBFC00908E7A;
+			remoteInfo = Core;
+		};
+		CC7DC5541D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B4D318970DC400771D4E;
+			remoteInfo = Graphics;
+		};
+		CC7DC5571D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5411D91E70A00E86824 /* GUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B5C51897126300771D4E;
+			remoteInfo = GUI;
+		};
+		CC7DC55A1D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC53E1D91E70A00E86824 /* IO.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B5B5189711D300771D4E;
+			remoteInfo = IO;
+		};
+		CC7DC55D1D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183421895CAAA00908E7A;
+			remoteInfo = Math;
+		};
+		CC7DC5601D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5381D91E70A00E86824 /* Network.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B5A51897118800771D4E;
+			remoteInfo = Network;
+		};
+		CC7DC5631D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5351D91E70A00E86824 /* Scene.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCC9B543189710B900771D4E;
+			remoteInfo = Scene;
+		};
+		CC7DC5661D91E70A00E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5321D91E70A00E86824 /* XML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183A21895CC2B00908E7A;
+			remoteInfo = XML;
+		};
+		CC7DC5681D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CC39BEC11B676AC10001365F;
+			remoteInfo = BXON;
+		};
+		CC7DC56A1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B5201897104400771D4E;
+			remoteInfo = Audio;
+		};
+		CC7DC56C1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5321D91E70A00E86824 /* XML.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD183A11895CC2B00908E7A;
+			remoteInfo = XML;
+		};
+		CC7DC56E1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5351D91E70A00E86824 /* Scene.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B542189710B900771D4E;
+			remoteInfo = Scene;
+		};
+		CC7DC5701D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5381D91E70A00E86824 /* Network.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B5A41897118800771D4E;
+			remoteInfo = Network;
+		};
+		CC7DC5721D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD183411895CAAA00908E7A;
+			remoteInfo = Math;
+		};
+		CC7DC5741D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC53E1D91E70A00E86824 /* IO.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B5B4189711D300771D4E;
+			remoteInfo = IO;
+		};
+		CC7DC5761D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5411D91E70A00E86824 /* GUI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B5C41897126300771D4E;
+			remoteInfo = GUI;
+		};
+		CC7DC5781D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCC9B4D218970DC400771D4E;
+			remoteInfo = Graphics;
+		};
+		CC7DC57A1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD183411895CAAA00908E7A;
+			remoteInfo = Math;
+		};
+		CC7DC57C1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5471D91E70A00E86824 /* Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD1838F1895CBFC00908E7A;
+			remoteInfo = Core;
+		};
+		CC7DC57E1D91E71800E86824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC7DC5471D91E70A00E86824 /* Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD1838F1895CBFC00908E7A;
+			remoteInfo = Core;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC6113FD1899C3C3003538E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NCKMainMenu.xib; sourceTree = "<group>"; };
+		CC7DC4FD1D91E65800E86824 /* dsAudioFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsAudioFFT.cpp; path = ../../../../source/dsAudioFFT.cpp; sourceTree = "<group>"; };
+		CC7DC4FE1D91E65800E86824 /* dsAudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsAudioFFT.h; path = ../../../../source/dsAudioFFT.h; sourceTree = "<group>"; };
+		CC7DC4FF1D91E65800E86824 /* dsAudioPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsAudioPlayer.cpp; path = ../../../../source/dsAudioPlayer.cpp; sourceTree = "<group>"; };
+		CC7DC5001D91E65800E86824 /* dsAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsAudioPlayer.h; path = ../../../../source/dsAudioPlayer.h; sourceTree = "<group>"; };
+		CC7DC5011D91E65800E86824 /* dsCompound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsCompound.cpp; path = ../../../../source/dsCompound.cpp; sourceTree = "<group>"; };
+		CC7DC5021D91E65800E86824 /* dsCompound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsCompound.h; path = ../../../../source/dsCompound.h; sourceTree = "<group>"; };
+		CC7DC5031D91E65800E86824 /* dsConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsConfig.h; path = ../../../../source/dsConfig.h; sourceTree = "<group>"; };
+		CC7DC5041D91E65800E86824 /* dsData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsData.cpp; path = ../../../../source/dsData.cpp; sourceTree = "<group>"; };
+		CC7DC5051D91E65800E86824 /* dsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsData.h; path = ../../../../source/dsData.h; sourceTree = "<group>"; };
+		CC7DC5061D91E65800E86824 /* dsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsMain.cpp; path = ../../../../source/dsMain.cpp; sourceTree = "<group>"; };
+		CC7DC5071D91E65800E86824 /* dsSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSettings.cpp; path = ../../../../source/dsSettings.cpp; sourceTree = "<group>"; };
+		CC7DC5081D91E65800E86824 /* dsSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSettings.h; path = ../../../../source/dsSettings.h; sourceTree = "<group>"; };
+		CC7DC5091D91E65800E86824 /* dsStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsStage.cpp; path = ../../../../source/dsStage.cpp; sourceTree = "<group>"; };
+		CC7DC50A1D91E65800E86824 /* dsStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsStage.h; path = ../../../../source/dsStage.h; sourceTree = "<group>"; };
+		CC7DC50B1D91E65800E86824 /* dsSubtitles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSubtitles.cpp; path = ../../../../source/dsSubtitles.cpp; sourceTree = "<group>"; };
+		CC7DC50C1D91E65800E86824 /* dsSubtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSubtitles.h; path = ../../../../source/dsSubtitles.h; sourceTree = "<group>"; };
+		CC7DC50D1D91E65800E86824 /* dsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsUtils.cpp; path = ../../../../source/dsUtils.cpp; sourceTree = "<group>"; };
+		CC7DC50E1D91E65800E86824 /* dsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsUtils.h; path = ../../../../source/dsUtils.h; sourceTree = "<group>"; };
+		CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsScene80Grid.cpp; path = ../../../../source/scenes/dsScene80Grid.cpp; sourceTree = "<group>"; };
+		CC7DC51A1D91E69F00E86824 /* dsScene80Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsScene80Grid.h; path = ../../../../source/scenes/dsScene80Grid.h; sourceTree = "<group>"; };
+		CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneCapture.cpp; path = ../../../../source/scenes/dsSceneCapture.cpp; sourceTree = "<group>"; };
+		CC7DC51C1D91E69F00E86824 /* dsSceneCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneCapture.h; path = ../../../../source/scenes/dsSceneCapture.h; sourceTree = "<group>"; };
+		CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneIcosphere.cpp; path = ../../../../source/scenes/dsSceneIcosphere.cpp; sourceTree = "<group>"; };
+		CC7DC51E1D91E69F00E86824 /* dsSceneIcosphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneIcosphere.h; path = ../../../../source/scenes/dsSceneIcosphere.h; sourceTree = "<group>"; };
+		CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneLoading.cpp; path = ../../../../source/scenes/dsSceneLoading.cpp; sourceTree = "<group>"; };
+		CC7DC5201D91E69F00E86824 /* dsSceneLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneLoading.h; path = ../../../../source/scenes/dsSceneLoading.h; sourceTree = "<group>"; };
+		CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneScratch.cpp; path = ../../../../source/scenes/dsSceneScratch.cpp; sourceTree = "<group>"; };
+		CC7DC5221D91E69F00E86824 /* dsSceneScratch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneScratch.h; path = ../../../../source/scenes/dsSceneScratch.h; sourceTree = "<group>"; };
+		CC7DC5281D91E6F200E86824 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libjpeg.a; sourceTree = "<group>"; };
+		CC7DC5291D91E6F200E86824 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libpng.a; sourceTree = "<group>"; };
+		CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BXON.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/bxon/BXON.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Audio.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Audio/Audio.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5321D91E70A00E86824 /* XML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XML.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/XML/XML.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5351D91E70A00E86824 /* Scene.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Scene.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Scene/Scene.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5381D91E70A00E86824 /* Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Network.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Network/Network.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Math.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Math/Math.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC53E1D91E70A00E86824 /* IO.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = IO.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/IO/IO.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5411D91E70A00E86824 /* GUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GUI.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/GUI/GUI.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Graphics.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Graphics/Graphics.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7DC5471D91E70A00E86824 /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Core/Core.xcodeproj"; sourceTree = "<absolute>"; };
+		CC7ED01218DF350900706A97 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CCBBB72718DD0F9700430F06 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		CCC9B5551897111200771D4E /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCC9B5581897111200771D4E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		CCC9B55B1897111200771D4E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CCC9B55C1897111200771D4E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CCC9B55D1897111200771D4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CCC9B5601897111200771D4E /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
+		CCC9B5621897111200771D4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CCC9B5661897111200771D4E /* Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Prefix.pch"; sourceTree = "<group>"; };
+		CCC9B5701897111200771D4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CCD7EF1518D4A939009D1489 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		CCD7EF1718D4A94C009D1489 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCC9B5521897111200771D4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC7DC5801D91E72000E86824 /* libAudio.a in Frameworks */,
+				CC7DC5811D91E72000E86824 /* libBXON.a in Frameworks */,
+				CC7DC5821D91E72000E86824 /* libCore.a in Frameworks */,
+				CC7DC5831D91E72000E86824 /* libGraphics.a in Frameworks */,
+				CC7DC5841D91E72000E86824 /* libGUI.a in Frameworks */,
+				CC7DC5851D91E72000E86824 /* libIO.a in Frameworks */,
+				CC7DC5861D91E72000E86824 /* libMath.a in Frameworks */,
+				CC7DC5871D91E72000E86824 /* libNetwork.a in Frameworks */,
+				CC7DC5881D91E72000E86824 /* libScene.a in Frameworks */,
+				CC7DC5891D91E72000E86824 /* libXML.a in Frameworks */,
+				CCBBB72818DD0F9700430F06 /* OpenGL.framework in Frameworks */,
+				CC7ED01318DF350900706A97 /* libz.dylib in Frameworks */,
+				CCD7EF1818D4A94C009D1489 /* libc++.dylib in Frameworks */,
+				CCD7EF1618D4A939009D1489 /* libstdc++.dylib in Frameworks */,
+				CCC9B5591897111200771D4E /* Cocoa.framework in Frameworks */,
+				CC7DC52A1D91E6F200E86824 /* libjpeg.a in Frameworks */,
+				CC7DC52B1D91E6F200E86824 /* libpng.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC6113FF1899C75B003538E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC7DC5181D91E68B00E86824 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */,
+				CC7DC51A1D91E69F00E86824 /* dsScene80Grid.h */,
+				CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */,
+				CC7DC51C1D91E69F00E86824 /* dsSceneCapture.h */,
+				CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */,
+				CC7DC51E1D91E69F00E86824 /* dsSceneIcosphere.h */,
+				CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */,
+				CC7DC5201D91E69F00E86824 /* dsSceneLoading.h */,
+				CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */,
+				CC7DC5221D91E69F00E86824 /* dsSceneScratch.h */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		CC7DC52D1D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC54F1D91E70A00E86824 /* libBXON.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5301D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC54C1D91E70A00E86824 /* libAudio.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5331D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5671D91E70A00E86824 /* libXML.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5361D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5641D91E70A00E86824 /* libScene.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5391D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5611D91E70A00E86824 /* libNetwork.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC53C1D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC55E1D91E70A00E86824 /* libMath.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC53F1D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC55B1D91E70A00E86824 /* libIO.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5421D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5581D91E70A00E86824 /* libGUI.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5451D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5551D91E70A00E86824 /* libGraphics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7DC5481D91E70A00E86824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5521D91E70A00E86824 /* libCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCBFA69A1B70C0420092B4EF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC5181D91E68B00E86824 /* Scene */,
+				CC7DC4FD1D91E65800E86824 /* dsAudioFFT.cpp */,
+				CC7DC4FE1D91E65800E86824 /* dsAudioFFT.h */,
+				CC7DC4FF1D91E65800E86824 /* dsAudioPlayer.cpp */,
+				CC7DC5001D91E65800E86824 /* dsAudioPlayer.h */,
+				CC7DC5011D91E65800E86824 /* dsCompound.cpp */,
+				CC7DC5021D91E65800E86824 /* dsCompound.h */,
+				CC7DC5031D91E65800E86824 /* dsConfig.h */,
+				CC7DC5041D91E65800E86824 /* dsData.cpp */,
+				CC7DC5051D91E65800E86824 /* dsData.h */,
+				CC7DC5061D91E65800E86824 /* dsMain.cpp */,
+				CC7DC5071D91E65800E86824 /* dsSettings.cpp */,
+				CC7DC5081D91E65800E86824 /* dsSettings.h */,
+				CC7DC5091D91E65800E86824 /* dsStage.cpp */,
+				CC7DC50A1D91E65800E86824 /* dsStage.h */,
+				CC7DC50B1D91E65800E86824 /* dsSubtitles.cpp */,
+				CC7DC50C1D91E65800E86824 /* dsSubtitles.h */,
+				CC7DC50D1D91E65800E86824 /* dsUtils.cpp */,
+				CC7DC50E1D91E65800E86824 /* dsUtils.h */,
+			);
+			name = Source;
+			path = App;
+			sourceTree = "<group>";
+		};
+		CCC9B54C1897111200771D4E = {
+			isa = PBXGroup;
+			children = (
+				CCBFA69A1B70C0420092B4EF /* Source */,
+				CCC9B55E1897111200771D4E /* App */,
+				CCC9B5571897111200771D4E /* Frameworks */,
+				CCC9B5561897111200771D4E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCC9B5561897111200771D4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9B5551897111200771D4E /* Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCC9B5571897111200771D4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */,
+				CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */,
+				CC7DC5321D91E70A00E86824 /* XML.xcodeproj */,
+				CC7DC5351D91E70A00E86824 /* Scene.xcodeproj */,
+				CC7DC5381D91E70A00E86824 /* Network.xcodeproj */,
+				CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */,
+				CC7DC53E1D91E70A00E86824 /* IO.xcodeproj */,
+				CC7DC5411D91E70A00E86824 /* GUI.xcodeproj */,
+				CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */,
+				CC7DC5471D91E70A00E86824 /* Core.xcodeproj */,
+				CC7DC5281D91E6F200E86824 /* libjpeg.a */,
+				CC7DC5291D91E6F200E86824 /* libpng.a */,
+				CC7ED01218DF350900706A97 /* libz.dylib */,
+				CCBBB72718DD0F9700430F06 /* OpenGL.framework */,
+				CCD7EF1718D4A94C009D1489 /* libc++.dylib */,
+				CCD7EF1518D4A939009D1489 /* libstdc++.dylib */,
+				CCC9B5581897111200771D4E /* Cocoa.framework */,
+				CCC9B55A1897111200771D4E /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCC9B55A1897111200771D4E /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9B55B1897111200771D4E /* AppKit.framework */,
+				CCC9B55C1897111200771D4E /* CoreData.framework */,
+				CCC9B55D1897111200771D4E /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		CCC9B55E1897111200771D4E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CC6113FF1899C75B003538E8 /* Frameworks */,
+				CCC9B5701897111200771D4E /* Images.xcassets */,
+				CCC9B55F1897111200771D4E /* Supporting Files */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CCC9B55F1897111200771D4E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC6113FC1899C3C3003538E8 /* NCKMainMenu.xib */,
+				CCC9B5601897111200771D4E /* Demo-Info.plist */,
+				CCC9B5611897111200771D4E /* InfoPlist.strings */,
+				CCC9B5661897111200771D4E /* Demo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CCC9B5541897111200771D4E /* Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCC9B5861897111200771D4E /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildPhases = (
+				CCC9B5511897111200771D4E /* Sources */,
+				CCC9B5521897111200771D4E /* Frameworks */,
+				CCC9B5531897111200771D4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC7DC5691D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC56B1D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC56D1D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC56F1D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC5711D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC5731D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC5751D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC5771D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC5791D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC57B1D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC57D1D91E71800E86824 /* PBXTargetDependency */,
+				CC7DC57F1D91E71800E86824 /* PBXTargetDependency */,
+			);
+			name = Demo;
+			productName = App;
+			productReference = CCC9B5551897111200771D4E /* Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCC9B54D1897111200771D4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCC9B5501897111200771D4E /* Build configuration list for PBXProject "Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CCC9B54C1897111200771D4E;
+			productRefGroup = CCC9B5561897111200771D4E /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC7DC5301D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC52D1D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5481D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5471D91E70A00E86824 /* Core.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5451D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5421D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5411D91E70A00E86824 /* GUI.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC53F1D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC53E1D91E70A00E86824 /* IO.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC53C1D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC53B1D91E70A00E86824 /* Math.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5391D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5381D91E70A00E86824 /* Network.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5361D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5351D91E70A00E86824 /* Scene.xcodeproj */;
+				},
+				{
+					ProductGroup = CC7DC5331D91E70A00E86824 /* Products */;
+					ProjectRef = CC7DC5321D91E70A00E86824 /* XML.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				CCC9B5541897111200771D4E /* Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC7DC54C1D91E70A00E86824 /* libAudio.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAudio.a;
+			remoteRef = CC7DC54B1D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC54F1D91E70A00E86824 /* libBXON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBXON.a;
+			remoteRef = CC7DC54E1D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5521D91E70A00E86824 /* libCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCore.a;
+			remoteRef = CC7DC5511D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5551D91E70A00E86824 /* libGraphics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGraphics.a;
+			remoteRef = CC7DC5541D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5581D91E70A00E86824 /* libGUI.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGUI.a;
+			remoteRef = CC7DC5571D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC55B1D91E70A00E86824 /* libIO.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libIO.a;
+			remoteRef = CC7DC55A1D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC55E1D91E70A00E86824 /* libMath.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMath.a;
+			remoteRef = CC7DC55D1D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5611D91E70A00E86824 /* libNetwork.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNetwork.a;
+			remoteRef = CC7DC5601D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5641D91E70A00E86824 /* libScene.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libScene.a;
+			remoteRef = CC7DC5631D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC7DC5671D91E70A00E86824 /* libXML.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXML.a;
+			remoteRef = CC7DC5661D91E70A00E86824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CCC9B5531897111200771D4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCC9B33318D62D8800B5B400 /* NCKMainMenu.xib in Resources */,
+				CCC9B5631897111200771D4E /* InfoPlist.strings in Resources */,
+				CCC9B5711897111200771D4E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCC9B5511897111200771D4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC7DC5241D91E69F00E86824 /* dsSceneCapture.cpp in Sources */,
+				CC7DC5121D91E65800E86824 /* dsData.cpp in Sources */,
+				CC7DC5131D91E65800E86824 /* dsMain.cpp in Sources */,
+				CC7DC5101D91E65800E86824 /* dsAudioPlayer.cpp in Sources */,
+				CC7DC5251D91E69F00E86824 /* dsSceneIcosphere.cpp in Sources */,
+				CC7DC50F1D91E65800E86824 /* dsAudioFFT.cpp in Sources */,
+				CC7DC5271D91E69F00E86824 /* dsSceneScratch.cpp in Sources */,
+				CC7DC5171D91E65800E86824 /* dsUtils.cpp in Sources */,
+				CC7DC5261D91E69F00E86824 /* dsSceneLoading.cpp in Sources */,
+				CC7DC5111D91E65800E86824 /* dsCompound.cpp in Sources */,
+				CC7DC5141D91E65800E86824 /* dsSettings.cpp in Sources */,
+				CC7DC5161D91E65800E86824 /* dsSubtitles.cpp in Sources */,
+				CC7DC5151D91E65800E86824 /* dsStage.cpp in Sources */,
+				CC7DC5231D91E69F00E86824 /* dsScene80Grid.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC7DC5691D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BXON;
+			targetProxy = CC7DC5681D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC56B1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Audio;
+			targetProxy = CC7DC56A1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC56D1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XML;
+			targetProxy = CC7DC56C1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC56F1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Scene;
+			targetProxy = CC7DC56E1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC5711D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Network;
+			targetProxy = CC7DC5701D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC5731D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Math;
+			targetProxy = CC7DC5721D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC5751D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = IO;
+			targetProxy = CC7DC5741D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC5771D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GUI;
+			targetProxy = CC7DC5761D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC5791D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Graphics;
+			targetProxy = CC7DC5781D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC57B1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Math;
+			targetProxy = CC7DC57A1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC57D1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Core;
+			targetProxy = CC7DC57C1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+		CC7DC57F1D91E71800E86824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Core;
+			targetProxy = CC7DC57E1D91E71800E86824 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC6113FC1899C3C3003538E8 /* NCKMainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC6113FD1899C3C3003538E8 /* Base */,
+			);
+			name = NCKMainMenu.xib;
+			sourceTree = "<group>";
+		};
+		CCC9B5611897111200771D4E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCC9B5621897111200771D4E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CCC9B5841897111200771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCC9B5851897111200771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCC9B5871897111200771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "App/Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../../nctoolkit/source/core/",
+					"$(SRCROOT)/../../../../nctoolkit/source/graphics/",
+					"$(SRCROOT)/../../../../nctoolkit/source/math/",
+					"$(SRCROOT)/../../../../nctoolkit/source/scene/",
+					"$(SRCROOT)/../../../../nctoolkit/source/io/",
+					"$(SRCROOT)/../../../../nctoolkit/source/gui/",
+					"$(SRCROOT)/../../../../nctoolkit/source/video/",
+					"$(SRCROOT)/../../../../nctoolkit/source/network/",
+					"$(SRCROOT)/../../../../nctoolkit/source/audio/",
+					"$(SRCROOT)/../../../../nctoolkit/source/bxporter/",
+					"$(SRCROOT)/../../../../nctoolkit/source/xml/",
+					"$(SRCROOT)/../../../../nctoolkit/source/bxon/",
+				);
+				INFOPLIST_FILE = "App/Demo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
+				);
+				PRODUCT_NAME = Demo;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CCC9B5881897111200771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "App/Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../../nctoolkit/source/core/",
+					"$(SRCROOT)/../../../../nctoolkit/source/graphics/",
+					"$(SRCROOT)/../../../../nctoolkit/source/math/",
+					"$(SRCROOT)/../../../../nctoolkit/source/scene/",
+					"$(SRCROOT)/../../../../nctoolkit/source/io/",
+					"$(SRCROOT)/../../../../nctoolkit/source/gui/",
+					"$(SRCROOT)/../../../../nctoolkit/source/video/",
+					"$(SRCROOT)/../../../../nctoolkit/source/network/",
+					"$(SRCROOT)/../../../../nctoolkit/source/audio/",
+					"$(SRCROOT)/../../../../nctoolkit/source/bxporter/",
+					"$(SRCROOT)/../../../../nctoolkit/source/xml/",
+					"$(SRCROOT)/../../../../nctoolkit/source/bxon/",
+				);
+				INFOPLIST_FILE = "App/Demo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
+				);
+				PRODUCT_NAME = Demo;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCC9B5501897111200771D4E /* Build configuration list for PBXProject "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5841897111200771D4E /* Debug */,
+				CCC9B5851897111200771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCC9B5861897111200771D4E /* Build configuration list for PBXNativeTarget "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5871897111200771D4E /* Debug */,
+				CCC9B5881897111200771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCC9B54D1897111200771D4E /* Project object */;
+}

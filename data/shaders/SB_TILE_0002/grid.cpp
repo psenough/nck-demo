@@ -50,7 +50,7 @@ void main()
 	vec2 uv = gl_TexCoord[0].xy;
 	float v = sampleGrid(position.xy,uv,vec2(0)+vec2(0,time*50.0));
 	
-	float d = clamp(length(position.xy) / 1000.0,0,1);
+	float d = clamp(length(position.xy) / 1000.0,0.0,1.0);
 	
 	float fog = (1.0 - d*6.0);
 	

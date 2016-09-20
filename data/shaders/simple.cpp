@@ -40,16 +40,16 @@ void main()
 	timeRef = t;
 	vOPos = p;
 	
-	p = vec4(offFunc(p,t),1.0);
-	n = vec4(n,0.0);
+	p = vec4(offFunc(p.xyz,t),1.0);
+	//n = vec4(n,0.0);
 	
 	vPos = p;
 	vNor = n;
 	
 	//vec3 ref = vPos;
 	vec3 cr = cross(vNor,vec3(0,0,-1));
-	vec3 s0 = offFunc(vOPos+vec3(0,0,0.01),timeRef);
-	vec3 nn = normalize(cross(vPos - s0,cr));
+	vec3 s0 = offFunc(vOPos.xyz+vec3(0,0,0.01),timeRef);
+	vec3 nn = normalize(cross(vPos.xyz - s0,cr));
 	
 	n = nn;
 	
