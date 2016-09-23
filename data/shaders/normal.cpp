@@ -1,9 +1,11 @@
 
 #pragma vertex_shader_glx2
 
+uniform float time;
+
 void main()
 {
-	vec3 n = gl_MultiTexCoord0.x * gl_Normal * 0.01;
+	vec3 n = gl_MultiTexCoord0.x * gl_Normal * 0.01*(time-floor(time/2.0)*2.0);
 	
 	gl_TexCoord[0] = gl_MultiTexCoord0;
 	gl_Position = gl_ModelViewProjectionMatrix * (gl_Vertex+vec4(n,0.0));

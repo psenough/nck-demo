@@ -42,6 +42,7 @@ void dsSceneIcosphere::Render(int64_t start, int64_t end, int64_t time) {
     camera.Enable(Graph::MATRIX_VIEW);
 
     normal->Enable();
+    normal->SetVariable1f("time", time / 1e6);
     icosphere->Get()->Render();
     normal->Disable();
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DE956EBB-B62E-4DF6-857F-3042AF2F4EC7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>nck-demo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>50BA6F6C7C780CE99E5552308E0104DF77EB7141</key>
+		<string>https://github.com/nczeroshift/nctoolkit.git</string>
+		<key>6CD523A2D0E8DB1FA4D01AAB737A35BADE6F8153</key>
+		<string>https://github.com/nczeroshift/nck-demo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>project/xcode/nck-demo.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>50BA6F6C7C780CE99E5552308E0104DF77EB7141</key>
+		<string>../../../../nctoolkit</string>
+		<key>6CD523A2D0E8DB1FA4D01AAB737A35BADE6F8153</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nczeroshift/nck-demo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6CD523A2D0E8DB1FA4D01AAB737A35BADE6F8153</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6CD523A2D0E8DB1FA4D01AAB737A35BADE6F8153</string>
+			<key>IDESourceControlWCCName</key>
+			<string>nck-demo</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>50BA6F6C7C780CE99E5552308E0104DF77EB7141</string>
+			<key>IDESourceControlWCCName</key>
+			<string>nctoolkit</string>
+		</dict>
+	</array>
+</dict>
+</plist>
