@@ -2,6 +2,8 @@
 #include "dsSceneIcosphere.h"
 #include "nckCamera.h"
 
+#include <algorithm>
+
 dsSceneIcosphere::dsSceneIcosphere(DS::Data * data) : DS::Stage(data) {
     
 }
@@ -51,16 +53,28 @@ void dsSceneIcosphere::Render(int64_t start, int64_t end, int64_t time) {
 Geometry::Mesh * dsSceneIcosphere::HandleGeometry(Geometry::Mesh * mesh) {
     Geometry::VertexIterator vlast = mesh->m_Vertices.end();
     vlast--;
+    
     mesh->m_UVLayers.push_back("layer");
+    mesh->m_UVOptimization.push_back(false);
+
+    mesh->m_UVLayers.push_back("center");
+    mesh->m_UVOptimization.push_back(false);
 
     // Vexter Iterators are a bit odd, you can use temporary lists or the iterators won't be valid if the list 
     // is copied else where.
     int vCount = 0;
 
-    
+    std::vector<float> randomList;
+    for (int i = 0; i < mesh->m_Faces.size(); i++) {
+        randomList.push_back(i);
+    }
+    std::random_shuffle(randomList.begin(), randomList.end());
+
+    int index = 0;
     ListFor(Geometry::Face*, mesh->m_Faces, f)
     {
-        
+        Math::Vec3 center;
+
         for (int vId = 0; vId < (*f)->m_Verts.size(); vId++)
         {
             Geometry::VertexIterator v = (*f)->m_Verts[vId];
@@ -75,15 +89,25 @@ Geometry::Mesh * dsSceneIcosphere::HandleGeometry(Geometry::Mesh * mesh) {
 
             (*f)->m_Verts[vId] = vi;
 
-           
+            center += nv->m_Pos;
         }     
-        float rId = Math::RandomValue(0, mesh->m_Faces.size());
-        std::vector<Math::Vec2> uvvec;
-        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
-        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
-        uvvec.push_back(Math::Vec2((*f)->m_Id, rId));
+       
+        center *= 1.0 / (*f)->m_Verts.size();
 
-        (*f)->m_UV.push_back(uvvec);
+        float rId = randomList[index++];
+       // randomList.pop_front();
+        //std::vector<Math::Vec2> uvvec;
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+
+        (*f)->m_fUV.SetUV(0, 0, rId, (*f)->m_Id);
+        (*f)->m_fUV.SetUV(0, 1, rId, (*f)->m_Id);
+        (*f)->m_fUV.SetUV(0, 2, rId, (*f)->m_Id);
+        
+        (*f)->m_fUV.SetUVZ(1, 0, center);
+        (*f)->m_fUV.SetUVZ(1, 1, center);
+        (*f)->m_fUV.SetUVZ(1, 2, center);
 
         if ((*f)->m_Verts.size() == 3) {
             Math::Vec3 v1 = (*(*f)->m_Verts[0])->m_Pos;
