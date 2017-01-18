@@ -19,8 +19,7 @@ void dsSceneScratch::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(s1->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));
-
-
+    
     dev->Disable(Graph::STATE_DEPTH_TEST);
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();

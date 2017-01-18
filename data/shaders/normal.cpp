@@ -12,7 +12,7 @@ mat4 RotateZ(float angle){
 
 void main()
 {
-	vec3 center = gl_MultiTexCoord1;
+	vec3 center = gl_MultiTexCoord1.xyz;
 	//gl_MultiTexCoord0.x * gl_Normal * 0.01*(time-floor(time/2.0)*2.0);
 	
 	float ft = (time-floor(time/10.0)*10.0)/10.0;
@@ -24,7 +24,7 @@ void main()
 	mat4 rot = RotateZ(ft*3.1415*4.0);
 	vec3 oP = rot * vec4(p-center,0.0);
 	
-	ft-= gl_MultiTexCoord0.x/51;
+	ft-= gl_MultiTexCoord0.x/184;
 	ft = max(ft,0.0);
 	ft = min(ft,1.0);
 	vec3 pHidden = center-vec3(0,15,0)+vec3(center.x*2.0,0,center.z*2.0);

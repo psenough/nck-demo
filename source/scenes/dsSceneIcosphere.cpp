@@ -28,12 +28,8 @@ void dsSceneIcosphere::Render(int64_t start, int64_t end, int64_t time) {
     dev->Identity();
     dev->Perspective(m_Data->GetAspect());
 
-    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
-  
-    dev->Enable(Graph::STATE_BLEND);
-    dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     Scene::Camera camera(dev);
     Scene::Object obj(dev);
@@ -42,6 +38,15 @@ void dsSceneIcosphere::Render(int64_t start, int64_t end, int64_t time) {
     camera.SetObject(&obj);
 
     camera.Enable(Graph::MATRIX_VIEW);
+
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
+  
+    dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_DEPTH_TEST);
+    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+
+  
 
     normal->Enable();
     normal->SetVariable1f("time", time / 1e6);

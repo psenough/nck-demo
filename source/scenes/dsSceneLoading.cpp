@@ -65,7 +65,9 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
     dev->Enable(Graph::STATE_CULL_FACE);
     dev->CullMode(Graph::CULL_BACK);
   
-  
+    dev->MatrixMode(Graph::MATRIX_VIEW);
+    dev->Identity();
+
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
@@ -94,6 +96,9 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
     dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
+
+    dev->MatrixMode(Graph::MATRIX_VIEW);
+    dev->Identity();
 
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();

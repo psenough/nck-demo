@@ -14,9 +14,11 @@
 #include "scenes/dsSceneLoading.h"
 #include "scenes/dsScene80Grid.h"
 #include "scenes/dsSceneIcosphere.h"
+#include "scenes/dsSceneOutputFilter.h"
+#include "scenes/dsSceneMap.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
+#define AUDIO_STREAM        NULL//"audio://Submotion_Orchestra_In_Gold.ogg" //NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -109,22 +111,37 @@ public:
             else
                 mutePlayback = true;
 
+        
+            
+           // dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
+           // scene->Load();
+
+            
             dsSceneLoading *loading = new dsSceneLoading(data);
             loading->Load();
 
-            dsSceneScratch *scratch = new dsSceneScratch(data);
+            dsSceneMap *map = new dsSceneMap(data);
+            map->Load();
+
+            /*dsSceneScratch *scratch = new dsSceneScratch(data);
             scratch->Load();
 
             dsScene80Grid *grid80 = new dsScene80Grid(data);
             grid80->Load();
 
             dsSceneIcosphere * ico = new dsSceneIcosphere(data);
-            ico->Load();
+            ico->Load();*/
 
             // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 1, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(1, 2000, grid80));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(1, 2000, ico));
+           // scene->AddStage(0, 1, loading);
+            //scene->AddStage(1, 10000, map);
+
+            //scene->AddStage(1, 2000, grid80);
+            //scene->AddStage(1, 2000, ico);
+
+            //scene->BuildTimeline();
+
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 60e6, map));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -169,6 +186,9 @@ public:
                 dev->MatrixMode(Graph::MATRIX_PROJECTION);
                 dev->Identity();
                 dev->Ortho2D(wnd->GetWidth(), wnd->GetHeight());
+
+                dev->MatrixMode(Graph::MATRIX_VIEW);
+                dev->Identity();
 
                 dev->MatrixMode(Graph::MATRIX_MODEL);
                 dev->Identity();
@@ -503,7 +523,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1280, height = 720;
-    float scale = 0.65;
+    float scale = 0.6;
     width *= scale;
     height *= scale;
     bool fullscreen = false;

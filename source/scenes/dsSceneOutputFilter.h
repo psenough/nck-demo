@@ -1,0 +1,24 @@
+
+#ifndef DS_SCENE_OUTPUT_FILTER_H
+#define DS_SCENE_OUTPUT_FILTER_H
+
+#include "../dsStage.h"
+
+class dsSceneOutputFilter : public DS::Stage {
+public:
+    dsSceneOutputFilter(DS::Data * data);
+    virtual ~dsSceneOutputFilter();
+    void Load();
+    void Render(int64_t start, int64_t end, int64_t time);
+private:
+    Graph::Texture2D * renderTexture;
+    Graph::RTManager * manager;
+    Graph::Program * program;
+    Graph::Texture2D * temp;
+
+    float brightness;
+    float contrast;
+    float saturation;
+};
+
+#endif

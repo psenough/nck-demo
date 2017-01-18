@@ -76,6 +76,12 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneIcosphere.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneMap.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -118,6 +124,12 @@
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneIcosphere.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneMap.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>

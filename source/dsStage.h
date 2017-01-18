@@ -18,8 +18,12 @@ public:
     virtual ~Stage() {};
     virtual void Load() = 0;
     virtual void Render(int64_t start, int64_t end, int64_t time) = 0;
+
+    void AddStage(int64_t start, int64_t end, Stage * stage);
+    void BuildTimeline();
 protected:
     Data * m_Data;
+    Math::TimelineNode<DS::Stage*> m_Stages;
 };
 
 _DS_END
