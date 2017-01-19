@@ -33,7 +33,8 @@ public:
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
 private:
-    void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound);
+    Scene::Texture * HandleTexture(Scene::Texture * tex);
+    void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     DS::Compound * map;
     Graph::Program * mapProg;
     BezCurve curve;

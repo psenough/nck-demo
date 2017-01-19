@@ -113,12 +113,12 @@ public:
 
         
             
-           // dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
-           // scene->Load();
+            dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
+            scene->Load();
 
             
-            dsSceneLoading *loading = new dsSceneLoading(data);
-            loading->Load();
+            //dsSceneLoading *loading = new dsSceneLoading(data);
+            //loading->Load();
 
             dsSceneMap *map = new dsSceneMap(data);
             map->Load();
@@ -133,15 +133,15 @@ public:
             ico->Load();*/
 
             // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
-           // scene->AddStage(0, 1, loading);
+            scene->AddStage(0, 60e6, map);
             //scene->AddStage(1, 10000, map);
 
             //scene->AddStage(1, 2000, grid80);
             //scene->AddStage(1, 2000, ico);
 
-            //scene->BuildTimeline();
+            scene->BuildTimeline();
 
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 60e6, map));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 60e6, scene));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -175,9 +175,10 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            timeline.Get(timer->GetElapsedTime() / 1e6, &items); // Nota: Ir buscar em segundos
+            int64_t time = timer->GetElapsedTime();
+            timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
-                i->GetObject()->Render(i->GetStart(), i->GetEnd(), timer->GetElapsedTime()); // Nota: Aqui já é microsegundos.
+                i->GetObject()->Render(i->GetStart(), i->GetEnd(), time);
             }
 
             const double fps = UpdateFPS();
@@ -190,8 +191,8 @@ public:
                 dev->MatrixMode(Graph::MATRIX_VIEW);
                 dev->Identity();
 
-                dev->MatrixMode(Graph::MATRIX_MODEL);
-                dev->Identity();
+                //dev->MatrixMode(Graph::MATRIX_MODEL);
+                //dev->Identity();
 
                 dev->Enable(Graph::STATE_BLEND);
                 dev->Disable(Graph::STATE_DEPTH_TEST);
@@ -522,8 +523,8 @@ _DS_END
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
-    int width = 1280, height = 720;
-    float scale = 0.6;
+    int width = 1920, height = 1080;
+    float scale = 0.8;
     width *= scale;
     height *= scale;
     bool fullscreen = false;

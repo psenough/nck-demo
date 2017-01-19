@@ -11,6 +11,7 @@ public:
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
 private:
+    void Square(float w, float h, bool invert);
     Graph::Texture2D * renderTexture;
     Graph::RTManager * manager;
     Graph::Program * program;

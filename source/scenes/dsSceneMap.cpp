@@ -92,8 +92,8 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     cam->Enable(Graph::MATRIX_VIEW);
  
    
-    dev->MatrixMode(Graph::MATRIX_MODEL);
-    dev->Identity();
+    //dev->MatrixMode(Graph::MATRIX_MODEL);
+    //dev->Identity();
   
     Math::Vec3 p = curve.Get((time - start) / (double)(end - start));
     p += Math::Vec3(-0.41855, -1.5, 0)-cam->GetObject()->GetPosition();
@@ -109,6 +109,7 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
 
    
     mapProg->Enable();
+    mapProg->SetVariable1f("time", (time - start) / 1e6);
     map->Get()->Render();
     mapProg->Disable();
 
@@ -118,10 +119,15 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     //normal->Disable();
 }
 
+Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
+    tex->GetTexture()->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
+    tex->GetTexture()->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
+    return tex;
+}
+
 void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
     BXON::Array * arr = map->GetArray("curve");
-    
-   
+       
     for (int i = 0; i < arr->GetSize(); i++) {
         BXON::Map * m = arr->GetMap(i);
         BXON::Array * splines = m->GetArray("splines");

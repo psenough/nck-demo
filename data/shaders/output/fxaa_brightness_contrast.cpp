@@ -137,6 +137,7 @@ vec3 hsv2rgb(vec3 c)
 void main()
 {
 	vec2 uv = gl_TexCoord[0].xy;
+    float dist = length(gl_TexCoord[0].xy-vec2(0.5,0.5));
 	vec2 fCoord = uv * texResolution.xy; 
 	vec4 fxaa = fxaa(gphTexture0, fCoord, texResolution.xy, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);
 	vec3 hsv = rgb2hsv(fxaa.xyz);
@@ -144,5 +145,5 @@ void main()
 	vec3 rgb = hsv2rgb(hsv);
 	rgb *= (1.0 + contrast);
 	rgb += brightness;
-	gl_FragColor = vec4(rgb,fxaa.a);
+	gl_FragColor = vec4(rgb * vec3(1.0-pow(dist,2.0)),fxaa.a);
 }

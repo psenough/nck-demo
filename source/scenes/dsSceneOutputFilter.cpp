@@ -38,9 +38,9 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
         dev->Viewport(0, 0, m_Data->GetWidth(), m_Data->GetHeight());
 
         std::list<Math::TimelineItem<DS::Stage*>> items;
-        m_Stages.Get(time / 1e6, &items); // Nota: Ir buscar em segundos
+        m_Stages.Get(time, &items);
         ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
-            i->GetObject()->Render(i->GetStart(), i->GetEnd(), time); // Nota: Aqui já é microsegundos.
+            i->GetObject()->Render(i->GetStart(), i->GetEnd(), time); 
         }
     }
     manager->Disable();
@@ -53,8 +53,8 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
-    dev->MatrixMode(Graph::MATRIX_MODEL);
-    dev->Identity();
+    //dev->MatrixMode(Graph::MATRIX_MODEL);
+    //dev->Identity();
 
     program->Enable();
     program->SetVariable4f("texResolution", m_Data->GetWidth(), m_Data->GetHeight());
@@ -63,8 +63,23 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     program->SetVariable4f("brightness", brightness);
     
     renderTexture->Enable();
-    shp->Square(0, 0, m_Data->GetWidth(), m_Data->GetHeight(),Math::Color4ub());
+    Square(m_Data->GetWidth(), m_Data->GetHeight(), manager->InvertedY());
     renderTexture->Disable();
     
     program->Disable();
+}
+
+void dsSceneOutputFilter::Square(float w, float h, bool invert) {
+    Graph::Device * dev = m_Data->GetGraphicsDevice();
+    dev->Color(255, 255, 255, 255);
+    dev->Begin(Graph::PRIMITIVE_QUADS);
+    dev->TexCoord(0, invert?1:0);
+    dev->Vertex(0, 0);
+    dev->TexCoord(0, invert?0:1);
+    dev->Vertex(0, h);
+    dev->TexCoord(1, invert?0:1);
+    dev->Vertex(w, h);
+    dev->TexCoord(1, invert?1:0);
+    dev->Vertex(w, 0);
+    dev->End();
 }
