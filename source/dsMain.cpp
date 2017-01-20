@@ -141,7 +141,7 @@ public:
 
             scene->BuildTimeline();
 
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 60e6, scene));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 120e6, scene));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();

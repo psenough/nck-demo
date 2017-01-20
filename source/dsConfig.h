@@ -28,6 +28,7 @@
 #include "nckModel.h"
 #include "nckHttpServer.h"
 #include "bxonDataIO.h"
+#include "nckTransform.h"
 
 #include <stdint.h>
 #include <string>

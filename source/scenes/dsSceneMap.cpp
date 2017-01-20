@@ -73,6 +73,8 @@ dsSceneMap::~dsSceneMap() {
 void dsSceneMap::Load() {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     map = m_Data->LoadCompound("model://map.bxon", dynamic_cast<Scene::Processor*>(this));
+    plane = m_Data->LoadCompound("model://plane.bxon");
+
     mapProg = m_Data->LoadProgram("shader://map/map.cpp");
     //normal = m_Data->LoadProgram("shader://normal.cpp");
 }
@@ -89,29 +91,49 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
+
+
     cam->Enable(Graph::MATRIX_VIEW);
- 
+  
    
     //dev->MatrixMode(Graph::MATRIX_MODEL);
     //dev->Identity();
-  
-    Math::Vec3 p = curve.Get((time - start) / (double)(end - start));
-    p += Math::Vec3(-0.41855, -1.5, 0)-cam->GetObject()->GetPosition();
+
+
+
+    float dt = 2*(time - start) / (double)(end - start);
+    Math::Vec3 p1 = curve.Get(dt - 0.001);
+    Math::Vec3 p2 = curve.Get(dt + 0.001);
+    Math::Vec3 p = curve.Get(dt);
+
+    Math::Vec3 n = Math::Normalize(p2 - p1);
+    Math::Mat44 matRot = Math::LookAt(p2, p1, Math::Vec3(0, 0, 1));
+    Math::Quat q = Math::Rotation(matRot);
+    
+    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
+    obj->SetPosition(p+Math::Vec3(0,0,0.05));
+    obj->SetRotation(q);
+    obj->Update();
+
+    p += Math::Vec3(0,-0.5, 0)-cam->GetObject()->GetPosition();
     dev->Translate(-p.GetX(), -p.GetY(),0);
+ 
 
-
-    //dev->Disable(Graph::STATE_CULL_FACE);
-    //dev->Enable(Graph::STATE_BLEND);
-    //dev->Enable(Graph::STATE_DEPTH_TEST);
-    //dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+    dev->Disable(Graph::STATE_CULL_FACE);
+    dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_DEPTH_TEST);
+    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     dev->Color(255, 255, 255, 255);
 
-   
+  
+
     mapProg->Enable();
     mapProg->SetVariable1f("time", (time - start) / 1e6);
     map->Get()->Render();
     mapProg->Disable();
+
+    plane->Get()->Render();
 
     //normal->Enable();
     //normal->SetVariable1f("time", time / 1e6);

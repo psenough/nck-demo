@@ -36,6 +36,7 @@ private:
     Scene::Texture * HandleTexture(Scene::Texture * tex);
     void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     DS::Compound * map;
+    DS::Compound * plane;
     Graph::Program * mapProg;
     BezCurve curve;
 };
