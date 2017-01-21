@@ -32,12 +32,18 @@ public:
     virtual ~dsSceneMap();
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
+    void RenderFBO(int64_t start, int64_t end, int64_t time);
 private:
     Scene::Texture * HandleTexture(Scene::Texture * tex);
     void HandleFinish(BXON::Map * map, Scene::Compound * compound);
+    void updateStuff(int64_t start, int64_t end, int64_t time);
+    Math::Mat44 projectionMatrix;
+    Math::Mat44 viewMatrix;
     DS::Compound * map;
     DS::Compound * plane;
+    Graph::Program * depth;
     Graph::Program * mapProg;
+    Graph::Program * basic;
     BezCurve curve;
 };
 

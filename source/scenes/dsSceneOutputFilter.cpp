@@ -31,14 +31,19 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     Gui::ShapeRenderer * shp = m_Data->GetShapeRenderer();
 
-    // Render other stages.
+
+    // Render other stages FBO
+    std::list<Math::TimelineItem<DS::Stage*>> items;
+    m_Stages.Get(time, &items);
+    ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
+        i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
+    }
+
+    // Render other stages
     manager->Enable();
     {
         dev->Clear();
         dev->Viewport(0, 0, m_Data->GetWidth(), m_Data->GetHeight());
-
-        std::list<Math::TimelineItem<DS::Stage*>> items;
-        m_Stages.Get(time, &items);
         ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
             i->GetObject()->Render(i->GetStart(), i->GetEnd(), time); 
         }

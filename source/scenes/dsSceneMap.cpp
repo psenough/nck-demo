@@ -27,7 +27,7 @@ void BezCurve::Set(std::vector<BezNode> n) {
     distance.clear();
     distance.reserve(nodes.size() - 1);
     totalDistance = 0;
-    int resolution = 10;
+    int resolution = 20;
     for (int i = 0; i < nodes.size()-1; i++) {
         BezNode c = nodes[i];
         BezNode n = nodes[i+1];
@@ -76,47 +76,105 @@ void dsSceneMap::Load() {
     plane = m_Data->LoadCompound("model://plane.bxon");
 
     mapProg = m_Data->LoadProgram("shader://map/map.cpp");
-    //normal = m_Data->LoadProgram("shader://normal.cpp");
+    basic = m_Data->LoadProgram("shader://map/basic.cpp");
+    depth = m_Data->LoadProgram("shader://map/depth.cpp");
+
+}
+
+void dsSceneMap::updateStuff(int64_t start, int64_t end, int64_t time) {
+    float d_t = (time - start) / (double)(end - start);
+    const Math::Vec3 curve_pos = curve.Get(d_t);
+
+    Graph::Device * dev = m_Data->GetGraphicsDevice();
+    Scene::Camera * cam = dynamic_cast< Scene::Camera *>(map->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));
+
+    const Math::Mat44 proj = Math::Perspective(m_Data->GetWidth() / (float)m_Data->GetHeight(), 36.0, 0.1, 100.0);
+    projectionMatrix = proj;
+      
+    const Math::Vec3 camOffset = Math::Vec3(curve_pos) - cam->GetObject()->GetPosition() + Math::Vec3(0, -0.5, 0);
+    const Math::Mat44 view = Math::Translate(Math::Vec3(-camOffset.GetX(), -camOffset.GetY(), 0)) * cam->GetMatrix();
+    viewMatrix = view;
+
+    Math::Vec3 p1 = curve.Get(d_t - 0.001);
+    Math::Vec3 p2 = curve.Get(d_t + 0.001);
+
+    Math::Vec3 n = Math::Normalize(p2 - p1);
+    float angle = acos(Math::Dot(n, Math::Vec3(0, -1, 0)));
+    if (Math::Cross(n, Math::Vec3(0, 1, 0)).GetZ() < 0)
+        angle = -angle;
+
+    //Math::Mat44 matRot = Math::LookAt(p2, p1, Math::Vec3(0, 0, 1));
+    Math::Quat q = Math::Rotation(Math::RotateZ(angle));
+
+    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
+    obj->SetPosition(curve_pos + Math::Vec3(0, 0, 0.05));
+    obj->SetRotation(q);
+    obj->Update();
+}
+
+void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
+    updateStuff(start, end, time);
 }
 
 
 void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
+    updateStuff(start, end, time);
+
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
-    Scene::Camera * cam = dynamic_cast< Scene::Camera *>(map->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));
- 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
-    cam->Enable(Graph::MATRIX_PROJECTION);
+    dev->LoadMatrix((float*)&projectionMatrix);
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
+    dev->LoadMatrix((float*)&viewMatrix);
 
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
 
-    cam->Enable(Graph::MATRIX_VIEW);
-  
+    /*float d_t = (time - start) / (double)(end - start);
+    const Math::Vec3 curve_pos = curve.Get(d_t);
+        
+    Scene::Camera * cam = dynamic_cast< Scene::Camera *>(map->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));
    
-    //dev->MatrixMode(Graph::MATRIX_MODEL);
-    //dev->Identity();
+    dev->MatrixMode(Graph::MATRIX_PROJECTION);
+    dev->Identity();
+    const Math::Mat44 proj = Math::Perspective(m_Data->GetWidth() / (float)m_Data->GetHeight(), 36.0, 0.1, 100.0);
+    dev->LoadMatrix((float*)&proj);
 
-
-
-    float dt = 2*(time - start) / (double)(end - start);
-    Math::Vec3 p1 = curve.Get(dt - 0.001);
-    Math::Vec3 p2 = curve.Get(dt + 0.001);
-    Math::Vec3 p = curve.Get(dt);
-
+    dev->MatrixMode(Graph::MATRIX_VIEW);
+    dev->Identity();
+    const Math::Vec3 camOffset = Math::Vec3(curve_pos) - cam->GetObject()->GetPosition() + Math::Vec3(0, -0.5, 0);
+    const Math::Mat44 view = Math::Translate(Math::Vec3(-camOffset.GetX(), -camOffset.GetY(),0)) * cam->GetMatrix();
+    dev->LoadMatrix((float*)&view);
+    
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
+    
+    Math::Vec3 p1 = curve.Get(d_t - 0.001);
+    Math::Vec3 p2 = curve.Get(d_t + 0.001);
+    
     Math::Vec3 n = Math::Normalize(p2 - p1);
-    Math::Mat44 matRot = Math::LookAt(p2, p1, Math::Vec3(0, 0, 1));
-    Math::Quat q = Math::Rotation(matRot);
+    float angle = acos(Math::Dot(n, Math::Vec3(0, -1, 0)));
+    if (Math::Cross(n, Math::Vec3(0, 1, 0)).GetZ() < 0)
+        angle = -angle;
+
+    //Math::Mat44 matRot = Math::LookAt(p2, p1, Math::Vec3(0, 0, 1));
+    Math::Quat q = Math::Rotation(Math::RotateZ(angle));
     
     Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
-    obj->SetPosition(p+Math::Vec3(0,0,0.05));
+    obj->SetPosition(curve_pos+Math::Vec3(0,0,0.05));
     obj->SetRotation(q);
-    obj->Update();
+    obj->Update();*/
 
-    p += Math::Vec3(0,-0.5, 0)-cam->GetObject()->GetPosition();
-    dev->Translate(-p.GetX(), -p.GetY(),0);
+    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
+
+    const Math::Vec4 proj_pos = Math::Vec4(obj->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
+    //const Math::Vec2 proj_pos_2d = Math::Vec2(m_Data->GetWidth(), m_Data->GetHeight()) * (Math::Vec2(0.5,0.5) + Math::Vec2(proj_pos.GetX(), proj_pos.GetY()) / proj_pos.GetW());
+    float x = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetWidth();
+    float y = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
+
  
 
     dev->Disable(Graph::STATE_CULL_FACE);
@@ -125,20 +183,31 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     dev->Color(255, 255, 255, 255);
-
-  
-
+      
+    //depth->Enable();
     mapProg->Enable();
     mapProg->SetVariable1f("time", (time - start) / 1e6);
     map->Get()->Render();
     mapProg->Disable();
 
+    basic->Enable();
     plane->Get()->Render();
+    basic->Disable();
+    //depth->Disable();
+    
+    dev->MatrixMode(Graph::MATRIX_PROJECTION);
+    dev->Identity();
+    dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
 
-    //normal->Enable();
-    //normal->SetVariable1f("time", time / 1e6);
-    //icosphere->Get()->Render();
-    //normal->Disable();
+    dev->MatrixMode(Graph::MATRIX_VIEW);
+    dev->Identity();
+
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
+
+    dev->Disable(Graph::STATE_DEPTH_TEST);
+    m_Data->GetShapeRenderer()->Square(x, y, 10, 10, Math::Color4ub(255,0,0));
+
 }
 
 Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
@@ -179,10 +248,6 @@ void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
 
                 nodes.push_back(BezNode(l,c,r));
             }
-            //Math::Vec3 left = n->GetVec3("left");
-            //Math::Vec3 center = n->GetVec3("center");
-            //Math::Vec3 right = n->GetVec3("right");
-            
         }
 
         curve.Set(nodes);

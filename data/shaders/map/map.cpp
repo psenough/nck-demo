@@ -21,19 +21,14 @@ void main()
 	vec3 col = texture2D(tex1,gl_TexCoord[0].xy).xyz;
    
     float t = (time - floor(time / 10.0) * 10.)/10.0;
-    float x = gl_TexCoord[0].x;
     float f = 1.0/512;
     col = desat(col);
-    if(x > t && x < t+f || 
-            x-f*4.0 > t && x - f * 4.0 < t+f*0.5 || 
-             x+f*4.0 > t && x + f * 4.0 < t+f*0.5|| 
-            x-f*8.0 > t && x - f * 8.0 < t+f*0.25 || 
-             x+f*8.0 > t && x + f * 8.0 < t+f*0.25
-             
-             ){
-       col *= 1.4; 
-    }
     
+    float dx =  gl_TexCoord[0].x * 128;
+    float dy =  gl_TexCoord[0].y * 128;
+    if((dx - floor(dx/10.0)*10.0 < 0.125) || 
+        (dy - floor(dy/10.0)*10.0 < 0.125))
+        col *= 1.1;
      
     col = pow(col,vec3(4.0)) * 0.4 + 0.4;  
     col *= vec3(0.9,0.95,1.0)*0.5;

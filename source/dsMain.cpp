@@ -117,8 +117,8 @@ public:
             scene->Load();
 
             
-            //dsSceneLoading *loading = new dsSceneLoading(data);
-            //loading->Load();
+            dsSceneLoading *loading = new dsSceneLoading(data);
+            loading->Load();
 
             dsSceneMap *map = new dsSceneMap(data);
             map->Load();
@@ -141,7 +141,8 @@ public:
 
             scene->BuildTimeline();
 
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 120e6, scene));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(1e6, 120e6, scene));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -178,6 +179,8 @@ public:
             int64_t time = timer->GetElapsedTime();
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
+                i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
+
                 i->GetObject()->Render(i->GetStart(), i->GetEnd(), time);
             }
 
@@ -191,8 +194,8 @@ public:
                 dev->MatrixMode(Graph::MATRIX_VIEW);
                 dev->Identity();
 
-                //dev->MatrixMode(Graph::MATRIX_MODEL);
-                //dev->Identity();
+                dev->MatrixMode(Graph::MATRIX_MODEL);
+                dev->Identity();
 
                 dev->Enable(Graph::STATE_BLEND);
                 dev->Disable(Graph::STATE_DEPTH_TEST);

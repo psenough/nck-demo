@@ -145,5 +145,5 @@ void main()
 	vec3 rgb = hsv2rgb(hsv);
 	rgb *= (1.0 + contrast);
 	rgb += brightness;
-	gl_FragColor = vec4(rgb * vec3(1.0-pow(dist,2.0)),fxaa.a);
+	gl_FragColor = vec4(rgb,fxaa.a); //vec4(rgb * vec3(1.0-pow(dist,2.0)),fxaa.a);
 }
