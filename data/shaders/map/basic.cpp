@@ -10,11 +10,12 @@ void main()
 }
 
 #pragma fragment_shader_glx2
-
+uniform vec4 gphDiffuseColor;
+uniform float gphAlpha;
 void main()
 {
 	float zn = normalize(gl_TexCoord[1].xyz).z;
-	gl_FragColor = vec4(zn,zn,zn,1.0);
+	gl_FragColor = vec4(gphDiffuseColor.xyz * zn,gphAlpha);
 }
 
 

@@ -18,7 +18,7 @@
 #include "scenes/dsSceneMap.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        NULL//"audio://Submotion_Orchestra_In_Gold.ogg" //NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
+#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg" //NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -133,7 +133,7 @@ public:
             ico->Load();*/
 
             // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
-            scene->AddStage(0, 60e6, map);
+            scene->AddStage(2e6, 60e6, map);
             //scene->AddStage(1, 10000, map);
 
             //scene->AddStage(1, 2000, grid80);
@@ -141,8 +141,8 @@ public:
 
             scene->BuildTimeline();
 
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(1e6, 120e6, scene));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0,2e6, loading));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(2e6, 120e6, scene));
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -527,10 +527,10 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1920, height = 1080;
-    float scale = 1.0;
+    float scale =0.6;
     width *= scale;
     height *= scale;
-    bool fullscreen = true;
+    bool fullscreen = false;
 
     bool runDemo = true;// conf->Run(&width, &height, &fullscreen);
 

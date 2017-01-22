@@ -1,5 +1,6 @@
 
 #include "dsSceneOutputFilter.h"
+#include "dsSceneLoading.h"
 
 dsSceneOutputFilter::dsSceneOutputFilter(DS::Data * data) : DS::Stage(data) {
     contrast = 0;
@@ -58,8 +59,11 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
-    //dev->MatrixMode(Graph::MATRIX_MODEL);
-    //dev->Identity();
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
+
+    dev->Disable(Graph::STATE_DEPTH_TEST);
+    dev->Disable(Graph::STATE_CULL_FACE);
 
     program->Enable();
     program->SetVariable4f("texResolution", m_Data->GetWidth(), m_Data->GetHeight());
@@ -68,15 +72,35 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     program->SetVariable4f("brightness", brightness);
     
     renderTexture->Enable();
+    dev->Color(255, 255, 255);
     Square(m_Data->GetWidth(), m_Data->GetHeight(), manager->InvertedY());
     renderTexture->Disable();
     
     program->Disable();
+
+    float alpha = Math::RandomValue(0, 255);
+
+    dev->Color(0, 0, 0, alpha*0.05);
+    Square(m_Data->GetWidth(), m_Data->GetHeight(), false);
+
+    dev->Color(255, 255, 255);
+
+    int div = 8;
+    int dim = m_Data->GetWidth() / div;
+    int squares = div * m_Data->GetWidth() / 1920;
+
+
+    for (int x = (m_Data->GetWidth() - (dim-1) * div); x < m_Data->GetWidth(); x += dim)
+    {
+        for (int y = (m_Data->GetHeight() - (dim-1) * div); y < m_Data->GetHeight(); y += dim)
+        {
+            m_Data->GetShapeRenderer()->Square(x, y, squares, squares, Math::Color4ub(30, 30, 30, alpha));
+        }
+    }
 }
 
 void dsSceneOutputFilter::Square(float w, float h, bool invert) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
-    dev->Color(255, 255, 255, 255);
     dev->Begin(Graph::PRIMITIVE_QUADS);
     dev->TexCoord(0, invert?1:0);
     dev->Vertex(0, 0);

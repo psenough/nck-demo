@@ -16,4 +16,6 @@ private:
     Graph::Texture * logo;
 };
 
+void renderTips(Graph::Device * dev);
+
 #endif

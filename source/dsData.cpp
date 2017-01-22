@@ -23,6 +23,9 @@ Data::Data(Core::Window * wnd, Graph::Device * gDev) {
     Gui::FontMap * fontMap = this->LoadFontMap("script://sans_serif.txt");
     fontMap->SetPositionAccuracy(Gui::FONT_POSITION_ACCURACY_INTEGER);
 
+    m_Textures.insert(std::pair<std::string, Graph::Texture*>("texture://tex2d_sans_serif.png", fontTexture));
+    m_FontMap.insert(std::pair<std::string, Gui::FontMap*>("script://sans_serif.txt", fontMap));
+
     shapeRenderer = new Gui::ShapeRenderer(gDev);
     widgetRenderer = new Gui::BlenderWidgetRenderer(gDevice, shapeRenderer, fontMap, fontTexture);
 }

@@ -64,18 +64,19 @@ Math::Vec3 BezCurve::Get(float alpha) {
 }
 
 dsSceneMap::dsSceneMap(DS::Data * data) : DS::Stage(data) {
-    depthRT = NULL;
-    depthTex = NULL;
+    //depthRT = NULL;
+    //depthTex = NULL;
     blur1RT = NULL;
     blur1Tex = NULL;
     blur2RT = NULL;
     blur2Tex = NULL;
     blurEffect = NULL;
+    citiesObj.reserve(30);
 }
 
 dsSceneMap::~dsSceneMap() {
-    SafeDelete(depthRT);
-    SafeDelete(depthTex);
+    //SafeDelete(depthRT);
+    //SafeDelete(depthTex);
 
     SafeDelete(blur1RT);
     SafeDelete(blur1Tex);
@@ -87,19 +88,26 @@ dsSceneMap::~dsSceneMap() {
 }
 
 void dsSceneMap::Load() {
+    // Porto: 41.1580958,-8.6271923
+    // Bratislava: 48.1468378,17.1090732
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     map = m_Data->LoadCompound("model://map.bxon", dynamic_cast<Scene::Processor*>(this));
     plane = m_Data->LoadCompound("model://plane.bxon");
 
+    
     mapProg = m_Data->LoadProgram("shader://map/map.cpp");
     basic = m_Data->LoadProgram("shader://map/basic.cpp");
     depth = m_Data->LoadProgram("shader://map/depth.cpp");
+    //ringProg = m_Data->LoadProgram("shader://map/plane_ring.cpp");
+
+    //dynamic_cast<Scene::Material*>(plane->Get()->GetDatablock(Scene::DATABLOCK_MATERIAL, "Red"))->SetProgram(ringProg);
+    dynamic_cast<Scene::Material*>(plane->Get()->GetDatablock(Scene::DATABLOCK_MATERIAL, "Metal"))->SetProgram(basic);
 
     int w = m_Data->GetWidth();
     int h = m_Data->GetHeight();
-    depthTex = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, w/2, h/2, 0, Graph::FORMAT_R_32F, true));
-    depthRT = dev->CreateRTManager(w / 2, h / 2);
-    depthRT->Attach(0, depthTex);
+    //depthTex = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, w/2, h/2, 0, Graph::FORMAT_R_32F, true));
+    //depthRT = dev->CreateRTManager(w / 2, h / 2);
+    //depthRT->Attach(0, depthTex);
 
     blur1Tex = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, w, h, 0, Graph::FORMAT_RGBA_8B, true));
     blur1Tex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
@@ -160,33 +168,9 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
     updateStuff(start, end, time);
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
-    depthRT->Enable();
-    {
-        dev->Clear();
-        dev->Viewport(0, 0, depthTex->GetWidth(), depthTex->GetHeight());
-       
-        dev->MatrixMode(Graph::MATRIX_PROJECTION);
-        dev->Identity();
-        dev->LoadMatrix((float*)&projectionMatrix);
+   // ringProg->SetVariable1f("time", time / 1e6);
 
-        dev->MatrixMode(Graph::MATRIX_VIEW);
-        dev->Identity();
-        dev->LoadMatrix((float*)&viewMatrix);
-
-        dev->MatrixMode(Graph::MATRIX_MODEL);
-        dev->Identity();
-
-        dev->Enable(Graph::STATE_BLEND);
-        dev->Enable(Graph::STATE_DEPTH_TEST);
-
-        dev->Color(255, 255, 255, 255);
-
-        depth->Enable();
-        map->Get()->Render();
-        plane->Get()->Render();
-        depth->Disable();
-    }
-    depthRT->Disable();
+   
 
     blur1RT->Enable();
     {
@@ -210,10 +194,26 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
         mapProg->Enable();
         map->Get()->Render();
         mapProg->Disable();
-
-        basic->Enable();
+     
         plane->Get()->Render();
-        basic->Disable();
+
+        dev->Disable(Graph::STATE_DEPTH_TEST);
+        dev->MatrixMode(Graph::MATRIX_PROJECTION); dev->Identity();
+        dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
+        dev->MatrixMode(Graph::MATRIX_VIEW); dev->Identity();
+        dev->MatrixMode(Graph::MATRIX_MODEL); dev->Identity();
+
+        for (int i = 0; i < citiesObj.size(); i++) {
+            Scene::Object * obj = citiesObj[i];
+            Math::Vec3 p = obj->GetPosition();
+            p.SetZ(0);
+            Math::Vec4 proj_pos = Math::Vec4(p, 1.0) * viewMatrix * projectionMatrix;
+            float ox = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetWidth();
+            float oy = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
+
+            dev->Color(200, 0, 0);
+            m_Data->GetShapeRenderer()->Square(ox, oy, 10, 10, Math::Color4ub(255, 0, 0));
+        }
     }
     blur1RT->Disable();
 
@@ -272,45 +272,16 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
 
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
-    /*dev->MatrixMode(Graph::MATRIX_PROJECTION);
-    dev->Identity();
-    dev->LoadMatrix((float*)&projectionMatrix);
+    
+    Scene::Object * tp_plane = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
 
-    dev->MatrixMode(Graph::MATRIX_VIEW);
-    dev->Identity();
-    dev->LoadMatrix((float*)&viewMatrix);
-
-    dev->MatrixMode(Graph::MATRIX_MODEL);
-    dev->Identity();
-    */
-    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
-
-    const Math::Vec4 proj_pos = Math::Vec4(obj->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
-    //const Math::Vec2 proj_pos_2d = Math::Vec2(m_Data->GetWidth(), m_Data->GetHeight()) * (Math::Vec2(0.5,0.5) + Math::Vec2(proj_pos.GetX(), proj_pos.GetY()) / proj_pos.GetW());
+    const Math::Vec4 proj_pos = Math::Vec4(tp_plane->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
     float x = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetWidth();
     float y = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
 
  
 
-   /* dev->Disable(Graph::STATE_CULL_FACE);
-    dev->Enable(Graph::STATE_BLEND);
-    dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
-
-    dev->Color(255, 255, 255, 255);
-      
-    //depth->Enable();
-    mapProg->Enable();
-    mapProg->SetVariable1f("time", (time - start) / 1e6);
-    map->Get()->Render();
-    mapProg->Disable();
- 
-
-    basic->Enable();
-    plane->Get()->Render();
-    basic->Disable();
-    //depth->Disable();
-       */
+  
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
@@ -329,7 +300,16 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     DS::RenderSquare(dev,m_Data->GetWidth(), m_Data->GetHeight(), blur1RT->InvertedY());
     blur1Tex->Disable();
 
-    m_Data->GetShapeRenderer()->Square(x, y, 10, 10, Math::Color4ub(255, 0, 0));
+    //
+
+    Graph::Texture * fontTex = m_Data->GetTexture("texture://tex2d_sans_serif.png");
+    Gui::FontMap * fontMap = m_Data->GetFontMap("script://sans_serif.txt");
+
+    m_Data->GetShapeRenderer()->Square(x+50, y-13, 100, 26, Math::Color4ub(0, 0, 0, 50));
+    fontTex->Enable();
+    dev->Color(255, 255, 255);
+    fontMap->Draw(x+50, y, 24, "P" + Math::FloatToString(tp_plane->GetPosition().GetX(),3) + " " + Math::FloatToString(tp_plane->GetPosition().GetY(), 3), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
+    fontTex->Disable();
 
 
     /*dev->Color(255, 255, 255, 200);
@@ -342,6 +322,13 @@ Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
     tex->GetTexture()->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
     tex->GetTexture()->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
     return tex;
+}
+
+Scene::Object * dsSceneMap::HandleObject(Scene::Object * obj) {
+    if (obj->GetData() == NULL) {
+        citiesObj.push_back(obj);
+    }
+    return obj;
 }
 
 void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound) {

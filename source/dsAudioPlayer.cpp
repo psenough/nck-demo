@@ -26,7 +26,7 @@ AudioPlayer::AudioPlayer(int sampleRate, int bufferSamples, int bufferCount) {
 AudioPlayer::~AudioPlayer() {
     SafeDelete(buffer);
     SafeDelete(device);
-    SafeDelete(decodeBuffer);
+    SafeArrayDelete(decodeBuffer);
     SafeDelete(mutex);
 }
 

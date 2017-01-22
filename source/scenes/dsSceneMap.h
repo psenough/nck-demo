@@ -38,15 +38,21 @@ private:
     Scene::Texture * HandleTexture(Scene::Texture * tex);
     void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     void updateStuff(int64_t start, int64_t end, int64_t time);
+    Scene::Object * HandleObject(Scene::Object * obj);
+    std::vector<Scene::Object*> citiesObj;
+
     Math::Mat44 projectionMatrix;
     Math::Mat44 viewMatrix;
     DS::Compound * map;
     DS::Compound * plane;
+    
     Graph::Program * depth;
     Graph::Program * mapProg;
     Graph::Program * basic;
-    Graph::Texture2D * depthTex;
-    Graph::RTManager * depthRT;
+    //Graph::Program * ringProg;
+
+    //Graph::Texture2D * depthTex;
+    //Graph::RTManager * depthRT;
 
     Graph::Texture2D * blur1Tex;
     Graph::RTManager * blur1RT;
