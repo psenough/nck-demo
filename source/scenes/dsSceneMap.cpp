@@ -176,6 +176,9 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Texture * fontTex = m_Data->GetTexture("texture://tex2d_sans_serif.png");
     Gui::FontMap * fontMap = m_Data->GetFontMap("script://sans_serif.txt");
 
+    dev->Enable(Graph::STATE_BLEND);
+    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+
     blur1RT->Enable();
     {
         dev->Clear();
@@ -337,12 +340,6 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     fontMap->Draw(x + 50, y - 20, 16, "TP1274", true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontMap->Draw(x + 50, y, 24, Math::FloatToString(posWGS84.GetY(),5) + " " + Math::FloatToString(posWGS84.GetX(), 5), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontTex->Disable();
-
-
-    /*dev->Color(255, 255, 255, 200);
-    depthTex->Enable();
-    DS::RenderSquare(dev, m_Data->GetWidth(), m_Data->GetHeight(), depthRT->InvertedY());
-    depthTex->Disable();*/
 }
 
 Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {

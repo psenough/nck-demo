@@ -51,6 +51,8 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
     }
     manager->Disable();
 
+    dev->Enable(Graph::STATE_BLEND);
+
     // Apply final filters and present
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
@@ -85,14 +87,14 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->Color(255, 255, 255);
 
-    int div = 8;
+    int div = 9;
     int dim = m_Data->GetWidth() / div;
     int squares = div * m_Data->GetWidth() / 1920;
 
 
-    for (int x = (m_Data->GetWidth() - (dim-1) * div); x < m_Data->GetWidth(); x += dim)
+    for (int x = dim*0.5; x < m_Data->GetWidth(); x += dim)
     {
-        for (int y = (m_Data->GetHeight() - (dim-1) * div); y < m_Data->GetHeight(); y += dim)
+        for (int y = dim*0.5; y < m_Data->GetHeight(); y += dim)
         {
             m_Data->GetShapeRenderer()->Square(x, y, squares, squares, Math::Color4ub(30, 30, 30, alpha));
         }

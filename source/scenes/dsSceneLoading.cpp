@@ -57,6 +57,7 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->ClearColor(0.0, 0.0, 0.0, 1.0);
     dev->Enable(Graph::STATE_BLEND);
+    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();

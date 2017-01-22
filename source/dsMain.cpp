@@ -16,6 +16,7 @@
 #include "scenes/dsSceneIcosphere.h"
 #include "scenes/dsSceneOutputFilter.h"
 #include "scenes/dsSceneMap.h"
+#include "scenes/dsSceneSystemInit.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg" //NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
@@ -39,7 +40,7 @@ public:
         player = NULL;
         lastTime = 0;
         duration = 10e6;
-        showUI = true;
+        showUI = false;
         sDensity = Core::Window::GetDisplayDensity();
         hScale = wnd->GetHeight() / (float)REFERENCE_HEIGHT;
         timer = Core::CreateChronometer();
@@ -89,6 +90,9 @@ public:
             data = new Data(wnd, dev);
             shpRender = data->GetShapeRenderer();
 
+            dev->Enable(Graph::STATE_BLEND);
+            dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+
             fontTexture = data->LoadTexture("texture://tex2d_sans_serif.png");
             fontTexture->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
             fontTexture->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_LINEAR);
@@ -98,10 +102,15 @@ public:
             iconShader = data->LoadTexture("texture://iconShader.png");
             iconCompound = data->LoadTexture("texture://iconCompound.png");
 
-            
             fontMap = data->LoadFontMap("script://sans_serif.txt");
             fontMap->SetPositionAccuracy(Gui::FONT_POSITION_ACCURACY_INTEGER);
             
+            loading = new dsSceneLoading(data);
+            loading->Load();
+
+         
+            renderLoading(0);
+
             if (AUDIO_STREAM != NULL) {
                 player = new AudioPlayer(AUDIO_SAMPLERATE, AUDIO_FFT, AUDIO_BUFFERS);
                 player->Start();
@@ -111,38 +120,27 @@ public:
             else
                 mutePlayback = true;
 
-        
-            
+            renderLoading(10);
             dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
             scene->Load();
 
-            
-            dsSceneLoading *loading = new dsSceneLoading(data);
-            loading->Load();
+            dsSceneSysInit * sysInit = new dsSceneSysInit(data);
+            sysInit->Load();
+            scene->AddStage(0e6, 10e6, sysInit);
 
+            renderLoading(20);
             dsSceneMap *map = new dsSceneMap(data);
             map->Load();
+                       
 
-            /*dsSceneScratch *scratch = new dsSceneScratch(data);
-            scratch->Load();
-
-            dsScene80Grid *grid80 = new dsScene80Grid(data);
-            grid80->Load();
-
-            dsSceneIcosphere * ico = new dsSceneIcosphere(data);
-            ico->Load();*/
-
-            // Nota: Os tempos podem ser em qualquer unidade, desde que se insira e vá buscar na mesma unidade, neste caso segundos.
-            scene->AddStage(2e6, 60e6, map);
-            //scene->AddStage(1, 10000, map);
-
-            //scene->AddStage(1, 2000, grid80);
-            //scene->AddStage(1, 2000, ico);
-
+            renderLoading(30);
+            scene->AddStage(10e6, 60e6, map);
             scene->BuildTimeline();
 
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0,2e6, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(2e6, 120e6, scene));
+            //timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 120e6, scene));
+            renderLoading(99.9);
+            Core::Thread::Wait(200);
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -167,6 +165,7 @@ public:
         {
             dev->Clear();
             dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
+            dev->ClearColor(0, 0, 0, 1);
 
             if (reloadResources) {
                 rShaders = data->ReloadShaders();
@@ -494,6 +493,14 @@ public:
             Teardown();
     }
 
+    void renderLoading(float progress) {
+        dev->Clear();
+        dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
+        loading->Render(0, 10e6, (progress/100)*10e6);
+        dev->PresentAll();
+        Core::Thread::Wait(100);
+    }
+
 private:
     int reloadTextureCounter[3];
     int reloadCompoundCounter[3];
@@ -519,6 +526,7 @@ private:
     Gui::FontMap    * fontMap, * fontTimeMap;           // Mapa de caracteres da font
     Graph::Device   * dev;          // Dispositivo de gráfico
     Core::Window    * wnd;
+    dsSceneLoading * loading;
 };
 
 _DS_END
@@ -559,24 +567,38 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
         SafeDelete(wnd);
     }
 
-    /*AddSub(2, 4, "Demoscene\n2016!");
-    AddSub(8, 4, "Scene-pt\nYo yo, toca a levantar a mini!");
-    AddSub(14, 4, "E toca a codar uma demo!");
-    AddSub(20, 4, "Efeito por\nxernobyl");
-    AddSub(26, 4, "Arruinado por\nzeroshift");
-    AddSub(32, 4, "Ye");*/
-
-    //Graph::Program * particle = NULL;
-    //Graph::Program * pCanvas = NULL;
-    //Graph::RTManager * rtManager = NULL;
-    //Graph::Texture2D * rtTexture = NULL;
-
-    //particle = dev->LoadProgram("shader://particle.cpp");
-    //pCanvas = dev->LoadProgram("shader://canvas.cpp");
-    //pCanvas->SetVariable1i("texture_0", 0);
-    //rtManager = dev->CreateRTManager(wnd->GetWidth(), wnd->GetHeight());
-    //rtTexture = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, wnd->GetWidth(), wnd->GetHeight()));
-    //rtManager->Attach(0, rtTexture);
-
 }
 
+
+/*AddSub(2, 4, "Demoscene\n2016!");
+AddSub(8, 4, "Scene-pt\nYo yo, toca a levantar a mini!");
+AddSub(14, 4, "E toca a codar uma demo!");
+AddSub(20, 4, "Efeito por\nxernobyl");
+AddSub(26, 4, "Arruinado por\nzeroshift");
+AddSub(32, 4, "Ye");*/
+
+//Graph::Program * particle = NULL;
+//Graph::Program * pCanvas = NULL;
+//Graph::RTManager * rtManager = NULL;
+//Graph::Texture2D * rtTexture = NULL;
+
+//particle = dev->LoadProgram("shader://particle.cpp");
+//pCanvas = dev->LoadProgram("shader://canvas.cpp");
+//pCanvas->SetVariable1i("texture_0", 0);
+//rtManager = dev->CreateRTManager(wnd->GetWidth(), wnd->GetHeight());
+//rtTexture = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, wnd->GetWidth(), wnd->GetHeight()));
+//rtManager->Attach(0, rtTexture);
+
+
+//scene->AddStage(1, 10000, map);
+
+//scene->AddStage(1, 2000, grid80);
+//scene->AddStage(1, 2000, ico);
+/*dsSceneScratch *scratch = new dsSceneScratch(data);
+scratch->Load();
+
+dsScene80Grid *grid80 = new dsScene80Grid(data);
+grid80->Load();
+
+dsSceneIcosphere * ico = new dsSceneIcosphere(data);
+ico->Load();*/
