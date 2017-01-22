@@ -71,6 +71,7 @@ dsSceneMap::dsSceneMap(DS::Data * data) : DS::Stage(data) {
     blur2RT = NULL;
     blur2Tex = NULL;
     blurEffect = NULL;
+    guiElements = NULL;
     citiesObj.reserve(30);
 }
 
@@ -87,13 +88,16 @@ dsSceneMap::~dsSceneMap() {
     SafeDelete(blurEffect);
 }
 
+Scene::Object * getObj(Scene::Compound * c, const std::string & name) {
+    return dynamic_cast<Scene::Object*>(c->GetDatablock(Scene::DATABLOCK_OBJECT, name));
+}
+
 void dsSceneMap::Load() {
-    // Porto: 41.1580958,-8.6271923
-    // Bratislava: 48.1468378,17.1090732
+
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     map = m_Data->LoadCompound("model://map.bxon", dynamic_cast<Scene::Processor*>(this));
     plane = m_Data->LoadCompound("model://plane.bxon");
-
+    guiElements = m_Data->LoadCompound("model://gui.bxon");
     
     mapProg = m_Data->LoadProgram("shader://map/map.cpp");
     basic = m_Data->LoadProgram("shader://map/basic.cpp");
@@ -169,8 +173,8 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
    // ringProg->SetVariable1f("time", time / 1e6);
-
-   
+    Graph::Texture * fontTex = m_Data->GetTexture("texture://tex2d_sans_serif.png");
+    Gui::FontMap * fontMap = m_Data->GetFontMap("script://sans_serif.txt");
 
     blur1RT->Enable();
     {
@@ -198,6 +202,8 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
         plane->Get()->Render();
 
         dev->Disable(Graph::STATE_DEPTH_TEST);
+        dev->Disable(Graph::STATE_CULL_FACE);
+
         dev->MatrixMode(Graph::MATRIX_PROJECTION); dev->Identity();
         dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
         dev->MatrixMode(Graph::MATRIX_VIEW); dev->Identity();
@@ -212,7 +218,18 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
             float oy = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
 
             dev->Color(200, 0, 0);
-            m_Data->GetShapeRenderer()->Square(ox, oy, 10, 10, Math::Color4ub(255, 0, 0));
+            dev->PushMatrix();
+            dev->Translate(ox, oy,0);
+            dev->Scale(200, -200, 0);
+            guiElements->Get()->Render();
+            dev->PopMatrix();
+
+            //m_Data->GetShapeRenderer()->Square(ox, oy, 10, 10, Math::Color4ub(255, 0, 0));
+            
+            fontTex->Enable();
+            dev->Color(100, 100, 100);
+            fontMap->Draw(ox, oy-20, 32, obj->GetName(), true, Gui::FontAlignment::FONT_ALIGNMENT_MIDDLE);
+            fontTex->Disable();
         }
     }
     blur1RT->Disable();
@@ -300,15 +317,25 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     DS::RenderSquare(dev,m_Data->GetWidth(), m_Data->GetHeight(), blur1RT->InvertedY());
     blur1Tex->Disable();
 
-    //
+
+    Scene::Object * emptyPorto = dynamic_cast<Scene::Object*>(map->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Porto"));
+    Scene::Object * emptyBratislava = dynamic_cast<Scene::Object*>(map->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Bratislava"));
+
+    Math::Vec2 alphaPos = (tp_plane->GetPosition() - emptyPorto->GetPosition()) / (emptyBratislava->GetPosition() - emptyPorto->GetPosition());
+    Math::Vec2 portoWGS84 = Math::Vec2(-8.6271923, 41.1580958);
+    Math::Vec2 bratislavaWGS84 = Math::Vec2(17.1090732, 48.1468378);
+    Math::Vec2 posWGS84 = portoWGS84 * (Math::Vec2(1.0, 1.0) - alphaPos) + bratislavaWGS84 * alphaPos;
 
     Graph::Texture * fontTex = m_Data->GetTexture("texture://tex2d_sans_serif.png");
     Gui::FontMap * fontMap = m_Data->GetFontMap("script://sans_serif.txt");
 
-    m_Data->GetShapeRenderer()->Square(x+50, y-13, 100, 26, Math::Color4ub(0, 0, 0, 50));
+    m_Data->GetShapeRenderer()->Square(x + 45, y - 30, 50, 16, Math::Color4ub(0, 0, 0, 50));
+    m_Data->GetShapeRenderer()->Square(x + 45, y - 13, 150, 26, Math::Color4ub(0, 0, 0, 50));
+
     fontTex->Enable();
     dev->Color(255, 255, 255);
-    fontMap->Draw(x+50, y, 24, "P" + Math::FloatToString(tp_plane->GetPosition().GetX(),3) + " " + Math::FloatToString(tp_plane->GetPosition().GetY(), 3), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
+    fontMap->Draw(x + 50, y - 20, 16, "TP1274", true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
+    fontMap->Draw(x + 50, y, 24, Math::FloatToString(posWGS84.GetY(),5) + " " + Math::FloatToString(posWGS84.GetX(), 5), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontTex->Disable();
 
 
