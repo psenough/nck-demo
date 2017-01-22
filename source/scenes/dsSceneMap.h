@@ -3,6 +3,7 @@
 #define DS_SCENE_MAP_H
 
 #include "../dsStage.h"
+#include "nckEffect.h"
 
 class BezNode {
 public:
@@ -44,6 +45,17 @@ private:
     Graph::Program * depth;
     Graph::Program * mapProg;
     Graph::Program * basic;
+    Graph::Texture2D * depthTex;
+    Graph::RTManager * depthRT;
+
+    Graph::Texture2D * blur1Tex;
+    Graph::RTManager * blur1RT;
+    Graph::Texture2D * blur2Tex;
+    Graph::RTManager * blur2RT;
+
+    Scene::Effect_DirectionalBlur * blurEffect;
+    Scene::Effect_Invert * invert;
+
     BezCurve curve;
 };
 

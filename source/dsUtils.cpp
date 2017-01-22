@@ -43,4 +43,19 @@ void RenderLoading(Core::Window * wnd, Graph::Device * dev) {
 	dev->PresentAll();
 }
 
+
+void RenderSquare(Graph::Device * dev, float w, float h, bool invert) {
+ 
+    dev->Begin(Graph::PRIMITIVE_QUADS);
+    dev->TexCoord(0, invert ? 1 : 0);
+    dev->Vertex(0, 0);
+    dev->TexCoord(0, invert ? 0 : 1);
+    dev->Vertex(0, h);
+    dev->TexCoord(1, invert ? 0 : 1);
+    dev->Vertex(w, h);
+    dev->TexCoord(1, invert ? 1 : 0);
+    dev->Vertex(w, 0);
+    dev->End();
+}
+
 _DS_END

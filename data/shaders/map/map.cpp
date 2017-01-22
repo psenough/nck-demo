@@ -24,15 +24,17 @@ void main()
     float f = 1.0/512;
     col = desat(col);
     
-    float dx =  gl_TexCoord[0].x * 128;
-    float dy =  gl_TexCoord[0].y * 128;
-    if((dx - floor(dx/10.0)*10.0 < 0.125) || 
-        (dy - floor(dy/10.0)*10.0 < 0.125))
-        col *= 1.1;
+  
      
-    col = pow(col,vec3(4.0)) * 0.4 + 0.4;  
-    col *= vec3(0.9,0.95,1.0)*0.5;
-    
+    col = (pow(col,vec3(4.0)) * 0.2 + 0.6)*0.25;  
+      
+        float dx =  gl_TexCoord[0].x * 128;
+    float dy =  gl_TexCoord[0].y * 128;
+    if((dx - floor(dx/16.0)*16.0 < 0.125) || 
+        (dy - floor(dy/16.0)*16.0 < 0.125))
+        col *= 1.5
+       ;
+        
 	gl_FragColor = vec4(col,1.0);
 }
 
