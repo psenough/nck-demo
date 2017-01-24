@@ -87,7 +87,7 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->Color(255, 255, 255);
 
-    int div = 9;
+    /*int div = 9;
     int dim = m_Data->GetWidth() / div;
     int squares = div * m_Data->GetWidth() / 1920;
 
@@ -98,7 +98,7 @@ void dsSceneOutputFilter::Render(int64_t start, int64_t end, int64_t time) {
         {
             m_Data->GetShapeRenderer()->Square(x, y, squares, squares, Math::Color4ub(30, 30, 30, alpha));
         }
-    }
+    }*/
 }
 
 void dsSceneOutputFilter::Square(float w, float h, bool invert) {

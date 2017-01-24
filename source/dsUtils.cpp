@@ -58,4 +58,64 @@ void RenderSquare(Graph::Device * dev, float w, float h, bool invert) {
     dev->End();
 }
 
+void RenderSquareMatrix(Graph::Device * dev, float width, float height) {
+    int div = 9;
+    int dim = width / div;
+    int squares = div * height / 1920;
+
+    for (int x = dim*0.5; x <width; x += dim)
+    {
+        for (int y = dim*0.5; y < height; y += dim)
+        {
+            dev->PushMatrix();
+            dev->Translate(x, y, 0);
+            RenderSquare(dev,squares, squares,false);
+            dev->PopMatrix();
+        }
+    }
+}
+
+
+void RenderCrossesMatrix(Graph::Device * dev, float width, float height) {
+    int div = 9;
+    int dim = width / div;
+    int squares = div * height / 1920;
+
+    for (int x = dim*0.5; x <width; x += dim)
+    {
+        for (int y = dim*0.5; y < height; y += dim)
+        {
+            dev->PushMatrix();
+            dev->Translate(x, y, 0);
+            
+            
+            dev->PushMatrix();
+                dev->Rotate(45, 0, 0, 1);
+                dev->Translate(-squares*0.5, 0, 0);
+                RenderSquare(dev, squares, squares*2, false);
+            dev->PopMatrix();
+
+            dev->PushMatrix();
+                dev->Rotate(-45, 0, 0, 1);
+                dev->Translate(-squares*0.5, 0, 0);
+                RenderSquare(dev, squares, squares*2, false);
+            dev->PopMatrix();
+
+            dev->PushMatrix();
+                dev->Rotate(45+90, 0, 0, 1);
+                dev->Translate(-squares*0.5, 0, 0);
+                RenderSquare(dev, squares, squares*2, false);
+            dev->PopMatrix();
+
+            dev->PushMatrix();
+                dev->Rotate(-45 - 90, 0, 0, 1);
+                dev->Translate(-squares*0.5, 0, 0);
+                RenderSquare(dev, squares, squares*2, false);
+            dev->PopMatrix();
+
+            dev->PopMatrix();
+        }
+    }
+}
+
 _DS_END

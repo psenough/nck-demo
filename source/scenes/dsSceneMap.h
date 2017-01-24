@@ -34,7 +34,14 @@ public:
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
+
+    static Math::Vec2 getUser1Position() { return user1Position; }
+    static Math::Vec2 getUser2Position() { return user2Position; }
+    static Math::Vec2 getUser3Position() { return user3Position; }
+    static Math::Vec2 getTPPosition() { return planePosition; }
+
 private:
+    
     Scene::Texture * HandleTexture(Scene::Texture * tex);
     void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     void updateStuff(int64_t start, int64_t end, int64_t time);
@@ -51,10 +58,7 @@ private:
     Graph::Program * depth;
     Graph::Program * mapProg;
     Graph::Program * basic;
-    //Graph::Program * ringProg;
-    //Graph::Texture2D * depthTex;
-    //Graph::RTManager * depthRT;
-
+ 
     Graph::Texture2D * blur1Tex;
     Graph::RTManager * blur1RT;
     Graph::Texture2D * blur2Tex;
@@ -64,6 +68,11 @@ private:
     Scene::Effect_Invert * invert;
 
     BezCurve curve;
+
+    static Math::Vec2 user1Position;
+    static Math::Vec2 user2Position;
+    static Math::Vec2 user3Position;
+    static Math::Vec2 planePosition;
 };
 
 #endif

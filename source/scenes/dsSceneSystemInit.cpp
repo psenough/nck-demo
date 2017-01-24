@@ -1,4 +1,5 @@
 #include "dsSceneSystemInit.h"
+#include "../dsUtils.h"
 
 dsSceneSysInit::dsSceneSysInit(DS::Data * data) : DS::Stage(data) {
 
@@ -86,4 +87,8 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
     dev->Color(200, 0, 0);
     sysLogo->Get()->Render();
     dev->PopMatrix();
+
+    float alpha = Math::RandomValue(0, 20);
+    dev->Color(30, 30, 30, alpha);
+    DS::RenderCrossesMatrix(dev, m_Data->GetWidth(), m_Data->GetHeight());
 }

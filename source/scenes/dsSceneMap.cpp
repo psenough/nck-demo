@@ -139,8 +139,14 @@ void dsSceneMap::Load() {
 
 void dsSceneMap::updateStuff(int64_t start, int64_t end, int64_t time) {
     float d_t = (time - start) / (double)(end - start);
-    const Math::Vec3 curve_pos = curve.Get(d_t);
 
+    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
+    obj->Play(24 * (time - start) / 1e6);
+
+
+    const Math::Vec3 curve_pos = obj->GetPosition();//curve.Get(d_t);
+
+  
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     Scene::Camera * cam = dynamic_cast< Scene::Camera *>(map->Get()->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera"));
 
@@ -151,21 +157,23 @@ void dsSceneMap::updateStuff(int64_t start, int64_t end, int64_t time) {
     const Math::Mat44 view = Math::Translate(Math::Vec3(-camOffset.GetX(), -camOffset.GetY(), 0)) * cam->GetMatrix();
     viewMatrix = view;
 
-    Math::Vec3 p1 = curve.Get(d_t - 0.001);
-    Math::Vec3 p2 = curve.Get(d_t + 0.001);
+    //Math::Vec3 p1 = curve.Get(d_t - 0.001);
+    //Math::Vec3 p2 = curve.Get(d_t + 0.001);
 
-    Math::Vec3 n = Math::Normalize(p2 - p1);
-    float angle = acos(Math::Dot(n, Math::Vec3(0, -1, 0)));
-    if (Math::Cross(n, Math::Vec3(0, 1, 0)).GetZ() < 0)
-        angle = -angle;
+    //Math::Vec3 n = Math::Normalize(p2 - p1);
+    //float angle = acos(Math::Dot(n, Math::Vec3(0, -1, 0)));
+    //if (Math::Cross(n, Math::Vec3(0, 1, 0)).GetZ() < 0)
+    //    angle = -angle;
 
     //Math::Mat44 matRot = Math::LookAt(p2, p1, Math::Vec3(0, 0, 1));
-    Math::Quat q = Math::Rotation(Math::RotateZ(angle));
+    //Math::Quat q = Math::Rotation(Math::RotateZ(angle));
 
-    Scene::Object * obj = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
-    obj->SetPosition(curve_pos + Math::Vec3(0, 0, 0.05));
-    obj->SetRotation(q);
+  
     obj->Update();
+
+    //obj->SetPosition(curve_pos + Math::Vec3(0, 0, 0.05));
+    //obj->SetRotation(q);
+    //obj->Update();
 }
 
 void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
@@ -340,7 +348,13 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     fontMap->Draw(x + 50, y - 20, 16, "TP1274", true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontMap->Draw(x + 50, y, 24, Math::FloatToString(posWGS84.GetY(),5) + " " + Math::FloatToString(posWGS84.GetX(), 5), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontTex->Disable();
+
+
+    float alpha = Math::RandomValue(10, 30);
+    dev->Color(30, 30, 30, alpha);
+    DS::RenderCrossesMatrix(dev, m_Data->GetWidth(), m_Data->GetHeight());
 }
+
 
 Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
     tex->GetTexture()->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);

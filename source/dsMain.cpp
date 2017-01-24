@@ -17,12 +17,16 @@
 #include "scenes/dsSceneOutputFilter.h"
 #include "scenes/dsSceneMap.h"
 #include "scenes/dsSceneSystemInit.h"
+#include "scenes/dsSceneFloatPopup.h"
+#include "scenes/dsSceneConsoleText.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg" //NULL //"audio://saga_musix_-_sunrise_express_final_version.ogg"
+#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
+
+#define FULLSCREEN
 
 _DS_BEGIN
 
@@ -120,27 +124,77 @@ public:
             else
                 mutePlayback = true;
 
+
+
+
             renderLoading(10);
             dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
             scene->Load();
 
+
+
+
+            // Init scene
             dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
-            scene->AddStage(0e6, 10e6, sysInit);
+            scene->AddStage(0e6, 35e6, sysInit);
 
+            for (int i = 0; i < 10; i++) {
+                dsSceneFloatPopup * pop = new dsSceneFloatPopup(data);
+
+                float x = Math::RandomValue(100, 1500);
+                float y = Math::RandomValue(100, 700);
+                float w = Math::RandomValue(300, 440);
+                float h = Math::RandomValue(240, 360);
+
+                float tOffset = Math::RandomValue(0, 2) * 1e6;
+
+                pop->SetDimensions(w, h);
+                pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y+20), 0.3e6, 0.15e6);
+                
+                scene->AddStage(2e6+tOffset, 6e6+ tOffset, pop);
+            }
+
+            std::string texts[] = {
+                "Time remaining to Demobit 2017: 2 Months",
+                "Attempting demo making...",
+                "Failure - Concept not practicable",
+                "Time remaining to Demobit 2017: 1 Months",
+                "Attempting demo making",
+                "Failure - Concept not practicable",
+                "Time remaining to Demobit 2017: 2 Weeks",
+                "Connecting human/machine interfaces",
+                "Found 3 interfaces",
+            };
+
+            for (int i = 0; i < 9; i++) {
+                int64_t duration = 4e6;
+                dsSceneConsoleText * sysText = new dsSceneConsoleText(data);
+                sysText->SetText(texts[i], Math::Vec2(800, 850), 20);
+                scene->AddStage(1e6+i*duration, 1e6 + (i+1)*duration, sysText);
+            }
+
+
+
+
+
+
+
+            // Map scene
             renderLoading(20);
             dsSceneMap *map = new dsSceneMap(data);
             map->Load();
-                       
+         
 
             renderLoading(30);
-            scene->AddStage(10e6, 60e6, map);
+            scene->AddStage(35e6, 300e6, map);
+            
             scene->BuildTimeline();
 
             //timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 120e6, scene));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 300e6, scene));
             renderLoading(99.9);
-            Core::Thread::Wait(200);
+           // Core::Thread::Wait(200);
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
@@ -163,9 +217,10 @@ public:
         
         while (!IsTearingDown())
         {
+            dev->ClearColor(0, 0, 0, 1);
             dev->Clear();
             dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
-            dev->ClearColor(0, 0, 0, 1);
+        
 
             if (reloadResources) {
                 rShaders = data->ReloadShaders();
@@ -494,6 +549,7 @@ public:
     }
 
     void renderLoading(float progress) {
+        dev->ClearColor(0, 0, 0, 1);
         dev->Clear();
         dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
         loading->Render(0, 10e6, (progress/100)*10e6);
@@ -531,15 +587,24 @@ private:
 
 _DS_END
 
+
+
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1920, height = 1080;
     float scale =0.6;
-    width *= scale;
-    height *= scale;
+ 
     bool fullscreen = false;
 
+#ifdef FULLSCREEN
+    scale = 1.0;
+    fullscreen = true;
+#endif
+
+    width *= scale;
+    height *= scale;
+    
     bool runDemo = true;// conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
