@@ -34,7 +34,7 @@ void dsSceneConsoleText::Render(int64_t start, int64_t end, int64_t time) {
 
     int charsCount = speed * (time - start) / 1e6;
 
-    float fontSize = 40;
+    float fontSize = 64;
 
     std::string tmp = text.substr(0, MIN(charsCount, text.length()));
 
@@ -46,14 +46,14 @@ void dsSceneConsoleText::Render(int64_t start, int64_t end, int64_t time) {
     if (secs % 2 == 0) {
         dev->Color(0, 0, 0, 255);
         dev->PushMatrix();
-        dev->Translate(position.GetX() + len + fontSize*0.5, position.GetY() - fontSize*0.5, 0);
+        dev->Translate(position.GetX() + len/2 + fontSize*0.5, position.GetY() - fontSize*0.5, 0);
         DS::RenderSquare(dev, fontSize*0.5, fontSize, false);
         dev->PopMatrix();
     }
 
     dev->Color(0, 0, 0);
     fontTex->Enable();
-    fontMap->Draw(position.GetX(), position.GetY(), fontSize, tmp, true);
+    fontMap->Draw(position.GetX(), position.GetY(), fontSize, tmp, true,Gui::FONT_ALIGNMENT_MIDDLE);
     fontTex->Disable();
 }
 

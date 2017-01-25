@@ -26,7 +26,7 @@
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 _DS_BEGIN
 
@@ -139,45 +139,52 @@ public:
             sysInit->Load();
             scene->AddStage(0e6, 35e6, sysInit);
 
-            for (int i = 0; i < 10; i++) {
-                dsSceneFloatPopup * pop = new dsSceneFloatPopup(data);
-
-                float x = Math::RandomValue(100, 1500);
-                float y = Math::RandomValue(100, 700);
-                float w = Math::RandomValue(300, 440);
-                float h = Math::RandomValue(240, 360);
-
-                float tOffset = Math::RandomValue(0, 2) * 1e6;
-
-                pop->SetDimensions(w, h);
-                pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y+20), 0.3e6, 0.15e6);
-                
-                scene->AddStage(2e6+tOffset, 6e6+ tOffset, pop);
-            }
+           
 
             std::string texts[] = {
                 "Time remaining to Demobit 2017: 2 Months",
                 "Attempting demo making...",
                 "Failure - Concept not practicable",
-                "Time remaining to Demobit 2017: 1 Months",
-                "Attempting demo making",
+                "Time remaining to Demobit 2017: 1 Month",
+                "Attempting demo making...",
                 "Failure - Concept not practicable",
                 "Time remaining to Demobit 2017: 2 Weeks",
-                "Connecting human/machine interfaces",
+                "Connecting to human-machine interfaces...",
                 "Found 3 interfaces",
             };
 
             for (int i = 0; i < 9; i++) {
                 int64_t duration = 4e6;
                 dsSceneConsoleText * sysText = new dsSceneConsoleText(data);
-                sysText->SetText(texts[i], Math::Vec2(800, 850), 20);
-                scene->AddStage(1e6+i*duration, 1e6 + (i+1)*duration, sysText);
+               
+                sysText->SetText(texts[i], Math::Vec2(1920/2, 900), 20);
+
+                int64_t time = 1e6 + i*duration;
+                scene->AddStage(time, 1e6 + (i+1)*duration, sysText);
+
+                if (i == 1 || i == 4 || i == 7) 
+                {
+                    for (int i = 0; i < 5; i++) {
+                        dsSceneFloatPopup * pop = new dsSceneFloatPopup(data);
+                        pop->Load();
+
+                        float x = Math::RandomValue(100, 1500);
+                        float y = Math::RandomValue(100, 700);
+                        float w = Math::RandomValue(300, 440);
+                        float h = Math::RandomValue(240, 360);
+
+                        float tOffset = Math::RandomValue(2, 4) * 1e6;
+
+                        pop->SetDimensions(w, h);
+                        pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y + 20), 0.3e6, 0.15e6);
+
+                        scene->AddStage(time+1e6, time +1e6+ tOffset, pop);
+                    }
+                }
             }
 
 
-
-
-
+     
 
 
             // Map scene
@@ -189,10 +196,19 @@ public:
             renderLoading(30);
             scene->AddStage(35e6, 300e6, map);
             
+           
+
             scene->BuildTimeline();
 
             //timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
             timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 300e6, scene));
+
+            /*dsSceneFloatPopup * p = new dsSceneFloatPopup(data);
+            p->Load();
+            p->SetDimensions(500, 400);
+            p->SetAnimation(Math::Vec2(0, 0), Math::Vec2(0, 0), 0.3e6, 0.15e6);
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 100e6, p));
+            */
             renderLoading(99.9);
            // Core::Thread::Wait(200);
         }

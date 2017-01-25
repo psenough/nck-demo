@@ -15,11 +15,13 @@ public:
 
     void SetDimensions(float width, float height);
 protected:
+    Graph::Program * codeProg;
+    Graph::Texture * codeTex;
     float width, height;
     Math::Vec2 showPosA;
     Math::Vec2 showPosB;
     float showDuration;
-
+    float randomOff;
     Math::Vec2 hidePosA;
     Math::Vec2 hidePosB;
     float hideDuration;

@@ -14,6 +14,7 @@ public:
 
 private:
     Graph::Texture * logo;
+    Graph::Program * prog;
 };
 
 void renderTips(Graph::Device * dev);
