@@ -3,7 +3,7 @@
 
 #include "../dsStage.h"
 
-class dsSceneSysInit : public DS::Stage {
+class dsSceneSysInit : public DS::Stage, public Scene::Processor {
 public:
     dsSceneSysInit(DS::Data * data);
     virtual ~dsSceneSysInit();
@@ -13,9 +13,13 @@ public:
     void RenderStars();
 
 private:
+    Geometry::Mesh * HandleGeometry(Geometry::Mesh * mesh);
+    Graph::Program * builder;
+    DS::Compound * menger;
     DS::Compound * sysLogo;
     DS::Compound * brain;
 };
 
+Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh);
 
 #endif

@@ -1,5 +1,6 @@
 #include "dsSceneSystemInit.h"
 #include "../dsUtils.h"
+#include <algorithm>
 
 dsSceneSysInit::dsSceneSysInit(DS::Data * data) : DS::Stage(data) {
 
@@ -11,7 +12,9 @@ dsSceneSysInit::~dsSceneSysInit() {
 
 void dsSceneSysInit::Load() {
     sysLogo = m_Data->LoadCompound("model://logo_machine.bxon");
-    brain = m_Data->LoadCompound("model://brain.bxon");
+    //menger = m_Data->LoadCompound("model://menger.bxon", this);
+    brain = m_Data->LoadCompound("model://brain.bxon", this);
+    builder = m_Data->LoadProgram("shader://builder.cpp");
 }
 
 void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
@@ -59,7 +62,12 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
     dev->FillMode(Graph::PolygonMode::FILL_WIREFRAME);
     dev->Color(0, 0, 0);
     dev->Rotate(time / 1e6, 0, 0, 1);
+    
+    builder->Enable();
+    builder->SetVariable1f("time", (time-start) / 1e6);
+    //menger->Get()->Render();
     brain->Get()->Render();
+    builder->Disable();
     dev->FillMode(Graph::PolygonMode::FILL_SOLID);
 
 
@@ -73,12 +81,7 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
-   
-
-
-   
-
-   
+      
     float scaleFactor = width / 1920;
 
     dev->PushMatrix();
@@ -91,4 +94,91 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
     float alpha = Math::RandomValue(0, 20);
     dev->Color(30, 30, 30, alpha);
     DS::RenderCrossesMatrix(dev, m_Data->GetWidth(), m_Data->GetHeight());
+}
+
+
+Geometry::Mesh * dsSceneSysInit::HandleGeometry(Geometry::Mesh * mesh) {
+    return reworkToExplodeBuild(mesh);
+}
+
+Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh) {
+    Geometry::VertexIterator vlast = mesh->m_Vertices.end();
+    vlast--;
+
+    mesh->m_UVLayers.push_back("layer");
+    mesh->m_UVOptimization.push_back(false);
+
+    mesh->m_UVLayers.push_back("center");
+    mesh->m_UVOptimization.push_back(false);
+
+    int vCount = 0;
+
+    std::vector<float> randomList;
+    for (int i = 0; i < mesh->m_Faces.size(); i++) {
+        randomList.push_back(i);
+    }
+    std::random_shuffle(randomList.begin(), randomList.end());
+
+    int index = 0;
+    ListFor(Geometry::Face*, mesh->m_Faces, f)
+    {
+        Math::Vec3 center;
+
+        for (int vId = 0; vId < (*f)->m_Verts.size(); vId++)
+        {
+            Geometry::VertexIterator v = (*f)->m_Verts[vId];
+            Geometry::Vertex * nv = new Geometry::Vertex();
+
+            *nv = *(*v);
+            nv->m_Id = vCount++;
+
+            mesh->m_Vertices.push_back(nv);
+            Geometry::VertexIterator vi = mesh->m_Vertices.end();
+            vi--;
+
+            (*f)->m_Verts[vId] = vi;
+
+            center += nv->m_Pos;
+        }
+
+        center *= 1.0 / (*f)->m_Verts.size();
+
+        float rId = randomList[index++];
+        // randomList.pop_front();
+        //std::vector<Math::Vec2> uvvec;
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+        //uvvec.push_back(Math::Vec2(rId, (*f)->m_Id));
+
+        (*f)->m_fUV.SetUV(0, 0, rId, (*f)->m_Id);
+        (*f)->m_fUV.SetUV(0, 1, rId, (*f)->m_Id);
+        (*f)->m_fUV.SetUV(0, 2, rId, (*f)->m_Id);
+
+        (*f)->m_fUV.SetUVZ(1, 0, center);
+        (*f)->m_fUV.SetUVZ(1, 1, center);
+        (*f)->m_fUV.SetUVZ(1, 2, center);
+
+        if ((*f)->m_Verts.size() == 3) {
+            Math::Vec3 v1 = (*(*f)->m_Verts[0])->m_Pos;
+            Math::Vec3 v2 = (*(*f)->m_Verts[1])->m_Pos;
+            Math::Vec3 v3 = (*(*f)->m_Verts[2])->m_Pos;
+
+            Math::Vec3 n = Math::Normalize(Math::Cross(Math::Normalize(v2 - v1), Math::Normalize(v3 - v1)));
+            (*(*f)->m_Verts[0])->m_Nor = n;
+            (*(*f)->m_Verts[1])->m_Nor = n;
+            (*(*f)->m_Verts[2])->m_Nor = n;
+        }
+    }
+
+    Geometry::VertexIterator popCurrent = mesh->m_Vertices.begin();
+    while (true) {
+        bool finish = popCurrent == vlast;
+        delete (*mesh->m_Vertices.begin());
+        popCurrent++;
+        mesh->m_Vertices.pop_front();
+        if (finish)
+            break;
+    }
+
+    return mesh;
 }

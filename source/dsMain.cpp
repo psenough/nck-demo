@@ -19,6 +19,7 @@
 #include "scenes/dsSceneSystemInit.h"
 #include "scenes/dsSceneFloatPopup.h"
 #include "scenes/dsSceneConsoleText.h"
+#include "scenes/dsSceneFloatPopup_ScrollCode.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
@@ -26,7 +27,7 @@
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
 
-//#define FULLSCREEN
+#define FULLSCREEN
 
 _DS_BEGIN
 
@@ -124,20 +125,17 @@ public:
             else
                 mutePlayback = true;
 
-
-
-
             renderLoading(10);
             dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
             scene->Load();
 
 
-
+            
 
             // Init scene
             dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
-            scene->AddStage(0e6, 35e6, sysInit);
+            scene->AddStage(0e6, 40e6, sysInit);
 
            
 
@@ -165,7 +163,7 @@ public:
                 if (i == 1 || i == 4 || i == 7) 
                 {
                     for (int i = 0; i < 5; i++) {
-                        dsSceneFloatPopup * pop = new dsSceneFloatPopup(data);
+                        dsSceneFloatPopup_SC * pop = new dsSceneFloatPopup_SC(data);
                         pop->Load();
 
                         float x = Math::RandomValue(100, 1500);
@@ -183,9 +181,7 @@ public:
                 }
             }
 
-
-     
-
+        
 
             // Map scene
             renderLoading(20);
@@ -194,8 +190,13 @@ public:
          
 
             renderLoading(30);
-            scene->AddStage(35e6, 300e6, map);
+            scene->AddStage(40e6, 300e6, map);
             
+            dsScene80Grid * gridPopup = new dsScene80Grid(data);
+            gridPopup->SetDimensions(600, 400);
+            gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+            gridPopup->Load();
+            scene->AddStage(50e6, 70e6, gridPopup);
            
 
             scene->BuildTimeline();
