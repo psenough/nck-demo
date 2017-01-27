@@ -19,6 +19,9 @@
     <Filter Include="Source Files\demo">
       <UniqueIdentifier>{708ca4f3-4cd4-4b5c-b16b-fc35ebe4240f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\app\float">
+      <UniqueIdentifier>{93cb3f34-30ae-4134-b0b9-18f12521530c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\win32\appicon.ico">
@@ -85,11 +88,20 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneSystemInit.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup.h">
-      <Filter>Source Files\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsSceneConsoleText.h">
       <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_User.h">
+      <Filter>Source Files\app\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup.h">
+      <Filter>Source Files\app\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.h">
+      <Filter>Source Files\app\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text.h">
+      <Filter>Source Files\app\float</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,11 +156,20 @@
     <ClCompile Include="..\..\..\source\scenes\dsSceneSystemInit.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup.cpp">
-      <Filter>Source Files\app</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneConsoleText.cpp">
       <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_User.cpp">
+      <Filter>Source Files\app\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup.cpp">
+      <Filter>Source Files\app\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.cpp">
+      <Filter>Source Files\app\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text.cpp">
+      <Filter>Source Files\app\float</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
