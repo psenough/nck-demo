@@ -90,21 +90,22 @@ void dsSceneFloat_Text::Render(int64_t start, int64_t end, int64_t time) {
 }
 
 void dsSceneFloat_Text::setType(int usage) {
+    this->usage.clear();
     if (usage == 0) {
         this->usage.push_back("jae686/code");
-        this->usage.push_back("groups");
-        this->usage.push_back(" -Volumetric Ilusions");
-        this->usage.push_back(" -CoProcessor");
+        this->usage.push_back("$groups");
+        this->usage.push_back(" >Volumetric Ilusions");
+        this->usage.push_back(" >CoProcessor");
     }
     else if (usage == 1) {
         this->usage.push_back("zeroshift/code");
-        this->usage.push_back("groups");
-        this->usage.push_back(" -Napalm Core");
-        this->usage.push_back(" -CoProcessor");
+        this->usage.push_back("$groups");
+        this->usage.push_back(" >Napalm Core");
+        this->usage.push_back(" >CoProcessor");
     }
     else if (usage == 2) {
-        this->usage.push_back("ps/tpolm");
-        this->usage.push_back("prev groups");
+        this->usage.push_back("ps/music");
+        this->usage.push_back("$groups");
         this->usage.push_back(" -Napalm Core");
     }
 }
