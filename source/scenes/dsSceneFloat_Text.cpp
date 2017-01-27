@@ -47,30 +47,44 @@ void dsSceneFloat_Text::Render(int64_t start, int64_t end, int64_t time) {
     float speed = 20.0;
     int charsCount = speed * (time - start) / 1e6;
 
-    float fontSize = 64;
+    float fontSize = 42;
 
-    std::string txt = usage[0];
-
-    std::string tmp = txt.substr(0, MIN(charsCount, txt.length()));
-
-    float len = fontMap->GetLength(fontSize, tmp, true);
 
     int secs = 10 * (time - start) / 1e6;
+    int totalSize = 0;
+    for(int i = 0;i < usage.size(); i++){
+        std::string txt = usage[i];
 
-    Math::Vec2 position = Math::Vec2(10, alpha * height * 0.5 - fontSize / 2);
+        std::string tmp = txt.substr(0, MIN(charsCount - totalSize, txt.length()));
+                
+        float len = fontMap->GetLength(fontSize, tmp, true);
 
-    if (secs % 2 == 0) {
-        dev->Color(0, 0, 0, 255);
+        totalSize += txt.length();
+
+        Math::Vec2 position = Math::Vec2(10, fontSize / 2);
+
         dev->PushMatrix();
-        dev->Translate(position.GetX() + len / 2 + fontSize*0.5, position.GetY() - fontSize*0.5, 0);
-        DS::RenderSquare(dev, fontSize*0.5, fontSize, false);
-        dev->PopMatrix();
-    }
+        dev->Translate(position.GetX()+10, fontSize*i+ position.GetY() + 20, 0);
 
-    dev->Color(0, 0, 0);
-    fontTex->Enable();
-    fontMap->Draw(position.GetX(), position.GetY(), fontSize, tmp, true, Gui::FONT_ALIGNMENT_LEFT);
-    fontTex->Disable();
+        if (tmp.size() != txt.size() || (i == usage.size()-1)) {
+            if (secs % 2 == 0) {
+                dev->Color(0, 0, 0, 255);
+                dev->PushMatrix();
+                dev->Translate(len + fontSize*0.5, -fontSize*0.5, 0);
+                DS::RenderSquare(dev, fontSize*0.5, fontSize, false);
+                dev->PopMatrix();
+            }
+        }
+
+        dev->Color(0, 0, 0);
+        fontTex->Enable();
+        fontMap->Draw(0,0 , fontSize, tmp, true, Gui::FONT_ALIGNMENT_LEFT);
+        fontTex->Disable();
+        dev->PopMatrix();
+
+        if (tmp.size() != txt.size())
+            break;
+    }
 
     drawBorders();
 }
