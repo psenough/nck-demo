@@ -12,6 +12,8 @@ public:
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
 private:
+    Graph::Program * basicProg;
+    DS::Compound * menger;
     Graph::Texture2D * rtTexture;
     Graph::RTManager * rtManager;
     Graph::Program * grid;

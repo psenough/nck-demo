@@ -101,7 +101,7 @@ void dsSceneMap::Load() {
     
     mapProg = m_Data->LoadProgram("shader://map/map.cpp");
     basic = m_Data->LoadProgram("shader://map/basic.cpp");
-    depth = m_Data->LoadProgram("shader://map/depth.cpp");
+    //depth = m_Data->LoadProgram("shader://map/depth.cpp");
     //ringProg = m_Data->LoadProgram("shader://map/plane_ring.cpp");
 
     //dynamic_cast<Scene::Material*>(plane->Get()->GetDatablock(Scene::DATABLOCK_MATERIAL, "Red"))->SetProgram(ringProg);
@@ -236,15 +236,15 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
             dev->Color(200, 0, 0);
             dev->PushMatrix();
             dev->Translate(ox, oy,0);
-            dev->Scale(200, -200, 0);
+            dev->Scale(300, -300, 0);
             guiElements->Get()->Render();
             dev->PopMatrix();
 
             //m_Data->GetShapeRenderer()->Square(ox, oy, 10, 10, Math::Color4ub(255, 0, 0));
             
             fontTex->Enable();
-            dev->Color(100, 100, 100);
-            fontMap->Draw(ox, oy-20, 32, obj->GetName(), true, Gui::FontAlignment::FONT_ALIGNMENT_MIDDLE);
+            dev->Color(200, 200, 200);
+            fontMap->Draw(ox, oy-30, 42, obj->GetName(), true, Gui::FontAlignment::FONT_ALIGNMENT_MIDDLE);
             fontTex->Disable();
         }
     }
@@ -345,13 +345,13 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Texture * fontTex = m_Data->GetTexture("texture://tex2d_sans_serif.png");
     Gui::FontMap * fontMap = m_Data->GetFontMap("script://sans_serif.txt");
 
-    m_Data->GetShapeRenderer()->Square(x + 45, y - 30, 50, 16, Math::Color4ub(0, 0, 0, 50));
-    m_Data->GetShapeRenderer()->Square(x + 45, y - 13, 150, 26, Math::Color4ub(0, 0, 0, 50));
+    m_Data->GetShapeRenderer()->Square(x + 45, y - 35, 65, 20, Math::Color4ub(0, 0, 0, 50));
+    m_Data->GetShapeRenderer()->Square(x + 45, y - 13, 180, 30, Math::Color4ub(0, 0, 0, 50));
 
     fontTex->Enable();
     dev->Color(255, 255, 255);
-    fontMap->Draw(x + 50, y - 20, 16, "TP1274", true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
-    fontMap->Draw(x + 50, y, 24, Math::FloatToString(posWGS84.GetY(),5) + " " + Math::FloatToString(posWGS84.GetX(), 5), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
+    fontMap->Draw(x + 50, y - 20, 24, "TP1274", true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
+    fontMap->Draw(x + 50, y, 32, Math::FloatToString(posWGS84.GetY(),5) + " " + Math::FloatToString(posWGS84.GetX(), 5), true, Gui::FontAlignment::FONT_ALIGNMENT_LEFT);
     fontTex->Disable();
 
 

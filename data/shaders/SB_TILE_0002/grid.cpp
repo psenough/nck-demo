@@ -45,7 +45,7 @@ float sampleGrid(vec2 p, vec2 uv, vec2 delta){
 
 void main()
 {	
-	vec4 pinkish = vec4(1.0,0.2,0.5,1.0);
+	vec4 pinkish = vec4(0.8,0.0,0.0,1.0);
 	
 	vec2 uv = gl_TexCoord[0].xy;
 	float v = sampleGrid(position.xy,uv,vec2(0)+vec2(0,time*50.0));

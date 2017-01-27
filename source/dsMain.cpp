@@ -213,17 +213,6 @@ public:
             scene->AddStage(40e6, 300e6, map);
             
             {
-                dsScene80Grid * gridPopup = new dsScene80Grid(data);
-                gridPopup->SetDimensions(600, 400);
-                gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
-                gridPopup->Load();
-                scene->AddStage(50e6, 70e6, gridPopup);
-
-
-
-            }
-
-            {
                 dsSceneFloat_User * user_jaerder = new dsSceneFloat_User(data);
                 user_jaerder->Load();
                 user_jaerder->SetAnimation(Math::Vec2(100, 100), Math::Vec2(100, 150), 0.3e6, 0.15e6);
@@ -237,8 +226,6 @@ public:
 				text->SetDimensions(400, 200);
 				text->setType(0);
 				scene->AddStage(55e6, 605e5, text);
-
-
             }
 
             {
@@ -276,14 +263,17 @@ public:
 				scene->AddStage(67e6, 725e5, text);
             }
 
-/*
-            dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
-            text->Load();
-            text->SetAnimation(Math::Vec2(200, 500), Math::Vec2(200, 550), 0.3e6, 0.15e6);
-            text->SetDimensions(400, 200);
-			text->setType(1);
-            scene->AddStage(50e6, 70e6, text);
-			*/
+            {
+                dsScene80Grid * gridPopup = new dsScene80Grid(data);
+                gridPopup->SetDimensions(400, 400);
+                gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                gridPopup->Load();
+                scene->AddStage(80e6, 100e6, gridPopup);
+
+
+
+            }
+
 
             scene->BuildTimeline();
 
