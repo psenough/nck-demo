@@ -5,7 +5,8 @@
 
 
 dsSceneFloat_Text::dsSceneFloat_Text(DS::Data * data) : dsSceneFloatPopup(data){
-    text = "zeroshift - code";
+    usage.reserve(10);
+    setType(0);
 }
 
 dsSceneFloat_Text::~dsSceneFloat_Text() {
@@ -48,7 +49,9 @@ void dsSceneFloat_Text::Render(int64_t start, int64_t end, int64_t time) {
 
     float fontSize = 64;
 
-    std::string tmp = text.substr(0, MIN(charsCount, text.length()));
+    std::string txt = usage[0];
+
+    std::string tmp = txt.substr(0, MIN(charsCount, txt.length()));
 
     float len = fontMap->GetLength(fontSize, tmp, true);
 
@@ -70,4 +73,24 @@ void dsSceneFloat_Text::Render(int64_t start, int64_t end, int64_t time) {
     fontTex->Disable();
 
     drawBorders();
+}
+
+void dsSceneFloat_Text::setType(int usage) {
+    if (usage == 0) {
+        this->usage.push_back("jae686/code");
+        this->usage.push_back("groups");
+        this->usage.push_back(" -Volumetric Ilusions");
+        this->usage.push_back(" -CoProcessor");
+    }
+    else if (usage == 1) {
+        this->usage.push_back("zeroshift/code");
+        this->usage.push_back("groups");
+        this->usage.push_back(" -Napalm Core");
+        this->usage.push_back(" -CoProcessor");
+    }
+    else if (usage == 2) {
+        this->usage.push_back("ps/tpolm");
+        this->usage.push_back("prev groups");
+        this->usage.push_back(" -Napalm Core");
+    }
 }

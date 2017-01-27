@@ -4,6 +4,7 @@
 #include "../dsUtils.h"
 
 
+
 dsSceneFloat_User::dsSceneFloat_User(DS::Data * data) : dsSceneFloatPopup(data){
     userTex[0] = NULL;
     userTex[1] = NULL;
@@ -68,7 +69,8 @@ void dsSceneFloat_User::Render(int64_t start, int64_t end, int64_t time) {
     userProg->SetVariable1i("gphTexture1", 1);
     userProg->SetVariable1i("gphTexture2", 2);
 
-    userProg->SetVariable1f("time", (time - start + randomOff) / 1e6);
+    float off = Math::RandomValue(0, 1);
+    userProg->SetVariable1f("time", (time - start + randomOff) / 1e6+ off);
     userProg->SetVariable4f("size", width, height, alpha*height, 0);
     
     DS::RenderSquare(dev, width, alpha*height, false);

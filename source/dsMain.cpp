@@ -135,7 +135,7 @@ public:
             
             
             // Init scene
-            dsSceneSysInit * sysInit = new dsSceneSysInit(data);
+            /*dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
             scene->AddStage(0e6, 40e6, sysInit);
 
@@ -200,7 +200,7 @@ public:
 
                 }
             }
-            
+            */
             
 
             // Map scene
@@ -237,11 +237,22 @@ public:
                 scene->AddStage(60e6, 70e6, user_zeroshift);
             }
 
+            {
+                dsSceneFloat_User * user_ps = new dsSceneFloat_User(data);
+                user_ps->setUser(2);
+                user_ps->Load();
+                user_ps->SetAnimation(Math::Vec2(420, 500), Math::Vec2(420, 550), 0.3e6, 0.15e6);
+                user_ps->SetDimensions(300, 400);
+                scene->AddStage(60e6, 70e6, user_ps);
+            }
+
+
             dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
             text->Load();
             text->SetAnimation(Math::Vec2(200, 500), Math::Vec2(200, 550), 0.3e6, 0.15e6);
             text->SetDimensions(400, 200);
             scene->AddStage(50e6, 70e6, text);
+
 
             scene->BuildTimeline();
 
@@ -291,7 +302,7 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime();
+            int64_t time = timer->GetElapsedTime()+49e6;
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);

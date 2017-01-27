@@ -4,9 +4,9 @@
 
 #include "dsSceneFloatPopup.h"
 
-#define TEXT_TYPE_JAERDER   0
-#define TEXT_TYPE_ZEROSHIFT 1
-#define TEXT_TYPE_PS        2
+#define TEXT_USAGE_JAERDER   0
+#define TEXT_USAGE_ZEROSHIFT 1
+#define TEXT_USAGE_PS        2
 
 class dsSceneFloat_Text : public dsSceneFloatPopup {
 public:
@@ -17,7 +17,7 @@ public:
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
 private:
-    std::string text;
+    std::vector<std::string> usage;
 };
 
 #endif
