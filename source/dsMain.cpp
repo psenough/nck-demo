@@ -236,7 +236,7 @@ public:
 				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
 				text->SetDimensions(400, 200);
 				text->setType(0);
-				scene->AddStage(55e6, 61e6, text);
+				scene->AddStage(55e6, 605e5, text);
 
 
             }
@@ -247,31 +247,33 @@ public:
                 user_zeroshift->Load();
                 user_zeroshift->SetAnimation(Math::Vec2(100, 500), Math::Vec2(100, 550), 0.3e6, 0.15e6);
                 user_zeroshift->SetDimensions(300, 400);
-                scene->AddStage(70e6, 80e6, user_zeroshift);
+                scene->AddStage(62e6, 72e6, user_zeroshift);
 
 				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
 				text->Load();
 				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
 				text->SetDimensions(400, 200);
 				text->setType(1);
-				scene->AddStage(75e6, 81e6, text);
+				scene->AddStage(67e6, 725e5, text);
 
             }
 
             {
-                dsSceneFloat_User * user_ps = new dsSceneFloat_User(data);
+				int x_offset = 1000;
+				int y_offset = 64;
+				dsSceneFloat_User * user_ps = new dsSceneFloat_User(data);
                 user_ps->setUser(2);
                 user_ps->Load();
-                user_ps->SetAnimation(Math::Vec2(420, 500), Math::Vec2(420, 550), 0.3e6, 0.15e6);
+                user_ps->SetAnimation(Math::Vec2(420 + x_offset , 500 + y_offset), Math::Vec2(420 + x_offset, 550 + y_offset), 0.3e6, 0.15e6);
                 user_ps->SetDimensions(300, 400);
-                scene->AddStage(85e6, 95e6, user_ps);
+                scene->AddStage(62e6, 72e6, user_ps);
 
 				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
 				text->Load();
-				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
+				text->SetAnimation(Math::Vec2(0 + x_offset, 356 + (y_offset*3)), Math::Vec2(0 + x_offset, 406 + (y_offset * 3) ), 0.3e6, 0.15e6);
 				text->SetDimensions(400, 200);
 				text->setType(2);
-				scene->AddStage(90e6, 96e6, text);
+				scene->AddStage(67e6, 725e5, text);
             }
 
 /*
