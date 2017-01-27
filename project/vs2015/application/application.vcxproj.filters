@@ -103,6 +103,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text.h">
       <Filter>Source Files\app\float</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.h">
+      <Filter>Source Files\app\float</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -169,6 +172,9 @@
       <Filter>Source Files\app\float</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text.cpp">
+      <Filter>Source Files\app\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.cpp">
       <Filter>Source Files\app\float</Filter>
     </ClCompile>
   </ItemGroup>

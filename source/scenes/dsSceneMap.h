@@ -35,10 +35,7 @@ public:
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
 
-    static Math::Vec2 getUser1Position() { return user1Position; }
-    static Math::Vec2 getUser2Position() { return user2Position; }
-    static Math::Vec2 getUser3Position() { return user3Position; }
-    static Math::Vec2 getTPPosition() { return planePosition; }
+    Math::Vec2 GetObjectPositionWithId(const std::string & id);
 
 private:
     
@@ -69,10 +66,7 @@ private:
 
     BezCurve curve;
 
-    static Math::Vec2 user1Position;
-    static Math::Vec2 user2Position;
-    static Math::Vec2 user3Position;
-    static Math::Vec2 planePosition;
+    
 };
 
 #endif

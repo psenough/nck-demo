@@ -126,6 +126,7 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_User.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneMap.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_User.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneMap.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp" />

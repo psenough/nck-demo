@@ -4,10 +4,6 @@
 
 #include "dsSceneFloatPopup.h"
 
-#define TEXT_USAGE_JAERDER   0
-#define TEXT_USAGE_ZEROSHIFT 1
-#define TEXT_USAGE_PS        2
-
 class dsSceneFloat_Text : public dsSceneFloatPopup {
 public:
     dsSceneFloat_Text(DS::Data * data);

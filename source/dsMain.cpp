@@ -22,6 +22,7 @@
 #include "scenes/dsSceneFloatPopup_ScrollCode.h"
 #include "scenes/dsSceneFloat_User.h"
 #include "scenes/dsSceneFloat_Text.h"
+#include "scenes/dsSceneFloat_Text_Attached.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        NULL //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
@@ -272,6 +273,17 @@ public:
 
 
 
+            }
+
+
+            {
+                dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
+                attached->setId("Porto");
+                attached->setType(3);
+                attached->SetDimensions(400, 400);
+                attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                attached->Load();
+                scene->AddStage(50e6, 100e6, attached);
             }
 
 

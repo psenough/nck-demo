@@ -109,4 +109,12 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("$groups");
         this->usage.push_back(" >tpolm");
     }
+    else if (usage == 3) {
+        this->usage.push_back("Inercia Demoparty");
+        this->usage.push_back("party like it's 2005");
+    }
+    else if (usage == 4) {
+        this->usage.push_back("Breeze Demoparty");
+        this->usage.push_back("2007");
+    }
 }

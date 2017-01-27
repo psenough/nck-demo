@@ -305,7 +305,6 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
 
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
-    
     Scene::Object * tp_plane = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
 
     const Math::Vec4 proj_pos = Math::Vec4(tp_plane->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
@@ -360,6 +359,23 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     DS::RenderCrossesMatrix(dev, m_Data->GetWidth(), m_Data->GetHeight());
 }
 
+Math::Vec2 dsSceneMap::GetObjectPositionWithId(const std::string & id) {
+    Scene::Object * o = dynamic_cast<Scene::Object*>(map->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, id));
+    if (o != NULL) {
+        const float width = 1920;
+        const float height = 1920 * m_Data->GetHeight() / m_Data->GetWidth();
+
+        const Math::Vec4 proj_pos = Math::Vec4(o->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
+
+        float x = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * width;
+        float y = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * height;
+
+        if(x>= 0 && x <= width && y >= 0 && y < height)
+            return Math::Vec2(x, y);
+    }
+
+    Math::Vec2(-100, -100);
+}
 
 Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
     tex->GetTexture()->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
