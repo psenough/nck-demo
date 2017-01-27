@@ -223,7 +223,7 @@ public:
 				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
 				text->Load();
 				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
-				text->SetDimensions(400, 200);
+				text->SetDimensions(450, 200);
 				text->setType(0);
 				scene->AddStage(55e6, 605e5, text);
             }
