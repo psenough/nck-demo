@@ -82,7 +82,7 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->Disable(Graph::STATE_CULL_FACE);
   
-    float dist = 50;
+    /*float dist = 50;
     float alpha = 40;//Math::RandomValue(40, 60);
     dev->Color(255, 255, 255, alpha);
     for (int angle = 0; angle < 360; angle += 6) {
@@ -95,7 +95,7 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
             renderTips(dev);
             dev->PopMatrix();
         }
-    }
+    }*/
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();

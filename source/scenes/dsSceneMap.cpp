@@ -215,18 +215,23 @@ void dsSceneMap::RenderFBO(int64_t start, int64_t end, int64_t time) {
         dev->Disable(Graph::STATE_DEPTH_TEST);
         dev->Disable(Graph::STATE_CULL_FACE);
 
+      
+        const float width = 1920;
+        const float height = 1920 * m_Data->GetHeight() / m_Data->GetWidth();
+
         dev->MatrixMode(Graph::MATRIX_PROJECTION); dev->Identity();
-        dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
+        dev->Ortho2D(width, height);
         dev->MatrixMode(Graph::MATRIX_VIEW); dev->Identity();
         dev->MatrixMode(Graph::MATRIX_MODEL); dev->Identity();
+
 
         for (int i = 0; i < citiesObj.size(); i++) {
             Scene::Object * obj = citiesObj[i];
             Math::Vec3 p = obj->GetPosition();
             p.SetZ(0);
             Math::Vec4 proj_pos = Math::Vec4(p, 1.0) * viewMatrix * projectionMatrix;
-            float ox = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetWidth();
-            float oy = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
+            float ox = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * width;
+            float oy = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * height;
 
             dev->Color(200, 0, 0);
             dev->PushMatrix();
@@ -304,16 +309,16 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
     Scene::Object * tp_plane = dynamic_cast<Scene::Object*>(plane->Get()->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
 
     const Math::Vec4 proj_pos = Math::Vec4(tp_plane->GetPosition(), 1.0) * viewMatrix * projectionMatrix;
-    float x = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetWidth();
-    float y = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * m_Data->GetHeight();
-
- 
-
   
+    const float width = 1920;
+    const float height = 1920 * m_Data->GetHeight() / m_Data->GetWidth();
+
+    float x = (proj_pos.GetX() / proj_pos.GetW() / 2 + 0.5) * width;
+    float y = (-proj_pos.GetY() / proj_pos.GetW() / 2 + 0.5) * height;
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
-    dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());
+    dev->Ortho2D(width, height);
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
@@ -325,7 +330,7 @@ void dsSceneMap::Render(int64_t start, int64_t end, int64_t time) {
   
     dev->Color(255, 255, 255, 255);
     blur1Tex->Enable();
-    DS::RenderSquare(dev,m_Data->GetWidth(), m_Data->GetHeight(), blur1RT->InvertedY());
+    DS::RenderSquare(dev, width, height, blur1RT->InvertedY());
     blur1Tex->Disable();
 
 
@@ -370,7 +375,7 @@ Scene::Object * dsSceneMap::HandleObject(Scene::Object * obj) {
 }
 
 void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
-    BXON::Array * arr = map->GetArray("curve");
+    /*BXON::Array * arr = map->GetArray("curve");
        
     for (int i = 0; i < arr->GetSize(); i++) {
         BXON::Map * m = arr->GetMap(i);
@@ -405,6 +410,6 @@ void dsSceneMap::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
 
         curve.Set(nodes);
         return;
-    }
+    }*/
 }
 

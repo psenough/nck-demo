@@ -15,6 +15,8 @@ void dsSceneSysInit::Load() {
     //menger = m_Data->LoadCompound("model://menger.bxon", this);
     brain = m_Data->LoadCompound("model://brain.bxon", this);
     builder = m_Data->LoadProgram("shader://builder.cpp");
+    cube = m_Data->LoadCompound("model://icosphere.bxon", this);
+    sphere = m_Data->LoadCompound("model://menger.bxon", this);
 }
 
 void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
@@ -64,9 +66,26 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
     dev->Rotate(time / 1e6, 0, 0, 1);
     
     builder->Enable();
-    builder->SetVariable1f("time", (time-start) / 1e6);
+    //builder->SetVariable1f("time", (time-start) / 1e6);
     //menger->Get()->Render();
-    brain->Get()->Render();
+    //brain->Get()->Render();
+
+    float f_time = (time - start) / 1e6;
+
+    if (f_time >= 0 && f_time < 13){
+        builder->SetVariable1f("time", f_time);
+        cube->Get()->Render();
+    }
+    else if (f_time >= 13 && f_time < 26){
+        builder->SetVariable1f("time", f_time - 5);
+        sphere->Get()->Render();
+    }
+    else {
+        builder->SetVariable1f("time", f_time - 9);
+        brain->Get()->Render();
+    }
+
+
     builder->Disable();
     dev->FillMode(Graph::PolygonMode::FILL_SOLID);
 

@@ -20,14 +20,16 @@
 #include "scenes/dsSceneFloatPopup.h"
 #include "scenes/dsSceneConsoleText.h"
 #include "scenes/dsSceneFloatPopup_ScrollCode.h"
+#include "scenes/dsSceneFloat_User.h"
+#include "scenes/dsSceneFloat_Text.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
+#define AUDIO_STREAM        NULL //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 _DS_BEGIN
 
@@ -131,7 +133,7 @@ public:
 
 
             
-
+            
             // Init scene
             dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
@@ -142,10 +144,10 @@ public:
             std::string texts[] = {
                 "Time remaining to Demobit 2017: 2 Months",
                 "Attempting demo making...",
-                "Failure - Concept not practicable",
+                "Failure - Impossible to implement concept",
                 "Time remaining to Demobit 2017: 1 Month",
                 "Attempting demo making...",
-                "Failure - Concept not practicable",
+                "Failure - Impossible to implement concept",
                 "Time remaining to Demobit 2017: 2 Weeks",
                 "Connecting to human-machine interfaces...",
                 "Found 3 interfaces",
@@ -160,14 +162,14 @@ public:
                 int64_t time = 1e6 + i*duration;
                 scene->AddStage(time, 1e6 + (i+1)*duration, sysText);
 
-                if (i == 1 || i == 4 || i == 7) 
+                if (i == 1 || i == 4 || i == 7)
                 {
-                    for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
                         dsSceneFloatPopup_SC * pop = new dsSceneFloatPopup_SC(data);
                         pop->Load();
 
-                        float x = Math::RandomValue(100, 1500);
-                        float y = Math::RandomValue(100, 700);
+                        float x = Math::RandomValue(50, 450);
+                        float y = Math::RandomValue(50, 500);
                         float w = Math::RandomValue(300, 440);
                         float h = Math::RandomValue(240, 360);
 
@@ -176,12 +178,30 @@ public:
                         pop->SetDimensions(w, h);
                         pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y + 20), 0.3e6, 0.15e6);
 
-                        scene->AddStage(time+1e6, time +1e6+ tOffset, pop);
+                        scene->AddStage(time + 1e6, time + 1e6 + tOffset, pop);
                     }
+
+                    for (int j = 0; j < 3; j++) {
+                        dsSceneFloatPopup_SC * pop = new dsSceneFloatPopup_SC(data);
+                        pop->Load();
+
+                        float x = Math::RandomValue(1224, 1400);
+                        float y = Math::RandomValue(50, 500);
+                        float w = Math::RandomValue(300, 440);
+                        float h = Math::RandomValue(240, 360);
+
+                        float tOffset = Math::RandomValue(2, 4) * 1e6;
+
+                        pop->SetDimensions(w, h);
+                        pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y + 20), 0.3e6, 0.15e6);
+
+                        scene->AddStage(time + 1e6, time + 1e6 + tOffset, pop);
+                    }
+
                 }
             }
-
-        
+            
+            
 
             // Map scene
             renderLoading(20);
@@ -192,12 +212,36 @@ public:
             renderLoading(30);
             scene->AddStage(40e6, 300e6, map);
             
-            dsScene80Grid * gridPopup = new dsScene80Grid(data);
-            gridPopup->SetDimensions(600, 400);
-            gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
-            gridPopup->Load();
-            scene->AddStage(50e6, 70e6, gridPopup);
-           
+            {
+                dsScene80Grid * gridPopup = new dsScene80Grid(data);
+                gridPopup->SetDimensions(600, 400);
+                gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                gridPopup->Load();
+                scene->AddStage(50e6, 70e6, gridPopup);
+            }
+
+            {
+                dsSceneFloat_User * user_jaerder = new dsSceneFloat_User(data);
+                user_jaerder->Load();
+                user_jaerder->SetAnimation(Math::Vec2(100, 100), Math::Vec2(100, 150), 0.3e6, 0.15e6);
+                user_jaerder->SetDimensions(300, 400);
+                scene->AddStage(50e6, 60e6, user_jaerder);
+            }
+
+            {
+                dsSceneFloat_User * user_zeroshift = new dsSceneFloat_User(data);
+                user_zeroshift->setUser(1);
+                user_zeroshift->Load();
+                user_zeroshift->SetAnimation(Math::Vec2(100, 500), Math::Vec2(100, 550), 0.3e6, 0.15e6);
+                user_zeroshift->SetDimensions(300, 400);
+                scene->AddStage(60e6, 70e6, user_zeroshift);
+            }
+
+            dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
+            text->Load();
+            text->SetAnimation(Math::Vec2(200, 500), Math::Vec2(200, 550), 0.3e6, 0.15e6);
+            text->SetDimensions(400, 200);
+            scene->AddStage(50e6, 70e6, text);
 
             scene->BuildTimeline();
 

@@ -80,8 +80,8 @@ void dsSceneFloatPopup::prepare(int64_t start, int64_t end, int64_t time) {
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
-    float rel = m_Data->GetHeight() / m_Data->GetWidth();
-    dev->Ortho2D(1920, 1920 * rel, 0, 1);
+    const float height = 1920 * m_Data->GetHeight() / m_Data->GetWidth();
+    dev->Ortho2D(1920, height, 0, 1);
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
@@ -97,15 +97,34 @@ void dsSceneFloatPopup::prepare(int64_t start, int64_t end, int64_t time) {
 
 void dsSceneFloatPopup::drawBorders() {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
-    dev->Color(250, 250, 250, 240);
+    dev->Color(250, 250, 250, 200);
+    
     dev->PushMatrix();
-    dev->Translate(0, -8, 0);
-
-    DS::RenderSquare(dev, width, 8, false);
-
+    dev->Translate(0, -4, 0);
+    DS::RenderSquare(dev, width*0.5, 4, false);
     dev->PopMatrix();
+    
+    dev->PushMatrix();
+    dev->Translate(0, 0, 0);
     DS::RenderSquare(dev, 40, 16, false);
-    DS::RenderSquare(dev, 8, alpha*height, false);
+    dev->PopMatrix();
+
+    dev->PushMatrix();
+    dev->Translate(-8, -4, 0);
+    DS::RenderSquare(dev, 8, alpha*(height-height*0.125), false);
+    dev->PopMatrix();
+
+    float yy = alpha*height;
+
+    dev->PushMatrix();
+    dev->Translate(width*0.5, yy, 0);
+    DS::RenderSquare(dev, width*0.5, 4, false);
+    dev->PopMatrix();
+
+    dev->PushMatrix();
+    dev->Translate(width, yy - height*alpha * 0.125+4, 0);
+    DS::RenderSquare(dev, 8, height*alpha * 0.125, false);
+    dev->PopMatrix();
 
     dev->PopMatrix();
 }

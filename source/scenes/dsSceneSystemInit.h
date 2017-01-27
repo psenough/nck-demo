@@ -17,7 +17,10 @@ private:
     Graph::Program * builder;
     DS::Compound * menger;
     DS::Compound * sysLogo;
+
     DS::Compound * brain;
+    DS::Compound * cube;
+    DS::Compound * sphere;
 };
 
 Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh);
