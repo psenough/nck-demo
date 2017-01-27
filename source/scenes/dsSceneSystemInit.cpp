@@ -12,11 +12,12 @@ dsSceneSysInit::~dsSceneSysInit() {
 
 void dsSceneSysInit::Load() {
     sysLogo = m_Data->LoadCompound("model://logo_machine.bxon");
-    //menger = m_Data->LoadCompound("model://menger.bxon", this);
-    brain = m_Data->LoadCompound("model://brain.bxon", this);
+
     builder = m_Data->LoadProgram("shader://builder.cpp");
-    cube = m_Data->LoadCompound("model://icosphere.bxon", this);
-    sphere = m_Data->LoadCompound("model://menger.bxon", this);
+
+    brain = m_Data->LoadCompound("model://brain.bxon", this);
+    cube = m_Data->LoadCompound("model://cube.bxon", this);
+    sphere = m_Data->LoadCompound("model://sphere.bxon", this);
 }
 
 void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
@@ -117,7 +118,7 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
 
 
 Geometry::Mesh * dsSceneSysInit::HandleGeometry(Geometry::Mesh * mesh) {
-    return reworkToExplodeBuild(mesh);
+    return mesh;// reworkToExplodeBuild(mesh);
 }
 
 Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh) {
