@@ -5,6 +5,8 @@
 *.o
 *.dia
 *.d
+*.VC.db
+*.opendb
 
 !*.lib
 !*.a
