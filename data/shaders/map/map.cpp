@@ -14,8 +14,9 @@ uniform sampler2D tex1;
 uniform float time;
 
 vec3 desat(vec3 col){
-    return (col.r+col.g+col.b)/3.0;
+    return vec3((col.r+col.g+col.b)/3.0);
 }
+
 void main()
 {
 	vec3 col = texture2D(tex1,gl_TexCoord[0].xy).xyz;

@@ -276,7 +276,7 @@ public:
             }
 
 
-            {
+            /*{
                 dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
                 attached->setId("Porto");
                 attached->setType(3);
@@ -285,18 +285,19 @@ public:
                 attached->Load();
                 scene->AddStage(50e6, 80e6, attached);
 
-			}
+			}*/
 
 			{
 			//testing !
 
-			dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
-			attached_b->setId("Lisboa");
-			attached_b->setType(4);
-			attached_b->SetDimensions(400, 400);
-			attached_b->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
-			attached_b->Load();
-			attached_b->AddStage(80e6, 100e6, attached_b);
+			    dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
+			    attached_b->setId("Lisboa");
+			    attached_b->setType(4);
+			    attached_b->SetDimensions(400, 400);
+			    attached_b->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
+			    attached_b->Load();
+
+                scene->AddStage(60e6, 100e6, attached_b);
 			}
 
             scene->BuildTimeline();
