@@ -154,4 +154,10 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("Forever");
         this->usage.push_back("ZX Forever!");
     }
+    else if (usage == 14) {
+        // Trencin
+        this->usage.push_back("Demobit");
+        this->usage.push_back("2017");
+        this->usage.push_back("Hi everyone!");
+    }
 }
