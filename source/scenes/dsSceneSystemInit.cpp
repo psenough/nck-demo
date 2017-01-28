@@ -12,9 +12,7 @@ dsSceneSysInit::~dsSceneSysInit() {
 
 void dsSceneSysInit::Load() {
     sysLogo = m_Data->LoadCompound("model://logo_machine.bxon");
-
     builder = m_Data->LoadProgram("shader://builder.cpp");
-
     brain = m_Data->LoadCompound("model://brain.bxon", this);
     cube = m_Data->LoadCompound("model://cube.bxon", this);
     sphere = m_Data->LoadCompound("model://sphere.bxon", this);

@@ -13,6 +13,8 @@ dsSceneSysShutdown::~dsSceneSysShutdown() {
 
 void dsSceneSysShutdown::Load() {
     sysLogo = m_Data->LoadCompound("model://logo_machine.bxon");
+    builder = m_Data->LoadProgram("shader://builder.cpp");
+    brain = m_Data->LoadCompound("model://brain.bxon");
 }
 
 void dsSceneSysShutdown::Render(int64_t start, int64_t end, int64_t time) {
@@ -44,11 +46,11 @@ void dsSceneSysShutdown::Render(int64_t start, int64_t end, int64_t time) {
     shp->Square(0, 0, width, height, Math::Color4ub(255, 255, 255));
 
 
-    /*
+
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
     dev->Perspective(width / height);
-  
+
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
@@ -59,8 +61,8 @@ void dsSceneSysShutdown::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->FillMode(Graph::PolygonMode::FILL_WIREFRAME);
     dev->Color(0, 0, 0);
-    dev->Rotate(time / 1e6, 0, 0, 1);
-    
+    //
+
     builder->Enable();
     //builder->SetVariable1f("time", (time-start) / 1e6);
     //menger->Get()->Render();
@@ -68,20 +70,18 @@ void dsSceneSysShutdown::Render(int64_t start, int64_t end, int64_t time) {
 
     float f_time = (time - start) / 1e6;
 
-    if (f_time >= 0 && f_time < 13){
-        builder->SetVariable1f("time", f_time);
-        cube->Get()->Render();
-    }
-    else if (f_time >= 13 && f_time < 26){
-        builder->SetVariable1f("time", f_time - 13);
-        sphere->Get()->Render();
-    }
-    else {
-        builder->SetVariable1f("time", f_time - 26);
-        brain->Get()->Render();
-    }
+    builder->SetVariable1f("rotate", 0.0);
+    builder->SetVariable1f("failure", 1.0);
+   
+    builder->SetVariable1f("rotate", f_time * 0.1);
+    builder->SetVariable1f("delay", 5);
+    builder->SetVariable1f("failure", 1.0);
+    builder->SetVariable1f("time", f_time);
+    brain->Get()->Render();
+    
     builder->Disable();
-    */
+
+
         
     dev->FillMode(Graph::PolygonMode::FILL_SOLID);
     

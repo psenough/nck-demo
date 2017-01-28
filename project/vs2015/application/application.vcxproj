@@ -129,11 +129,10 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_User.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneMap.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsSceneMetaballs.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneIcosphere.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneCapture.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneScratch.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneSystemInit.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneSystemShutdown.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
@@ -156,11 +155,10 @@
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_User.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneMap.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsSceneMetaballs.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneIcosphere.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneCapture.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneScratch.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneSystemInit.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneSystemShutdown.cpp" />
   </ItemGroup>

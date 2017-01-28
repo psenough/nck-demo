@@ -14,6 +14,8 @@ public:
 
 private:
     DS::Compound * sysLogo;
+    Graph::Program * builder;
+    DS::Compound * brain;
 };
 
 #endif

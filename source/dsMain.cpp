@@ -24,9 +24,10 @@
 #include "scenes/dsSceneFloat_Text.h"
 #include "scenes/dsSceneFloat_Text_Attached.h"
 #include "scenes/dsSceneSystemShutdown.h"
+#include "scenes/dsSceneMetaballs.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        NULL //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
+#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -135,13 +136,10 @@ public:
 
 
             
-            
             // Init scene
-            /*dsSceneSysInit * sysInit = new dsSceneSysInit(data);
+            dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
             scene->AddStage(0e6, 40e6, sysInit);
-
-           
 
             std::string texts[] = {
                 "Time remaining to Demobit 2017: 2 Months",
@@ -202,17 +200,15 @@ public:
 
                 }
             }
-            */
+            
             
 
             // Map scene
             renderLoading(20);
             dsSceneMap *map = new dsSceneMap(data);
             map->Load();
-         
-
             renderLoading(30);
-            scene->AddStage(40e6, 300e6, map);
+            scene->AddStage(41e6, 137e6, map);
             
             {
                 dsSceneFloat_User * user_jaerder = new dsSceneFloat_User(data);
@@ -267,20 +263,38 @@ public:
             {
                 dsScene80Grid * gridPopup = new dsScene80Grid(data);
                 gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(1420, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
+                gridPopup->SetAnimation(Math::Vec2(120, 60), Math::Vec2(180, 60), 0.3e6, 0.15e6);
                 gridPopup->Load();
                 scene->AddStage(80e6, 100e6, gridPopup);
 
-
-
+                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
+                attached->setType(10000);
+                attached->SetDimensions(400, 160);
+                attached->SetAnimation(Math::Vec2(20, 480), Math::Vec2(50, 480), 0.3e6, 0.15e6);
+                attached->Load();
+                scene->AddStage(82e6, 100.5e6, attached);
             }
 
+            {
+                dsSceneMetaballs *metaballs = new dsSceneMetaballs(data);
+                metaballs->Load();
+                metaballs->SetDimensions(400, 400);
+                metaballs->SetAnimation(Math::Vec2(100, 500), Math::Vec2(100, 500), 0.3e6, 0.15e6);
+                scene->AddStage(110e6, 120e6, metaballs);
+
+                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
+                attached->setType(10001);
+                attached->SetDimensions(500, 160);
+                attached->SetAnimation(Math::Vec2(300, 850), Math::Vec2(300, 880), 0.3e6, 0.15e6);
+                attached->Load();
+                scene->AddStage(112e6, 120.5e6, attached);
+            }
 
             {
                 dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
                 attached->setId("Porto");
                 attached->setType(3);
-                attached->SetDimensions(400, 150);
+                attached->SetDimensions(400, 160);
                 attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
                 attached->Load();
                 scene->AddStage(50e6, 60e6, attached);
@@ -288,8 +302,6 @@ public:
 			}
 
 			{
-			//testing !
-
 				dsSceneFloat_Text_Attached * attached_l = new dsSceneFloat_Text_Attached(data, map);
 				attached_l->setId("Lisboa");
 				attached_l->setType(4);
@@ -300,12 +312,10 @@ public:
 			}
 
 			{
-				//testing !
-
 				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
 				attached_m->setId("Madrid");
 				attached_m->setType(5);
-				attached_m->SetDimensions(650, 150);
+				attached_m->SetDimensions(650, 160);
 				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_m->Load();
 				scene->AddStage(83e6, 88e6, attached_m);
@@ -316,16 +326,16 @@ public:
 				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
 				attached_b->setId("Bilbao");
 				attached_b->setType(6);
-				attached_b->SetDimensions(550, 100);
+				attached_b->SetDimensions(550, 160);
 				attached_b->SetAnimation(Math::Vec2(350, 800), Math::Vec2(350, 800), 0.3e6, 0.15e6);
 				attached_b->Load();
-				scene->AddStage(91e6, 93e6, attached_b);
+				scene->AddStage(91e6, 95e6, attached_b);
 			} 
 			{
 				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
 				attached_m->setId("Marseille");
 				attached_m->setType(8);
-				attached_m->SetDimensions(600, 100);
+				attached_m->SetDimensions(600, 110);
 				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_m->Load();
 				scene->AddStage(100e6, 104e6, attached_m);
@@ -335,7 +345,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_t = new dsSceneFloat_Text_Attached(data, map);
 				attached_t->setId("Thoiseey");
 				attached_t->setType(7);
-				attached_t->SetDimensions(400, 100);
+				attached_t->SetDimensions(400, 110);
 				attached_t->SetAnimation(Math::Vec2(1000, 300), Math::Vec2(1000, 300), 0.3e6, 0.15e6);
 				attached_t->Load();
 				scene->AddStage(102e6, 105e6, attached_t);
@@ -345,17 +355,17 @@ public:
 				dsSceneFloat_Text_Attached * attached_be = new dsSceneFloat_Text_Attached(data, map);
 				attached_be->setId("Bern");
 				attached_be->setType(10);
-				attached_be->SetDimensions(600, 100);
+				attached_be->SetDimensions(600, 110);
 				attached_be->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_be->Load();
-				scene->AddStage(105e6, 107e6, attached_be);
+				scene->AddStage(105e6, 109e6, attached_be);
 			}
 
 			{
 				dsSceneFloat_Text_Attached * attached_mu = new dsSceneFloat_Text_Attached(data, map);
 				attached_mu->setId("BezierCurve");
 				attached_mu->setType(99);
-				attached_mu->SetDimensions(600, 150);
+				attached_mu->SetDimensions(600, 160);
 				attached_mu->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_mu->Load();
 				//scene->AddStage(100e6, 101e6, attached_mu);
@@ -365,7 +375,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_br = new dsSceneFloat_Text_Attached(data, map);
 				attached_br->setId("Brno");
 				attached_br->setType(12);
-				attached_br->SetDimensions(600, 150);
+				attached_br->SetDimensions(600, 160);
 				attached_br->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 200), 0.3e6, 0.15e6);
 				attached_br->Load();
 				scene->AddStage(120e6, 124e6, attached_br);
@@ -375,26 +385,41 @@ public:
 				dsSceneFloat_Text_Attached * attached_tr = new dsSceneFloat_Text_Attached(data, map);
 				attached_tr->setId("Trencin");
 				attached_tr->setType(13);
-				attached_tr->SetDimensions(600, 150);
+				attached_tr->SetDimensions(600, 160);
 				attached_tr->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_tr->Load();
 				scene->AddStage(124e6, 130e6, attached_tr);
 			}
 
 			{
-				//no bra jokes please
 				dsSceneFloat_Text_Attached * attached_bra = new dsSceneFloat_Text_Attached(data, map);
 				attached_bra->setId("Bratislava");
 				attached_bra->setType(14);
-				attached_bra->SetDimensions(600, 150);
+				attached_bra->SetDimensions(600, 200);
 				attached_bra->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_bra->Load();
 				scene->AddStage(130e6, 136e6, attached_bra);
 			}
 
+            {
+                dsSceneFloat_User * user_party_code = new dsSceneFloat_User(data);
+                user_party_code->setUser(3);
+                user_party_code->Load();
+                user_party_code->SetAnimation(Math::Vec2(50, 100), Math::Vec2(100, 100), 0.3e6, 0.15e6);
+                user_party_code->SetDimensions(400, 400);
+                scene->AddStage(120e6, 130e6, user_party_code);
 
-			{
-                int64_t startOff = 142e6;
+                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
+                attached->setType(10002);
+                attached->SetDimensions(400, 160);
+                attached->SetAnimation(Math::Vec2(20, 480), Math::Vec2(50, 480), 0.3e6, 0.15e6);
+                attached->Load();
+                scene->AddStage(121e6, 130.5e6, attached);
+            }
+
+
+            {
+                int64_t startOff = 137.5e6;
                 dsSceneSysShutdown * shutdown = new dsSceneSysShutdown(data);
                 shutdown->Load();
                 scene->AddStage(startOff, startOff + 20e6, shutdown);
@@ -415,14 +440,6 @@ public:
                     scene->AddStage(time, time + duration, sysText);
                 }
             }
-
-            dsSceneFloat_User * user_party_code = new dsSceneFloat_User(data);
-            user_party_code->setUser(3);
-            user_party_code->Load();
-            user_party_code->SetAnimation(Math::Vec2(500, 100), Math::Vec2(500, 100), 0.3e6, 0.15e6);
-            user_party_code->SetDimensions(400, 400);
-            scene->AddStage(130e6, 136e6, user_party_code);
-
 
 
             scene->BuildTimeline();
@@ -473,7 +490,12 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime() + 49e6 ; // +40e6
+            int64_t time = timer->GetElapsedTime();
+            float time_in_secs = time / 1e6;
+            
+            if (time_in_secs > 150)
+                break;
+
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
@@ -848,13 +870,13 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     width *= scale;
     height *= scale;
     
-    bool runDemo = true;// conf->Run(&width, &height, &fullscreen);
+    bool runDemo = conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
 
     if (runDemo) 
     {
-        Core::Window * wnd = Core::CreateWindow("nck-demo", width, height, fullscreen);
+        Core::Window * wnd = Core::CreateWindow("coprocessor", width, height, fullscreen);
 
         DS::GraphicRendering * grThread = new DS::GraphicRendering(wnd);
 

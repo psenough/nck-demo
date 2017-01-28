@@ -29,6 +29,7 @@
 #include "nckHttpServer.h"
 #include "bxonDataIO.h"
 #include "nckTransform.h"
+#include "nckMarchingCubes.h"
 
 #include <stdint.h>
 #include <string>

@@ -11,6 +11,7 @@ dsSceneFloat_User::dsSceneFloat_User(DS::Data * data) : dsSceneFloatPopup(data){
     userTex[2] = NULL;
     userProg = NULL;
     userId = 0;
+    randomOff = 0;
 }
 
 dsSceneFloat_User::~dsSceneFloat_User() {

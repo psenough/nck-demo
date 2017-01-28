@@ -67,16 +67,10 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneScratch.h">
-      <Filter>Source Files\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsScene80Grid.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsSceneCapture.h">
-      <Filter>Source Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneIcosphere.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h">
@@ -107,6 +101,9 @@
       <Filter>Source Files\app\float</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsSceneSystemShutdown.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneMetaballs.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
   </ItemGroup>
@@ -141,16 +138,10 @@
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneScratch.cpp">
-      <Filter>Source Files\app</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsScene80Grid.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneCapture.cpp">
-      <Filter>Source Files\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneIcosphere.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp">
@@ -181,6 +172,9 @@
       <Filter>Source Files\app\float</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneSystemShutdown.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneMetaballs.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>

@@ -107,7 +107,7 @@ void dsSceneFloat_Text::setType(int usage) {
     else if (usage == 2) {
         this->usage.push_back("ps/music");
         this->usage.push_back("$groups");
-        this->usage.push_back(" >tpolm");
+        this->usage.push_back(" >TPOLM");
 		this->usage.push_back(" >Enough Records");
     }
     else if (usage == 3) {
@@ -129,6 +129,7 @@ void dsSceneFloat_Text::setType(int usage) {
         // Bilbau
         this->usage.push_back("Euskal");
         this->usage.push_back("Hi Software Failure/Ham!");
+        this->usage.push_back("Greetz to ASD/Navis");
     }
     else if (usage == 7) {
         // Thoiseey
@@ -154,16 +155,26 @@ void dsSceneFloat_Text::setType(int usage) {
         // Trencin
         this->usage.push_back("Forever");
         this->usage.push_back("ZX Forever!");
-    }
-    else if (usage == 14) {
+    } else if (usage == 14) {
         // Trencin
         this->usage.push_back("Demobit");
         this->usage.push_back("2017");
         this->usage.push_back("Hi everyone!");
-    }
-	else if (usage == 99) {
+        this->usage.push_back("Awesome party!");
+    } else if (usage == 99) {
 		// Trencin
 		this->usage.push_back("??");
 		this->usage.push_back("Becasue I C^C ^C");
-	}
+	} else if (usage == 10000) {
+ 
+        this->usage.push_back("80's grid");
+        this->usage.push_back("and menger sponge");
+    }
+    else if (usage == 10001) {
+        this->usage.push_back("fuckings to last minute bugs");
+    }
+    else if (usage == 10002) {
+        this->usage.push_back("partycoding");
+        this->usage.push_back("...");
+    }
 }

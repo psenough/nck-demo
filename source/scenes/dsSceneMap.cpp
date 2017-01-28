@@ -99,8 +99,8 @@ void dsSceneMap::Load() {
     plane = m_Data->LoadCompound("model://plane.bxon");
     guiElements = m_Data->LoadCompound("model://gui.bxon");
     
-    mapProg = m_Data->LoadProgram("shader://map/map.cpp");
-    basic = m_Data->LoadProgram("shader://map/basic.cpp");
+    mapProg = m_Data->LoadProgram("shader://map.cpp");
+    basic = m_Data->LoadProgram("shader://basic.cpp");
     //depth = m_Data->LoadProgram("shader://map/depth.cpp");
     //ringProg = m_Data->LoadProgram("shader://map/plane_ring.cpp");
 
