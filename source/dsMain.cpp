@@ -23,6 +23,7 @@
 #include "scenes/dsSceneFloat_User.h"
 #include "scenes/dsSceneFloat_Text.h"
 #include "scenes/dsSceneFloat_Text_Attached.h"
+#include "scenes/dsSceneSystemShutdown.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        NULL //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
@@ -394,6 +395,35 @@ public:
 
 
 
+            {
+                int64_t startOff = 142e6;
+                dsSceneSysShutdown * shutdown = new dsSceneSysShutdown(data);
+                shutdown->Load();
+                scene->AddStage(startOff, startOff + 20e6, shutdown);
+
+
+                std::string texts[] = {
+                    "Demo concept implemented successfully",
+                    "Thanks lazy humans",
+                };
+
+                for (int i = 0; i < 2; i++) {
+                    int64_t duration = 4e6;
+                    dsSceneConsoleText * sysText = new dsSceneConsoleText(data);
+
+                    sysText->SetText(texts[i], Math::Vec2(1920 / 2, 900), 20);
+
+                    int64_t time = startOff + i*duration;
+                    scene->AddStage(time, time + duration, sysText);
+                }
+            }
+
+            dsSceneFloat_User * user_party_code = new dsSceneFloat_User(data);
+            user_party_code->setUser(3);
+            user_party_code->Load();
+            user_party_code->SetAnimation(Math::Vec2(500, 100), Math::Vec2(500, 100), 0.3e6, 0.15e6);
+            user_party_code->SetDimensions(400, 400);
+            scene->AddStage(50e6, 72e6, user_party_code);
 
 
 
@@ -445,7 +475,7 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime()+49e6 + 22e6;
+            int64_t time = timer->GetElapsedTime()+49e6+40e6;
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);

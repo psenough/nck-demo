@@ -135,6 +135,7 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneCapture.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneScratch.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneSystemInit.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsSceneSystemShutdown.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClCompile Include="..\..\..\source\scenes\dsSceneCapture.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneScratch.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneSystemInit.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsSceneSystemShutdown.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">

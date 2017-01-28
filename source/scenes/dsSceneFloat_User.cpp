@@ -31,6 +31,10 @@ void dsSceneFloat_User::Load() {
         userTex[0] = m_Data->LoadTexture("texture://tex2d_ps_1.png");
         userTex[1] = m_Data->LoadTexture("texture://tex2d_ps_2.png");
         userTex[2] = m_Data->LoadTexture("texture://tex2d_ps_3.png");
+    } else if (userId == 3) {
+        userTex[0] = m_Data->LoadTexture("texture://tex2d_pc_1.png");
+        userTex[1] = m_Data->LoadTexture("texture://tex2d_pc_2.png");
+        userTex[2] = m_Data->LoadTexture("texture://tex2d_pc_3.png");
     }
 }
 
