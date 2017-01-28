@@ -267,7 +267,7 @@ public:
             {
                 dsScene80Grid * gridPopup = new dsScene80Grid(data);
                 gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                gridPopup->SetAnimation(Math::Vec2(650, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
                 gridPopup->Load();
                 scene->AddStage(80e6, 100e6, gridPopup);
 
@@ -290,14 +290,80 @@ public:
 			{
 			//testing !
 
-				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
-				attached_b->setId("Lisboa");
-				attached_b->setType(4);
-				attached_b->SetDimensions(400, 200);
-				attached_b->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
-				attached_b->Load();
-				scene->AddStage(61e6, 71e6, attached_b);
+				dsSceneFloat_Text_Attached * attached_l = new dsSceneFloat_Text_Attached(data, map);
+				attached_l->setId("Lisboa");
+				attached_l->setType(4);
+				attached_l->SetDimensions(400, 200);
+				attached_l->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
+				attached_l->Load();
+				scene->AddStage(61e6, 71e6, attached_l);
 			}
+
+			{
+				//testing !
+
+				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
+				attached_m->setId("Madrid");
+				attached_m->setType(5);
+				attached_m->SetDimensions(650, 150);
+				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_m->Load();
+				scene->AddStage(83e6, 88e6, attached_m);
+			}
+
+
+			{
+				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
+				attached_b->setId("Bilbao");
+				attached_b->setType(6);
+				attached_b->SetDimensions(600, 150);
+				attached_b->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_b->Load();
+				scene->AddStage(91e6, 93e6, attached_b);
+			} 
+			{
+				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
+				attached_m->setId("Marseille");
+				attached_m->setType(8);
+				attached_m->SetDimensions(600, 150);
+				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_m->Load();
+				scene->AddStage(98e6, 100e6, attached_m);
+			}
+
+			{
+				dsSceneFloat_Text_Attached * attached_t = new dsSceneFloat_Text_Attached(data, map);
+				attached_t->setId("Thoiseey");
+				attached_t->setType(7);
+				attached_t->SetDimensions(600, 150);
+				attached_t->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_t->Load();
+				scene->AddStage(102e6, 105e6, attached_t);
+			}
+
+			{
+				dsSceneFloat_Text_Attached * attached_be = new dsSceneFloat_Text_Attached(data, map);
+				attached_be->setId("Bern");
+				attached_be->setType(10);
+				attached_be->SetDimensions(600, 150);
+				attached_be->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_be->Load();
+				scene->AddStage(105e6, 107e6, attached_be);
+			}
+
+			{
+				dsSceneFloat_Text_Attached * attached_mu = new dsSceneFloat_Text_Attached(data, map);
+				attached_mu->setId("BezierCurve");
+				attached_mu->setType(99);
+				attached_mu->SetDimensions(600, 150);
+				attached_mu->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_mu->Load();
+				scene->AddStage(100e6, 101e6, attached_mu);
+			}
+
+
+
+
 
             scene->BuildTimeline();
 
