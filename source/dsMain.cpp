@@ -244,7 +244,6 @@ public:
 				text->SetDimensions(400, 200);
 				text->setType(1);
 				scene->AddStage(67e6, 725e5, text);
-
             }
 
             {
@@ -268,7 +267,7 @@ public:
             {
                 dsScene80Grid * gridPopup = new dsScene80Grid(data);
                 gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(1520, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
+                gridPopup->SetAnimation(Math::Vec2(1420, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
                 gridPopup->Load();
                 scene->AddStage(80e6, 100e6, gridPopup);
 
@@ -317,7 +316,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
 				attached_b->setId("Bilbao");
 				attached_b->setType(6);
-				attached_b->SetDimensions(550, 150);
+				attached_b->SetDimensions(550, 100);
 				attached_b->SetAnimation(Math::Vec2(350, 800), Math::Vec2(350, 800), 0.3e6, 0.15e6);
 				attached_b->Load();
 				scene->AddStage(91e6, 93e6, attached_b);
@@ -326,18 +325,18 @@ public:
 				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
 				attached_m->setId("Marseille");
 				attached_m->setType(8);
-				attached_m->SetDimensions(600, 150);
+				attached_m->SetDimensions(600, 100);
 				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_m->Load();
-				scene->AddStage(98e6, 100e6, attached_m);
+				scene->AddStage(100e6, 104e6, attached_m);
 			}
 
 			{
 				dsSceneFloat_Text_Attached * attached_t = new dsSceneFloat_Text_Attached(data, map);
 				attached_t->setId("Thoiseey");
 				attached_t->setType(7);
-				attached_t->SetDimensions(400, 150);
-				attached_t->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_t->SetDimensions(400, 100);
+				attached_t->SetAnimation(Math::Vec2(1000, 300), Math::Vec2(1000, 300), 0.3e6, 0.15e6);
 				attached_t->Load();
 				scene->AddStage(102e6, 105e6, attached_t);
 			}
@@ -346,7 +345,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_be = new dsSceneFloat_Text_Attached(data, map);
 				attached_be->setId("Bern");
 				attached_be->setType(10);
-				attached_be->SetDimensions(600, 150);
+				attached_be->SetDimensions(600, 100);
 				attached_be->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_be->Load();
 				scene->AddStage(105e6, 107e6, attached_be);
@@ -359,7 +358,7 @@ public:
 				attached_mu->SetDimensions(600, 150);
 				attached_mu->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_mu->Load();
-				scene->AddStage(100e6, 101e6, attached_mu);
+				//scene->AddStage(100e6, 101e6, attached_mu);
 			}
 
 			{
@@ -367,7 +366,7 @@ public:
 				attached_br->setId("Brno");
 				attached_br->setType(12);
 				attached_br->SetDimensions(600, 150);
-				attached_br->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_br->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 200), 0.3e6, 0.15e6);
 				attached_br->Load();
 				scene->AddStage(120e6, 124e6, attached_br);
 			}
@@ -379,7 +378,7 @@ public:
 				attached_tr->SetDimensions(600, 150);
 				attached_tr->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_tr->Load();
-				scene->AddStage(126e6, 130e6, attached_tr);
+				scene->AddStage(124e6, 130e6, attached_tr);
 			}
 
 			{
@@ -394,8 +393,7 @@ public:
 			}
 
 
-
-            {
+			{
                 int64_t startOff = 142e6;
                 dsSceneSysShutdown * shutdown = new dsSceneSysShutdown(data);
                 shutdown->Load();
@@ -423,7 +421,7 @@ public:
             user_party_code->Load();
             user_party_code->SetAnimation(Math::Vec2(500, 100), Math::Vec2(500, 100), 0.3e6, 0.15e6);
             user_party_code->SetDimensions(400, 400);
-            scene->AddStage(50e6, 72e6, user_party_code);
+            scene->AddStage(130e6, 136e6, user_party_code);
 
 
 
@@ -475,7 +473,7 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime()+49e6+40e6;
+            int64_t time = timer->GetElapsedTime() + 49e6 ; // +40e6
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
