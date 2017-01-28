@@ -154,4 +154,9 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("Forever");
         this->usage.push_back("ZX Forever!");
     }
+	else if (usage == 99) {
+		// Trencin
+		this->usage.push_back("??");
+		this->usage.push_back("Becasue I C^C ^C");
+	}
 }
