@@ -160,4 +160,9 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("2017");
         this->usage.push_back("Hi everyone!");
     }
+	else if (usage == 99) {
+		// Trencin
+		this->usage.push_back("??");
+		this->usage.push_back("Becasue I C^C ^C");
+	}
 }
