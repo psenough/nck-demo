@@ -119,7 +119,39 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("Hi Xrl/Jeenio/Mr.Hugo!");
     }
     else if (usage == 5) {
+        // Madrid
+        this->usage.push_back("Playboy Mansion Party");
+        this->usage.push_back("2006");
+        this->usage.push_back("");
+    }
+    else if (usage == 6) {
+        // Bilbau
         this->usage.push_back("Euskal");
         this->usage.push_back("Hi Software Failure/Ham!");
+    }
+    else if (usage == 7) {
+        // Thoiseey
+        this->usage.push_back("V.I.P.");
+        this->usage.push_back("");
+    }
+    else if (usage == 8) {
+        // Merseille / Arles
+        this->usage.push_back("Main Party");
+        this->usage.push_back("");
+    }
+    else if (usage == 10) {
+        // Berne
+        this->usage.push_back("Buenzly/Demodays");
+        this->usage.push_back("");
+    }
+    else if (usage == 12) {
+        // Brno
+        this->usage.push_back("ResetKani");
+        this->usage.push_back("2012");
+    }
+    else if (usage == 13) {
+        // Trencin
+        this->usage.push_back("Forever");
+        this->usage.push_back("");
     }
 }

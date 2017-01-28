@@ -1,4 +1,0 @@
-Source:nckgraphics_gl2.cpp, Method:Graph::Device_GL2::LoadProgram, Line:838, Code:0
-	, Text:Load program exception
-Source:nckshader_gl2.cpp, Method:Graph::Program_GL2::LoadFromFilename, Line:334, Code:0
-	, Text:File not found
