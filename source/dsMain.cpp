@@ -25,7 +25,7 @@
 #include "scenes/dsSceneFloat_Text_Attached.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
+#define AUDIO_STREAM        NULL //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -136,7 +136,7 @@ public:
             
             
             // Init scene
-            dsSceneSysInit * sysInit = new dsSceneSysInit(data);
+            /*dsSceneSysInit * sysInit = new dsSceneSysInit(data);
             sysInit->Load();
             scene->AddStage(0e6, 40e6, sysInit);
 
@@ -201,7 +201,7 @@ public:
 
                 }
             }
-            
+            */
             
 
             // Map scene
@@ -213,27 +213,6 @@ public:
             renderLoading(30);
             scene->AddStage(40e6, 300e6, map);
             
-            {
-                dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
-                attached->setId("Porto");
-                attached->setType(3);
-                attached->SetDimensions(400, 200);
-                attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(50e6, 60e6, attached);
-            }
-
-            {
-                dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
-                attached->setId("Lisboa");
-                attached->setType(4);
-                attached->SetDimensions(400, 200);
-                attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(70e6, 80e6, attached);
-            }
-
-
             {
                 dsSceneFloat_User * user_jaerder = new dsSceneFloat_User(data);
                 user_jaerder->Load();
@@ -297,7 +276,28 @@ public:
             }
 
 
-         
+            {
+                dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
+                attached->setId("Porto");
+                attached->setType(3);
+                attached->SetDimensions(400, 400);
+                attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                attached->Load();
+                scene->AddStage(50e6, 80e6, attached);
+
+			}
+
+			{
+			//testing !
+
+			dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
+			attached_b->setId("Lisboa");
+			attached_b->setType(4);
+			attached_b->SetDimensions(400, 400);
+			attached_b->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
+			attached_b->Load();
+			attached_b->AddStage(80e6, 100e6, attached_b);
+			}
 
             scene->BuildTimeline();
 
@@ -347,7 +347,7 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime();
+            int64_t time = timer->GetElapsedTime()+49e6;
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
