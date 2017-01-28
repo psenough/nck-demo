@@ -284,6 +284,16 @@ public:
                 attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
                 attached->Load();
                 scene->AddStage(50e6, 100e6, attached);
+
+				//testing !
+
+				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
+				attached_b->setId("Lisboa");
+				attached_b->setType(4);
+				attached_b->SetDimensions(400, 400);
+				attached_b->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
+				attached_b->Load();
+				attached_b->AddStage(100e6, 170e6, attached_b);
             }
 
 
