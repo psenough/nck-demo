@@ -369,17 +369,17 @@ public:
 				attached_br->SetDimensions(600, 150);
 				attached_br->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_br->Load();
-				scene->AddStage(120e6, 126e6, attached_br);
+				scene->AddStage(120e6, 124e6, attached_br);
 			}
 
 			{
 				dsSceneFloat_Text_Attached * attached_tr = new dsSceneFloat_Text_Attached(data, map);
 				attached_tr->setId("Trencin");
-				attached_tr->setType(12);
+				attached_tr->setType(13);
 				attached_tr->SetDimensions(600, 150);
 				attached_tr->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_tr->Load();
-				scene->AddStage(126e6, 132e6, attached_tr);
+				scene->AddStage(126e6, 130e6, attached_tr);
 			}
 
 			{
@@ -390,7 +390,7 @@ public:
 				attached_bra->SetDimensions(600, 150);
 				attached_bra->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_bra->Load();
-				scene->AddStage(132e6, 136e6, attached_bra);
+				scene->AddStage(130e6, 136e6, attached_bra);
 			}
 
 
