@@ -122,7 +122,7 @@ void dsSceneFloat_Text::setType(int usage) {
         // Madrid
         this->usage.push_back("Playboy Mansion Party");
         this->usage.push_back("2006");
-        this->usage.push_back("");
+        this->usage.push_back("Sushi food poisoning hangover is so nice");
     }
     else if (usage == 6) {
         // Bilbau
@@ -132,17 +132,17 @@ void dsSceneFloat_Text::setType(int usage) {
     else if (usage == 7) {
         // Thoiseey
         this->usage.push_back("V.I.P.");
-        this->usage.push_back("");
+        this->usage.push_back("Forsaken by Destiny!");
     }
     else if (usage == 8) {
         // Merseille / Arles
         this->usage.push_back("Main Party");
-        this->usage.push_back("");
+        this->usage.push_back("1500m^2 screen and mosquitoes!");
     }
     else if (usage == 10) {
         // Berne
-        this->usage.push_back("Buenzly/Demodays");
-        this->usage.push_back("");
+        this->usage.push_back("Buenzli/Demodays");
+        this->usage.push_back("Coweee");
     }
     else if (usage == 12) {
         // Brno
@@ -152,6 +152,6 @@ void dsSceneFloat_Text::setType(int usage) {
     else if (usage == 13) {
         // Trencin
         this->usage.push_back("Forever");
-        this->usage.push_back("");
+        this->usage.push_back("ZX Forever!");
     }
 }
