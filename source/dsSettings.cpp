@@ -81,7 +81,7 @@ void DemoSettings::Load() {
 	}
 
 	resolutionSelector = new Gui::RangeOptionButton(120, 10, 100, 20, roptValues);
-	resolutionSelector->SetSelectedOption(3);
+	resolutionSelector->SetSelectedOption(8);
 	resolutionSelector->SetTooltip("Screen Resolution Selector");
 	resolutionSelector->SetCallback(this);
 	wgtManager->Add(resolutionSelector);
