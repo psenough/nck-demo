@@ -108,6 +108,7 @@ void dsSceneFloat_Text::setType(int usage) {
         this->usage.push_back("ps/music");
         this->usage.push_back("$groups");
         this->usage.push_back(" >tpolm");
+		this->usage.push_back(" >Enough Records");
     }
     else if (usage == 3) {
         this->usage.push_back("Inercia Demoparty");
