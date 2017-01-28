@@ -267,7 +267,7 @@ public:
             {
                 dsScene80Grid * gridPopup = new dsScene80Grid(data);
                 gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(1580, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
+                gridPopup->SetAnimation(Math::Vec2(1520, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
                 gridPopup->Load();
                 scene->AddStage(80e6, 100e6, gridPopup);
 
@@ -317,7 +317,7 @@ public:
 				attached_b->setId("Bilbao");
 				attached_b->setType(6);
 				attached_b->SetDimensions(550, 150);
-				attached_b->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_b->SetAnimation(Math::Vec2(350, 800), Math::Vec2(350, 800), 0.3e6, 0.15e6);
 				attached_b->Load();
 				scene->AddStage(91e6, 93e6, attached_b);
 			} 
@@ -360,6 +360,38 @@ public:
 				attached_mu->Load();
 				scene->AddStage(100e6, 101e6, attached_mu);
 			}
+
+			{
+				dsSceneFloat_Text_Attached * attached_br = new dsSceneFloat_Text_Attached(data, map);
+				attached_br->setId("Brno");
+				attached_br->setType(12);
+				attached_br->SetDimensions(600, 150);
+				attached_br->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_br->Load();
+				scene->AddStage(153e6, 156e6, attached_br);
+			}
+
+			{
+				dsSceneFloat_Text_Attached * attached_tr = new dsSceneFloat_Text_Attached(data, map);
+				attached_tr->setId("Trencin");
+				attached_tr->setType(12);
+				attached_tr->SetDimensions(600, 150);
+				attached_tr->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_tr->Load();
+				scene->AddStage(156e6, 160e6, attached_tr);
+			}
+
+			{
+				//no bra jokes please
+				dsSceneFloat_Text_Attached * attached_bra = new dsSceneFloat_Text_Attached(data, map);
+				attached_bra->setId("Bratislava");
+				attached_bra->setType(14);
+				attached_bra->SetDimensions(600, 150);
+				attached_bra->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
+				attached_bra->Load();
+				scene->AddStage(160e6, 165e6, attached_bra);
+			}
+
 
 
 
@@ -413,7 +445,7 @@ public:
             }
 
             std::list<Math::TimelineItem<DS::Stage*>> items;
-            int64_t time = timer->GetElapsedTime()+49e6;
+            int64_t time = timer->GetElapsedTime()+49e6 + 22e6;
             timeline.Get(time, &items); // Nota: Ir buscar em segundos
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
