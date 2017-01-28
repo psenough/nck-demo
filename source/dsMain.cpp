@@ -267,7 +267,7 @@ public:
             {
                 dsScene80Grid * gridPopup = new dsScene80Grid(data);
                 gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(650, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
+                gridPopup->SetAnimation(Math::Vec2(1580, 60), Math::Vec2(1580, 60), 0.3e6, 0.15e6);
                 gridPopup->Load();
                 scene->AddStage(80e6, 100e6, gridPopup);
 
@@ -316,7 +316,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
 				attached_b->setId("Bilbao");
 				attached_b->setType(6);
-				attached_b->SetDimensions(600, 150);
+				attached_b->SetDimensions(550, 150);
 				attached_b->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_b->Load();
 				scene->AddStage(91e6, 93e6, attached_b);
@@ -335,7 +335,7 @@ public:
 				dsSceneFloat_Text_Attached * attached_t = new dsSceneFloat_Text_Attached(data, map);
 				attached_t->setId("Thoiseey");
 				attached_t->setType(7);
-				attached_t->SetDimensions(600, 150);
+				attached_t->SetDimensions(400, 150);
 				attached_t->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
 				attached_t->Load();
 				scene->AddStage(102e6, 105e6, attached_t);
