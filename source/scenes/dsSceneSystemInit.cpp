@@ -78,11 +78,11 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
         cube->Get()->Render();
     }
     else if (f_time >= 13 && f_time < 26){
-        builder->SetVariable1f("time", f_time - 5);
+        builder->SetVariable1f("time", f_time - 13);
         sphere->Get()->Render();
     }
     else {
-        builder->SetVariable1f("time", f_time - 9);
+        builder->SetVariable1f("time", f_time - 26);
         brain->Get()->Render();
     }
 
@@ -118,7 +118,7 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
 
 
 Geometry::Mesh * dsSceneSysInit::HandleGeometry(Geometry::Mesh * mesh) {
-    return mesh;// reworkToExplodeBuild(mesh);
+    return  reworkToExplodeBuild(mesh);
 }
 
 Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh) {

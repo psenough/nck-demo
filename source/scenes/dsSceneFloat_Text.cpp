@@ -111,10 +111,15 @@ void dsSceneFloat_Text::setType(int usage) {
     }
     else if (usage == 3) {
         this->usage.push_back("Inercia Demoparty");
-        this->usage.push_back("party like it's 2005");
+        this->usage.push_back("party like it's 2005!");
     }
     else if (usage == 4) {
         this->usage.push_back("Breeze Demoparty");
         this->usage.push_back("2007");
+        this->usage.push_back("Hi Xrl/Jeenio/Mr.Hugo!");
+    }
+    else if (usage == 5) {
+        this->usage.push_back("Euskal");
+        this->usage.push_back("Hi Software Failure/Ham!");
     }
 }

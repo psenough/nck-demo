@@ -50,8 +50,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>../../../ncktoolkit/extern/windows/libs_32/release;$(LibraryPath)</LibraryPath>
-    <IncludePath>../../../ncktoolkit/extern/windows/include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\..\nctoolkit\project\extern\windows\libs_32\release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\..\nctoolkit\project\extern\windows\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <IncludePath>../../extern/include;$(IncludePath)</IncludePath>

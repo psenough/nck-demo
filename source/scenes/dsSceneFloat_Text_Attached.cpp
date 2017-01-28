@@ -32,17 +32,23 @@ void dsSceneFloat_Text_Attached::Render(int64_t start, int64_t end, int64_t time
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
-    Math::Vec2 p = map->GetObjectPositionWithId(id);
-    Math::Vec2 pos = Math::LinearInterpolation(showPosA, showPosB, alpha);
+    Math::Vec2 projected = map->GetObjectPositionWithId(id);
+    Math::Vec2 endPos = Math::LinearInterpolation(showPosA, showPosB, alpha);
 
-    dev->Color(255, 0, 0, 255 );
-    dev->Begin(Graph::PRIMITIVE_LINES);
-    dev->Vertex(p.GetX(), p.GetY());
-    dev->Vertex(pos.GetX(), pos.GetY());
-    dev->End();
+    if (projected.GetX() > 0 && projected.GetY() > 0) {
+        Math::Vec2 n = Math::Normalize(endPos - projected);
+
+        Math::Vec2 a = projected + n * 50;
+        Math::Vec2 b = endPos - n * 50;
+
+        dev->Color(255, 0, 0, 255);
+        dev->Begin(Graph::PRIMITIVE_LINES);
+        dev->Vertex(a.GetX(), a.GetY());
+        dev->Vertex(b.GetX(), b.GetY());
+        dev->End();
+    }
 
     dsSceneFloat_Text::Render(start, end, time);
-    //dynamic_cast<dsSceneFloat_Text*>(this)->Render(start, end, time);
 }
 
 void dsSceneFloat_Text_Attached::setId(const std::string & id) {
