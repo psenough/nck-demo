@@ -64,7 +64,7 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->FillMode(Graph::PolygonMode::FILL_WIREFRAME);
     dev->Color(0, 0, 0);
-    dev->Rotate(time / 1e6, 0, 0, 1);
+    //
     
     builder->Enable();
     //builder->SetVariable1f("time", (time-start) / 1e6);
@@ -73,15 +73,22 @@ void dsSceneSysInit::Render(int64_t start, int64_t end, int64_t time) {
 
     float f_time = (time - start) / 1e6;
 
+    builder->SetVariable1f("rotate", 0.0);
+    builder->SetVariable1f("failure", 1.0);
     if (f_time >= 0 && f_time < 13){
+        builder->SetVariable1f("delay", 40);
         builder->SetVariable1f("time", f_time);
         cube->Get()->Render();
     }
     else if (f_time >= 13 && f_time < 26){
+        builder->SetVariable1f("delay", 40);
         builder->SetVariable1f("time", f_time - 13);
         sphere->Get()->Render();
     }
     else {
+        builder->SetVariable1f("rotate", (f_time-26)*0.1);
+        builder->SetVariable1f("delay", 10);
+        builder->SetVariable1f("failure", 0.0);
         builder->SetVariable1f("time", f_time - 26);
         brain->Get()->Render();
     }
@@ -131,6 +138,9 @@ Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh) {
     mesh->m_UVLayers.push_back("center");
     mesh->m_UVOptimization.push_back(false);
 
+    mesh->m_UVLayers.push_back("random");
+    mesh->m_UVOptimization.push_back(false);
+
     int vCount = 0;
 
     std::vector<float> randomList;
@@ -177,6 +187,12 @@ Geometry::Mesh * reworkToExplodeBuild(Geometry::Mesh * mesh) {
         (*f)->m_fUV.SetUVZ(1, 0, center);
         (*f)->m_fUV.SetUVZ(1, 1, center);
         (*f)->m_fUV.SetUVZ(1, 2, center);
+
+        Math::Vec3 randomDirection = Math::Normalize(Math::Vec3(Math::RandomValue(-1, 1), Math::RandomValue(-1, 1), Math::RandomValue(-1, 1)));
+        (*f)->m_fUV.SetUVZ(2, 0, randomDirection);
+        (*f)->m_fUV.SetUVZ(2, 1, randomDirection);
+        (*f)->m_fUV.SetUVZ(2, 2, randomDirection);
+
 
         if ((*f)->m_Verts.size() == 3) {
             Math::Vec3 v1 = (*(*f)->m_Verts[0])->m_Pos;

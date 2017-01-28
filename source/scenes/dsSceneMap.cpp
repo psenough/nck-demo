@@ -374,7 +374,7 @@ Math::Vec2 dsSceneMap::GetObjectPositionWithId(const std::string & id) {
             return Math::Vec2(x, y);
     }
 
-    Math::Vec2(-100, -100);
+    return Math::Vec2(-100, -100);
 }
 
 Scene::Texture * dsSceneMap::HandleTexture(Scene::Texture * tex) {
