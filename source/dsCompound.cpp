@@ -19,7 +19,7 @@ Compound::~Compound(){
 
 void Compound::Load(const std::string & filename) {
     m_Filename = filename;
-    Scene::Compound_Basic * cb = new Scene::Compound_Basic(m_Device);
+    Scene::Compound_Base * cb = new Scene::Compound_Base(m_Device);
     cb->Load(filename);
     m_LastModifed = Core::GetFileLastModified(filename);
     m_Compound = cb;
@@ -27,7 +27,7 @@ void Compound::Load(const std::string & filename) {
 
 void Compound::Load(const std::string & filename, Scene::Processor * processor) {
     m_Filename = filename;
-    Scene::Compound_Basic * cb = new Scene::Compound_Basic(m_Device);
+    Scene::Compound_Base * cb = new Scene::Compound_Base(m_Device);
     cb->Load(filename,processor);
     m_LastModifed = Core::GetFileLastModified(filename);
     m_Compound = cb;
@@ -36,7 +36,7 @@ void Compound::Load(const std::string & filename, Scene::Processor * processor) 
 int Compound::Reload() {
     int64_t lastModified = Core::GetFileLastModified(m_Filename);
     if (m_LastModifed != lastModified) {
-        Scene::Compound_Basic * cb = new Scene::Compound_Basic(m_Device);
+        Scene::Compound_Base * cb = new Scene::Compound_Base(m_Device);
         try {
             cb->Load(m_Filename);
         }
@@ -52,7 +52,7 @@ int Compound::Reload() {
     return 0;
 }
 
-Scene::Compound_Basic * Compound::Get() {
+Scene::Compound_Base * Compound::Get() {
     return m_Compound;
 }
 
