@@ -121,20 +121,7 @@
     <ClInclude Include="..\..\..\source\dsSettings.h" />
     <ClInclude Include="..\..\..\source\dsSubtitles.h" />
     <ClInclude Include="..\..\..\source\dsUtils.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsScene80Grid.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneConsoleText.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneFloat_User.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneMap.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneMetaballs.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneCapture.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneSystemInit.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneSystemShutdown.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -147,20 +134,7 @@
     <ClCompile Include="..\..\..\source\dsSettings.cpp" />
     <ClCompile Include="..\..\..\source\dsSubtitles.cpp" />
     <ClCompile Include="..\..\..\source\dsUtils.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsScene80Grid.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneConsoleText.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloatPopup_ScrollCode.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_Text_Attached.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneFloat_User.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneMap.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneMetaballs.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneCapture.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneSystemInit.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneSystemShutdown.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">

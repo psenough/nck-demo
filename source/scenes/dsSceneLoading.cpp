@@ -82,21 +82,6 @@ void dsSceneLoading::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->Disable(Graph::STATE_CULL_FACE);
   
-    /*float dist = 50;
-    float alpha = 40;//Math::RandomValue(40, 60);
-    dev->Color(255, 255, 255, alpha);
-    for (int angle = 0; angle < 360; angle += 6) {
-        Math::Vec2 p = Math::Vec2(cos(angle * M_PI / 180), -sin(angle* M_PI / 180))*dist;
-        for (int z = -20; z <= 20; z += 5) {
-            dev->PushMatrix();         
-            dev->Translate(p.GetX(), p.GetY(), z),
-            dev->Rotate(-angle+90, 0, 0, 1);
-   
-            renderTips(dev);
-            dev->PopMatrix();
-        }
-    }*/
-
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
     dev->Ortho2D(m_Data->GetWidth(), m_Data->GetHeight());

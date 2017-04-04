@@ -10,21 +10,7 @@
 #include "dsSubtitles.h"
 #include "dsAudioPlayer.h"
 
-#include "scenes/dsSceneScratch.h"
 #include "scenes/dsSceneLoading.h"
-#include "scenes/dsScene80Grid.h"
-#include "scenes/dsSceneIcosphere.h"
-#include "scenes/dsSceneOutputFilter.h"
-#include "scenes/dsSceneMap.h"
-#include "scenes/dsSceneSystemInit.h"
-#include "scenes/dsSceneFloatPopup.h"
-#include "scenes/dsSceneConsoleText.h"
-#include "scenes/dsSceneFloatPopup_ScrollCode.h"
-#include "scenes/dsSceneFloat_User.h"
-#include "scenes/dsSceneFloat_Text.h"
-#include "scenes/dsSceneFloat_Text_Attached.h"
-#include "scenes/dsSceneSystemShutdown.h"
-#include "scenes/dsSceneMetaballs.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
@@ -96,7 +82,7 @@ public:
             dev->ClearFlags(Graph::BUFFER_COLOR_BIT | Graph::BUFFER_DEPTH_BIT);
 
             RenderLoading(wnd, dev);
-            
+
             data = new Data(wnd, dev);
             shpRender = data->GetShapeRenderer();
 
@@ -107,18 +93,17 @@ public:
             fontTexture->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
             fontTexture->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_LINEAR);
             fontTexture->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_LINEAR);
-            
-            iconTexture = data->LoadTexture("texture://iconTexture.png");
-            iconShader = data->LoadTexture("texture://iconShader.png");
-            iconCompound = data->LoadTexture("texture://iconCompound.png");
+
+            iconTexture = data->LoadTexture("texture://ui/iconTexture.png");
+            iconShader = data->LoadTexture("texture://ui/iconShader.png");
+            iconCompound = data->LoadTexture("texture://ui/iconCompound.png");
 
             fontMap = data->LoadFontMap("script://sans_serif.txt");
             fontMap->SetPositionAccuracy(Gui::FONT_POSITION_ACCURACY_INTEGER);
-            
+
             loading = new dsSceneLoading(data);
             loading->Load();
 
-         
             renderLoading(0);
 
             if (AUDIO_STREAM != NULL) {
@@ -130,331 +115,11 @@ public:
             else
                 mutePlayback = true;
 
-            renderLoading(10);
-            dsSceneOutputFilter * scene = new dsSceneOutputFilter(data);
-            scene->Load();
-
-
+            renderLoading(0);
             
-            // Init scene
-            dsSceneSysInit * sysInit = new dsSceneSysInit(data);
-            sysInit->Load();
-            scene->AddStage(0e6, 40e6, sysInit);
-
-            std::string texts[] = {
-                "Time remaining to Demobit 2017: 2 Months",
-                "Attempting demo making...",
-                "Failure - Impossible to implement concept",
-                "Time remaining to Demobit 2017: 1 Month",
-                "Attempting demo making...",
-                "Failure - Impossible to implement concept",
-                "Time remaining to Demobit 2017: 2 Weeks",
-                "Connecting to human-machine interfaces...",
-                "Found 3 interfaces",
-            };
-
-            for (int i = 0; i < 9; i++) {
-                int64_t duration = 4e6;
-                dsSceneConsoleText * sysText = new dsSceneConsoleText(data);
-               
-                sysText->SetText(texts[i], Math::Vec2(1920/2, 900), 20);
-
-                int64_t time = 1e6 + i*duration;
-                scene->AddStage(time, 1e6 + (i+1)*duration, sysText);
-
-                if (i == 1 || i == 4 || i == 7)
-                {
-                    for (int j = 0; j < 3; j++) {
-                        dsSceneFloatPopup_SC * pop = new dsSceneFloatPopup_SC(data);
-                        pop->Load();
-
-                        float x = Math::RandomValue(50, 450);
-                        float y = Math::RandomValue(50, 500);
-                        float w = Math::RandomValue(300, 440);
-                        float h = Math::RandomValue(240, 360);
-
-                        float tOffset = Math::RandomValue(2, 4) * 1e6;
-
-                        pop->SetDimensions(w, h);
-                        pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y + 20), 0.3e6, 0.15e6);
-
-                        scene->AddStage(time + 1e6, time + 1e6 + tOffset, pop);
-                    }
-
-                    for (int j = 0; j < 3; j++) {
-                        dsSceneFloatPopup_SC * pop = new dsSceneFloatPopup_SC(data);
-                        pop->Load();
-
-                        float x = Math::RandomValue(1224, 1400);
-                        float y = Math::RandomValue(50, 500);
-                        float w = Math::RandomValue(300, 440);
-                        float h = Math::RandomValue(240, 360);
-
-                        float tOffset = Math::RandomValue(2, 4) * 1e6;
-
-                        pop->SetDimensions(w, h);
-                        pop->SetAnimation(Math::Vec2(x, y), Math::Vec2(x, y + 20), 0.3e6, 0.15e6);
-
-                        scene->AddStage(time + 1e6, time + 1e6 + tOffset, pop);
-                    }
-
-                }
-            }
-            
-            
-
-            // Map scene
-            renderLoading(20);
-            dsSceneMap *map = new dsSceneMap(data);
-            map->Load();
-            renderLoading(30);
-            scene->AddStage(41e6, 137e6, map);
-            
-            {
-                dsSceneFloat_User * user_jaerder = new dsSceneFloat_User(data);
-                user_jaerder->Load();
-                user_jaerder->SetAnimation(Math::Vec2(100, 100), Math::Vec2(100, 150), 0.3e6, 0.15e6);
-                user_jaerder->SetDimensions(300, 400);
-                scene->AddStage(50e6, 60e6, user_jaerder);
-
-
-				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
-				text->Load();
-				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
-				text->SetDimensions(450, 200);
-				text->setType(0);
-				scene->AddStage(55e6, 605e5, text);
-            }
-
-            {
-                dsSceneFloat_User * user_zeroshift = new dsSceneFloat_User(data);
-                user_zeroshift->setUser(1);
-                user_zeroshift->Load();
-                user_zeroshift->SetAnimation(Math::Vec2(100, 500), Math::Vec2(100, 550), 0.3e6, 0.15e6);
-                user_zeroshift->SetDimensions(300, 400);
-                scene->AddStage(62e6, 72e6, user_zeroshift);
-
-				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
-				text->Load();
-				text->SetAnimation(Math::Vec2(250, 356), Math::Vec2(250, 406), 0.3e6, 0.15e6);
-				text->SetDimensions(400, 200);
-				text->setType(1);
-				scene->AddStage(67e6, 725e5, text);
-            }
-
-            {
-				int x_offset = 1000;
-				int y_offset = 64;
-				dsSceneFloat_User * user_ps = new dsSceneFloat_User(data);
-                user_ps->setUser(2);
-                user_ps->Load();
-                user_ps->SetAnimation(Math::Vec2(420 + x_offset , 500 + y_offset), Math::Vec2(420 + x_offset, 550 + y_offset), 0.3e6, 0.15e6);
-                user_ps->SetDimensions(300, 400);
-                scene->AddStage(62e6, 72e6, user_ps);
-
-				dsSceneFloat_Text * text = new dsSceneFloat_Text(data);
-				text->Load();
-				text->SetAnimation(Math::Vec2(0 + x_offset, 356 + (y_offset*3)), Math::Vec2(0 + x_offset, 406 + (y_offset * 3) ), 0.3e6, 0.15e6);
-				text->SetDimensions(400, 200);
-				text->setType(2);
-				scene->AddStage(67e6, 725e5, text);
-            }
-
-            {
-                dsScene80Grid * gridPopup = new dsScene80Grid(data);
-                gridPopup->SetDimensions(400, 400);
-                gridPopup->SetAnimation(Math::Vec2(120, 60), Math::Vec2(180, 60), 0.3e6, 0.15e6);
-                gridPopup->Load();
-                scene->AddStage(80e6, 100e6, gridPopup);
-
-                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
-                attached->setType(10000);
-                attached->SetDimensions(400, 160);
-                attached->SetAnimation(Math::Vec2(20, 480), Math::Vec2(50, 480), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(82e6, 100.5e6, attached);
-            }
-
-            {
-                dsSceneMetaballs *metaballs = new dsSceneMetaballs(data);
-                metaballs->Load();
-                metaballs->SetDimensions(400, 400);
-                metaballs->SetAnimation(Math::Vec2(100, 500), Math::Vec2(100, 500), 0.3e6, 0.15e6);
-                scene->AddStage(110e6, 120e6, metaballs);
-
-                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
-                attached->setType(10001);
-                attached->SetDimensions(500, 160);
-                attached->SetAnimation(Math::Vec2(300, 850), Math::Vec2(300, 880), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(112e6, 120.5e6, attached);
-            }
-
-            {
-                dsSceneFloat_Text_Attached * attached = new dsSceneFloat_Text_Attached(data, map);
-                attached->setId("Porto");
-                attached->setType(3);
-                attached->SetDimensions(400, 160);
-                attached->SetAnimation(Math::Vec2(1000, 100), Math::Vec2(1000, 150), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(50e6, 60e6, attached);
-
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_l = new dsSceneFloat_Text_Attached(data, map);
-				attached_l->setId("Lisboa");
-				attached_l->setType(4);
-				attached_l->SetDimensions(400, 200);
-				attached_l->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 250), 0.3e6, 0.15e6);
-				attached_l->Load();
-				scene->AddStage(61e6, 71e6, attached_l);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
-				attached_m->setId("Madrid");
-				attached_m->setType(5);
-				attached_m->SetDimensions(650, 160);
-				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_m->Load();
-				scene->AddStage(83e6, 88e6, attached_m);
-			}
-
-
-			{
-				dsSceneFloat_Text_Attached * attached_b = new dsSceneFloat_Text_Attached(data, map);
-				attached_b->setId("Bilbao");
-				attached_b->setType(6);
-				attached_b->SetDimensions(550, 160);
-				attached_b->SetAnimation(Math::Vec2(350, 800), Math::Vec2(350, 800), 0.3e6, 0.15e6);
-				attached_b->Load();
-				scene->AddStage(91e6, 95e6, attached_b);
-			} 
-			{
-				dsSceneFloat_Text_Attached * attached_m = new dsSceneFloat_Text_Attached(data, map);
-				attached_m->setId("Marseille");
-				attached_m->setType(8);
-				attached_m->SetDimensions(600, 110);
-				attached_m->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_m->Load();
-				scene->AddStage(100e6, 104e6, attached_m);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_t = new dsSceneFloat_Text_Attached(data, map);
-				attached_t->setId("Thoiseey");
-				attached_t->setType(7);
-				attached_t->SetDimensions(400, 110);
-				attached_t->SetAnimation(Math::Vec2(1000, 300), Math::Vec2(1000, 300), 0.3e6, 0.15e6);
-				attached_t->Load();
-				scene->AddStage(102e6, 105e6, attached_t);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_be = new dsSceneFloat_Text_Attached(data, map);
-				attached_be->setId("Bern");
-				attached_be->setType(10);
-				attached_be->SetDimensions(600, 110);
-				attached_be->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_be->Load();
-				scene->AddStage(105e6, 109e6, attached_be);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_mu = new dsSceneFloat_Text_Attached(data, map);
-				attached_mu->setId("BezierCurve");
-				attached_mu->setType(99);
-				attached_mu->SetDimensions(600, 160);
-				attached_mu->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_mu->Load();
-				//scene->AddStage(100e6, 101e6, attached_mu);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_br = new dsSceneFloat_Text_Attached(data, map);
-				attached_br->setId("Brno");
-				attached_br->setType(12);
-				attached_br->SetDimensions(600, 160);
-				attached_br->SetAnimation(Math::Vec2(1000, 200), Math::Vec2(1000, 200), 0.3e6, 0.15e6);
-				attached_br->Load();
-				scene->AddStage(120e6, 124e6, attached_br);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_tr = new dsSceneFloat_Text_Attached(data, map);
-				attached_tr->setId("Trencin");
-				attached_tr->setType(13);
-				attached_tr->SetDimensions(600, 160);
-				attached_tr->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_tr->Load();
-				scene->AddStage(124e6, 130e6, attached_tr);
-			}
-
-			{
-				dsSceneFloat_Text_Attached * attached_bra = new dsSceneFloat_Text_Attached(data, map);
-				attached_bra->setId("Bratislava");
-				attached_bra->setType(14);
-				attached_bra->SetDimensions(600, 200);
-				attached_bra->SetAnimation(Math::Vec2(1000, 450), Math::Vec2(1000, 500), 0.3e6, 0.15e6);
-				attached_bra->Load();
-				scene->AddStage(130e6, 136e6, attached_bra);
-			}
-
-            {
-                dsSceneFloat_User * user_party_code = new dsSceneFloat_User(data);
-                user_party_code->setUser(3);
-                user_party_code->Load();
-                user_party_code->SetAnimation(Math::Vec2(50, 100), Math::Vec2(100, 100), 0.3e6, 0.15e6);
-                user_party_code->SetDimensions(400, 400);
-                scene->AddStage(120e6, 130e6, user_party_code);
-
-                dsSceneFloat_Text * attached = new dsSceneFloat_Text(data);
-                attached->setType(10002);
-                attached->SetDimensions(400, 160);
-                attached->SetAnimation(Math::Vec2(20, 480), Math::Vec2(50, 480), 0.3e6, 0.15e6);
-                attached->Load();
-                scene->AddStage(121e6, 130.5e6, attached);
-            }
-
-
-            {
-                int64_t startOff = 137.5e6;
-                dsSceneSysShutdown * shutdown = new dsSceneSysShutdown(data);
-                shutdown->Load();
-                scene->AddStage(startOff, startOff + 20e6, shutdown);
-
-
-                std::string texts[] = {
-                    "Demo concept implemented successfully",
-                    "Thanks lazy humans",
-                };
-
-                for (int i = 0; i < 2; i++) {
-                    int64_t duration = 4e6;
-                    dsSceneConsoleText * sysText = new dsSceneConsoleText(data);
-
-                    sysText->SetText(texts[i], Math::Vec2(1920 / 2, 900), 20);
-
-                    int64_t time = startOff + i*duration;
-                    scene->AddStage(time, time + duration, sysText);
-                }
-            }
-
-
-            scene->BuildTimeline();
-
-            //timeline.Insert(Math::TimelineItem<DS::Stage*>(0,1e6, loading));
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 300e6, scene));
-
-            /*dsSceneFloatPopup * p = new dsSceneFloatPopup(data);
-            p->Load();
-            p->SetDimensions(500, 400);
-            p->SetAnimation(Math::Vec2(0, 0), Math::Vec2(0, 0), 0.3e6, 0.15e6);
-            timeline.Insert(Math::TimelineItem<DS::Stage*>(0, 100e6, p));
-            */
+            //timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 60e6, exampleScene));
+                      
             renderLoading(99.9);
-           // Core::Thread::Wait(200);
         }
         catch (const Core::Exception & ex) {
             ex.PrintStackTrace();
