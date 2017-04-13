@@ -19,6 +19,9 @@
     <Filter Include="Source Files\demo">
       <UniqueIdentifier>{708ca4f3-4cd4-4b5c-b16b-fc35ebe4240f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\app\scenes">
+      <UniqueIdentifier>{7ce610cc-f250-4fa0-b376-fe74de4eef96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\win32\appicon.ico">
@@ -61,8 +64,20 @@
     <ClInclude Include="..\..\..\source\dsStage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneColorFade.h">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
-      <Filter>Source Files\app</Filter>
+      <Filter>Source Files\app\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneLogo.h">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneParticles.h">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneOutputFilter.h">
+      <Filter>Source Files\app\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,8 +108,20 @@
     <ClCompile Include="..\..\..\source\dsStage.cpp">
       <Filter>Source Files\demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneColorFade.cpp">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp">
-      <Filter>Source Files\app</Filter>
+      <Filter>Source Files\app\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneLogo.cpp">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneParticles.cpp">
+      <Filter>Source Files\app\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneOutputFilter.cpp">
+      <Filter>Source Files\app\scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

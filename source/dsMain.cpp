@@ -11,12 +11,16 @@
 #include "dsAudioPlayer.h"
 
 #include "scenes/dsSceneLoading.h"
+#include "scenes/dsSceneParticles.h"
+#include "scenes/dsSceneLogo.h"
+#include "scenes/dsSceneColorFade.h"
+#include "scenes/dsSceneOutputFilter.h"
 
-// Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
+
+#define AUDIO_STREAM        "audio://03_seazo_-_mechanical_nucleus.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
-#define AUDIO_FFT           2048
+#define AUDIO_FFT           4096
 
 //#define FULLSCREEN
 
@@ -51,6 +55,8 @@ public:
         }
         reloadResources = false;
         reloadTimeline = false;
+
+        languageFlag = 0;
     }
 
     ~GraphicRendering() {
@@ -115,10 +121,89 @@ public:
             else
                 mutePlayback = true;
 
+
             renderLoading(0);
-            
-            //timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 60e6, exampleScene));
-                      
+
+            dsParticles * p = new dsParticles(data, player->GetFFT());
+            p->Load();
+
+            dsSceneLogo * l = new dsSceneLogo(data);
+            l->Load();
+
+            dsSceneOutputFilter * output = new dsSceneOutputFilter(data);
+            output->Load();
+
+            output->AddStage(0e6, 1000e6, p);
+            output->AddStage(0e6, 1000e6, l);
+            output->BuildTimeline();
+
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 1000e6, output));
+
+
+            dsColorFade * showFade = new dsColorFade(data);
+            showFade->setColors(Math::Color4ub(0, 0, 0, 255), Math::Color4ub(0, 0, 0, 0));
+
+            dsColorFade * hideFade = new dsColorFade(data);
+            hideFade->setColors(Math::Color4ub(0, 0, 0, 0), Math::Color4ub(0, 0, 0, 255));
+
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 5e6, showFade));
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(173e6, 179e6, hideFade));
+
+            if (languageFlag == 0) {
+                std::string messages_pt[] = {
+                    "Um poeta disse uma vez",
+                    "\"ai porque a cena está morta\"",
+                    "\"ai porque sou pai de filhos\"",
+                    "\"ai porque não tenho programado\"",
+                    "\"ai porque não tenho dinheiro\"",
+                    "\"ai porque ando sem inspiração\"",
+                    "\"ai porque gosto é de dormir\"",
+                    "\"ai porque o sofá é mais confortável\"",
+                    "\"ai porque a pàscoa é pra familia\"",
+                    "\"todos os anos tens montes de desculpas\"",
+                    "\"para não ir à revision\"",
+                    "\"pá, não vás à revision!\"",
+                    "\"mas vem à shadowparty!\"",
+                    "\"15 - 16 Abril em Almada\"",
+                };
+
+                for (int i = 0; i < 14; i++) {
+                    AddSub(4e6 + i*6e6, 4e6, messages_pt[i]);
+                }
+
+                for (int i = 0; i < 14; i++) {
+                    AddSub(4e6 + (i + 14)*6e6, 4e6, messages_pt[i]);
+                }
+            }
+            else if(languageFlag == 1){
+                std::string messages_en[] = {
+                    "One poet once said",
+                    "\"Ugh because the scene is dead\"",
+                    "\"Ugh because I have children\"",
+                    "\"Ugh because I haven't been programming\"",
+                    "\"Ugh because I don't have money\"",
+                    "\"Ugh because I'm uninspired\"",
+                    "\"Ugh because I want to sleep\"",
+                    "\"Ugh because the couch is comfy\"",
+                    "\"Ugh because the easter is for family\"",
+                    "\"every year you have too many escuses\"",
+                    "\"to don't go to revision\"",
+                    "\"dude, don't go to revision!\"",
+                    "\"but do come to shadowparty!\"",
+                    "\"15 - 16 April in Almada\"",
+                };
+
+                for (int i = 0; i < 14; i++) {
+                    AddSub(4e6 + i*6e6, 4e6, messages_en[i]);
+                }
+
+                for (int i = 0; i < 14; i++) {
+                    AddSub(4e6 + (i + 14)*6e6, 4e6, messages_en[i]);
+                }
+            }
+
+            AddSub(174e6, 4e6, "code: zeroshift  music: seazo  text: ps");
+
             renderLoading(99.9);
         }
         catch (const Core::Exception & ex) {
@@ -142,6 +227,7 @@ public:
         
         while (!IsTearingDown())
         {
+            
             dev->ClearColor(0, 0, 0, 1);
             dev->Clear();
             dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
@@ -158,14 +244,42 @@ public:
             int64_t time = timer->GetElapsedTime();
             float time_in_secs = time / 1e6;
             
-            if (time_in_secs > 150)
+            // sair ao fim de x
+            if (time_in_secs > 179)
                 break;
 
-            timeline.Get(time, &items); // Nota: Ir buscar em segundos
+
+            timeline.Get(time, &items); 
             ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
                 i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
 
                 i->GetObject()->Render(i->GetStart(), i->GetEnd(), time);
+            }
+
+
+            // UI Stuff
+            dev->Disable(Graph::STATE_DEPTH_TEST);
+            dev->MatrixMode(Graph::MATRIX_PROJECTION);
+            dev->Identity();
+            dev->Ortho2D(wnd->GetWidth(), wnd->GetHeight());
+
+            dev->MatrixMode(Graph::MATRIX_VIEW);
+            dev->Identity();
+
+            dev->MatrixMode(Graph::MATRIX_MODEL);
+            dev->Identity();
+
+            dev->Enable(Graph::STATE_BLEND);
+            dev->Disable(Graph::STATE_DEPTH_TEST);
+            dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+
+            std::list<Math::TimelineItem<Subtitle*>> subItems;
+            subtitlesTimeline.Get(time, &subItems);
+
+            ListFor(Math::TimelineItem<Subtitle*>, subItems, i) {
+                Subtitle * s = i->GetObject();
+                s->SetPosition(Math::Vec2(wnd->GetWidth() * 0.5, wnd->GetHeight() - hScale * REFERENCE_SUBTITLE_SIZE * 2.0));
+                s->Render(time, i->GetStart(), i->GetEnd() - i->GetStart());
             }
 
             const double fps = UpdateFPS();
@@ -487,6 +601,10 @@ public:
         Core::Thread::Wait(100);
     }
 
+    void SetLanguage(int langFlag) {
+        languageFlag = langFlag;
+    }
+
 private:
     int reloadTextureCounter[3];
     int reloadCompoundCounter[3];
@@ -495,6 +613,7 @@ private:
     bool reloadTimeline;
     bool reloadResources;
     
+    int languageFlag;
     bool showUI;
     Data * data;
     int64_t lastTime;               // Onde começou a tocar 
@@ -523,7 +642,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1920, height = 1080;
-    float scale =0.6;
+    float scale = 0.6;
  
     bool fullscreen = false;
 
@@ -537,6 +656,8 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     
     bool runDemo = conf->Run(&width, &height, &fullscreen);
 
+    int langFlag = conf->GetLanguageFlag();
+
     SafeDelete(conf);
 
     if (runDemo) 
@@ -544,6 +665,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
         Core::Window * wnd = Core::CreateWindow("coprocessor", width, height, fullscreen);
 
         DS::GraphicRendering * grThread = new DS::GraphicRendering(wnd);
+        grThread->SetLanguage(langFlag);
 
         grThread->Start();
         while (wnd->Peek(true)) 
@@ -563,37 +685,3 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     }
 
 }
-
-
-/*AddSub(2, 4, "Demoscene\n2016!");
-AddSub(8, 4, "Scene-pt\nYo yo, toca a levantar a mini!");
-AddSub(14, 4, "E toca a codar uma demo!");
-AddSub(20, 4, "Efeito por\nxernobyl");
-AddSub(26, 4, "Arruinado por\nzeroshift");
-AddSub(32, 4, "Ye");*/
-
-//Graph::Program * particle = NULL;
-//Graph::Program * pCanvas = NULL;
-//Graph::RTManager * rtManager = NULL;
-//Graph::Texture2D * rtTexture = NULL;
-
-//particle = dev->LoadProgram("shader://particle.cpp");
-//pCanvas = dev->LoadProgram("shader://canvas.cpp");
-//pCanvas->SetVariable1i("texture_0", 0);
-//rtManager = dev->CreateRTManager(wnd->GetWidth(), wnd->GetHeight());
-//rtTexture = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, wnd->GetWidth(), wnd->GetHeight()));
-//rtManager->Attach(0, rtTexture);
-
-
-//scene->AddStage(1, 10000, map);
-
-//scene->AddStage(1, 2000, grid80);
-//scene->AddStage(1, 2000, ico);
-/*dsSceneScratch *scratch = new dsSceneScratch(data);
-scratch->Load();
-
-dsScene80Grid *grid80 = new dsScene80Grid(data);
-grid80->Load();
-
-dsSceneIcosphere * ico = new dsSceneIcosphere(data);
-ico->Load();*/

@@ -50,6 +50,11 @@ void AudioFFT::AddSamples(uint8_t * data, uint32_t size) {
             float v = (samples[i * 2 + 0] + samples[i * 2 + 1]) / (32767.f*2);
             if (v < -1) v = -1;
             else if (v > 1) v = 1;
+
+            // https://en.wikipedia.org/wiki/Hann_function
+            double multiplier = 0.5 * (1 - cos(2 * M_PI * i / (fftSize - 1))); // Hann function
+            v *= multiplier;
+
             fftValues[i * 2 + 0] = v;
             fftValues[i * 2 + 1] = 0.0;
         }

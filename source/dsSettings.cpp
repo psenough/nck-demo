@@ -10,7 +10,9 @@
 _DS_BEGIN
 
 DemoSettings::DemoSettings() {
-	wnd = Core::CreateWindow("Configuration", 230 * Core::Window::GetDisplayDensity(), 70 * Core::Window::GetDisplayDensity(), false);
+	wnd = Core::CreateWindow("Configuration", 500 * Core::Window::GetDisplayDensity(), 250 * Core::Window::GetDisplayDensity(), false);
+
+    languageFlag = 0;
 
 	runFlag = true;
 	enterDemo = false;
@@ -20,6 +22,7 @@ DemoSettings::DemoSettings() {
 	wgtManager = NULL;
 	wgtRender = NULL;
 	shpRender = NULL;
+    logo = NULL;
 
 	resolution.reserve(9);
 	resolution.push_back(std::pair<int, int>(640, 480));
@@ -31,6 +34,11 @@ DemoSettings::DemoSettings() {
 	resolution.push_back(std::pair<int, int>(1360, 768));
 	resolution.push_back(std::pair<int, int>(1366, 768));
 	resolution.push_back(std::pair<int, int>(1920, 1080));
+
+    language.reserve(3);
+    language.push_back("Portuguese");
+    language.push_back("English");
+    language.push_back("Nothing");
 }
 
 DemoSettings::~DemoSettings() {
@@ -59,17 +67,19 @@ void DemoSettings::Load() {
 	fontMap->Load("script://sans_serif.txt");
 	fontMap->SetPositionAccuracy(Gui::FONT_POSITION_ACCURACY_INTEGER);
 
+    logo = dev->LoadTexture("texture://tex2d_config.png");
+    logo->SetAdressMode(Graph::ADRESS_CLAMP);
 
 	shpRender = new Gui::ShapeRenderer(dev, screenDensity);
 	wgtRender = new Gui::BlenderWidgetRenderer(dev, shpRender, fontMap, fontTexture);
 	wgtManager = new Gui::Manager(0, 0, wnd->GetWidth(), wnd->GetHeight(), wgtRender);
 
-	exitButton = new Gui::PushButton(10, 40, 100, 20, "Exit");
+	exitButton = new Gui::PushButton(385, 180, 100, 20, "Exit");
 	exitButton->SetTooltip("Exit demo");
 	exitButton->SetCallback(this);
 	wgtManager->Add(exitButton);
 
-	runButton = new Gui::PushButton(120, 40, 100, 20, "Run");
+	runButton = new Gui::PushButton(385, 210, 100, 20, "Run");
 	runButton->SetTooltip("Run demo");
 	runButton->SetCallback(this);
 	wgtManager->Add(runButton);
@@ -80,15 +90,31 @@ void DemoSettings::Load() {
 		roptValues.push_back(std::pair<int, std::string>(i, Math::IntToString(resolution[i].first) + " x " + Math::IntToString(resolution[i].second)));
 	}
 
-	resolutionSelector = new Gui::RangeOptionButton(120, 10, 100, 20, roptValues);
+    std::vector< std::pair<int, std::string> > langValues;
+    langValues.reserve(language.size());
+    for (int i = 0; i<language.size(); i++) {
+        langValues.push_back(std::pair<int, std::string>(i, language[i]));
+    }
+
+	resolutionSelector = new Gui::RangeOptionButton(210, 210, 100, 20, roptValues);
 	resolutionSelector->SetSelectedOption(8);
 	resolutionSelector->SetTooltip("Screen Resolution Selector");
 	resolutionSelector->SetCallback(this);
 	wgtManager->Add(resolutionSelector);
 
-	fullScreenButton = new Gui::CheckBoxButton(15, 13, 14, "Fullscreen");
+    languageSelector = new Gui::RangeOptionButton(15, 210, 100, 20, langValues);
+    languageSelector->SetSelectedOption(0);
+    languageSelector->SetTooltip("Subtitles language");
+    languageSelector->SetCallback(this);
+    wgtManager->Add(languageSelector);
+
+	fullScreenButton = new Gui::CheckBoxButton(210, 184, 14, "Fullscreen");
 	fullScreenButton->SetValue(true);
 	wgtManager->Add(fullScreenButton);
+
+    Gui::Label * lblLang = new Gui::Label(40, 190, "Subtitles");
+    lblLang->SetTextSize(16);
+    wgtManager->Add(lblLang);
 }
 
 void DemoSettings::Render() {
@@ -104,7 +130,14 @@ void DemoSettings::Render() {
 	dev->MatrixMode(Graph::MATRIX_MODEL);
 	dev->Identity();
 
-	wgtManager->Render();
+    wgtManager->Render();
+
+    shpRender->Square(0, 0, 500, 160, Math::Color4ub(0, 0, 0, 255));
+
+    logo->Enable();
+    shpRender->SetRoundMode(Gui::ShapeRenderer::ROUND_NONE);
+    shpRender->Square(0, 5, 500, 150, Math::Color4ub(255, 255, 255, 255));
+    logo->Disable();	
 
 	dev->PresentAll();
 }
@@ -140,7 +173,9 @@ bool DemoSettings::Run(int * width, int * height, bool * fullscreen) {
 	*width = resolution[resIdx].first;
 	*height = resolution[resIdx].second;
 	*fullscreen = fullScreenButton->GetValue();
+    languageFlag = languageSelector->GetSelectedOption();
 
+    SafeDelete(logo);
 	SafeDelete(fontTexture);
 	SafeDelete(fontMap);
 	SafeDelete(wgtManager);
@@ -167,6 +202,10 @@ void DemoSettings::OnButtonClick(Gui::Widget * widget) {
 	else if (widget == exitButton) {
 		runFlag = false;
 	}
+}
+
+int DemoSettings::GetLanguageFlag() {
+    return languageFlag;
 }
 
 void DemoSettings::OnButtonUp(Gui::Widget * widget) {

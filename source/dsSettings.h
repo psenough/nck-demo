@@ -23,17 +23,23 @@ public:
 	void OnButtonClick(Gui::Widget * widget);
 	void OnButtonUp(Gui::Widget * widget);
 	void OnValueChanged(Gui::Widget * widget);
+    int GetLanguageFlag();
 
 	bool enterDemo;
 	bool runFlag;
+    int languageFlag;
 
 	std::vector< std::pair<int, int> > resolution;
+    std::vector<std::string> language;
 
 	Gui::CheckBoxButton * fullScreenButton;
+  
 	Gui::PushButton * runButton;
 	Gui::PushButton * exitButton;
 	Gui::RangeOptionButton * resolutionSelector;
+    Gui::RangeOptionButton * languageSelector;
 
+    Graph::Texture * logo;
 	Core::Window * wnd;
 	Graph::Device * dev;
 	Gui::Manager * wgtManager;
