@@ -122,6 +122,7 @@
     <ClInclude Include="..\..\..\source\dsSubtitles.h" />
     <ClInclude Include="..\..\..\source\dsUtils.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsSceneGridTerrain.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,7 @@
     <ClCompile Include="..\..\..\source\dsSubtitles.cpp" />
     <ClCompile Include="..\..\..\source\dsUtils.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsSceneGridTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">

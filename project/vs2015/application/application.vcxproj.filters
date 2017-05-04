@@ -64,6 +64,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneGridTerrain.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -94,6 +97,9 @@
       <Filter>Source Files\demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneGridTerrain.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>

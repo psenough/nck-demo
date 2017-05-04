@@ -11,9 +11,10 @@
 #include "dsAudioPlayer.h"
 
 #include "scenes/dsSceneLoading.h"
+#include "scenes/dsSceneGridTerrain.h"
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
+#define AUDIO_STREAM        NULL  //"audio://08_ps_-_wait_while_i_fall_asleep_short.ogg"
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -117,7 +118,10 @@ public:
 
             renderLoading(0);
             
-            //timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 60e6, exampleScene));
+            dsSceneGridTerrain * gt = new dsSceneGridTerrain(data);
+            gt->Load();
+
+            timeline.Insert(Math::TimelineItem<DS::Stage*>(0e6, 60e6, gt));
                       
             renderLoading(99.9);
         }
@@ -484,7 +488,7 @@ public:
         dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
         loading->Render(0, 10e6, (progress/100)*10e6);
         dev->PresentAll();
-        Core::Thread::Wait(100);
+        //Core::Thread::Wait(100);
     }
 
 private:
@@ -535,7 +539,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     width *= scale;
     height *= scale;
     
-    bool runDemo = conf->Run(&width, &height, &fullscreen);
+    bool runDemo = true;//conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
 
@@ -564,36 +568,3 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 
 }
 
-
-/*AddSub(2, 4, "Demoscene\n2016!");
-AddSub(8, 4, "Scene-pt\nYo yo, toca a levantar a mini!");
-AddSub(14, 4, "E toca a codar uma demo!");
-AddSub(20, 4, "Efeito por\nxernobyl");
-AddSub(26, 4, "Arruinado por\nzeroshift");
-AddSub(32, 4, "Ye");*/
-
-//Graph::Program * particle = NULL;
-//Graph::Program * pCanvas = NULL;
-//Graph::RTManager * rtManager = NULL;
-//Graph::Texture2D * rtTexture = NULL;
-
-//particle = dev->LoadProgram("shader://particle.cpp");
-//pCanvas = dev->LoadProgram("shader://canvas.cpp");
-//pCanvas->SetVariable1i("texture_0", 0);
-//rtManager = dev->CreateRTManager(wnd->GetWidth(), wnd->GetHeight());
-//rtTexture = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, wnd->GetWidth(), wnd->GetHeight()));
-//rtManager->Attach(0, rtTexture);
-
-
-//scene->AddStage(1, 10000, map);
-
-//scene->AddStage(1, 2000, grid80);
-//scene->AddStage(1, 2000, ico);
-/*dsSceneScratch *scratch = new dsSceneScratch(data);
-scratch->Load();
-
-dsScene80Grid *grid80 = new dsScene80Grid(data);
-grid80->Load();
-
-dsSceneIcosphere * ico = new dsSceneIcosphere(data);
-ico->Load();*/
