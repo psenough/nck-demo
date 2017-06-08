@@ -16,11 +16,7 @@
 		CC7DC5151D91E65800E86824 /* dsStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5091D91E65800E86824 /* dsStage.cpp */; };
 		CC7DC5161D91E65800E86824 /* dsSubtitles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC50B1D91E65800E86824 /* dsSubtitles.cpp */; };
 		CC7DC5171D91E65800E86824 /* dsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC50D1D91E65800E86824 /* dsUtils.cpp */; };
-		CC7DC5231D91E69F00E86824 /* dsScene80Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */; };
-		CC7DC5241D91E69F00E86824 /* dsSceneCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */; };
-		CC7DC5251D91E69F00E86824 /* dsSceneIcosphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */; };
 		CC7DC5261D91E69F00E86824 /* dsSceneLoading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */; };
-		CC7DC5271D91E69F00E86824 /* dsSceneScratch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */; };
 		CC7DC52A1D91E6F200E86824 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5281D91E6F200E86824 /* libjpeg.a */; };
 		CC7DC52B1D91E6F200E86824 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5291D91E6F200E86824 /* libpng.a */; };
 		CC7DC5801D91E72000E86824 /* libAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC54C1D91E70A00E86824 /* libAudio.a */; };
@@ -34,6 +30,14 @@
 		CC7DC5881D91E72000E86824 /* libScene.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5641D91E70A00E86824 /* libScene.a */; };
 		CC7DC5891D91E72000E86824 /* libXML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7DC5671D91E70A00E86824 /* libXML.a */; };
 		CC7ED01318DF350900706A97 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7ED01218DF350900706A97 /* libz.dylib */; };
+		CC8207DC1EEA077D003EF92A /* dsHUDWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207D01EEA077D003EF92A /* dsHUDWindow.cpp */; };
+		CC8207DD1EEA077D003EF92A /* dsHUDWJupiterDiagram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207D21EEA077D003EF92A /* dsHUDWJupiterDiagram.cpp */; };
+		CC8207DE1EEA077D003EF92A /* dsInsideSatellite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207D41EEA077D003EF92A /* dsInsideSatellite.cpp */; };
+		CC8207DF1EEA077D003EF92A /* dsOutputStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207D61EEA077D003EF92A /* dsOutputStage.cpp */; };
+		CC8207E01EEA077D003EF92A /* dsSceneGridTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207D81EEA077D003EF92A /* dsSceneGridTerrain.cpp */; };
+		CC8207E31EEA07C3003EF92A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8207E21EEA07C3003EF92A /* AudioToolbox.framework */; };
+		CC8207E61EEA07E6003EF92A /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8207E41EEA07E5003EF92A /* libogg.a */; };
+		CC8207E71EEA07E6003EF92A /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8207E51EEA07E6003EF92A /* libvorbis.a */; };
 		CCBBB72818DD0F9700430F06 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBBB72718DD0F9700430F06 /* OpenGL.framework */; };
 		CCC9B33318D62D8800B5B400 /* NCKMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC6113FC1899C3C3003538E8 /* NCKMainMenu.xib */; };
 		CCC9B5591897111200771D4E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC9B5581897111200771D4E /* Cocoa.framework */; };
@@ -220,16 +224,8 @@
 		CC7DC50C1D91E65800E86824 /* dsSubtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSubtitles.h; path = ../../../../source/dsSubtitles.h; sourceTree = "<group>"; };
 		CC7DC50D1D91E65800E86824 /* dsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsUtils.cpp; path = ../../../../source/dsUtils.cpp; sourceTree = "<group>"; };
 		CC7DC50E1D91E65800E86824 /* dsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsUtils.h; path = ../../../../source/dsUtils.h; sourceTree = "<group>"; };
-		CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsScene80Grid.cpp; path = ../../../../source/scenes/dsScene80Grid.cpp; sourceTree = "<group>"; };
-		CC7DC51A1D91E69F00E86824 /* dsScene80Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsScene80Grid.h; path = ../../../../source/scenes/dsScene80Grid.h; sourceTree = "<group>"; };
-		CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneCapture.cpp; path = ../../../../source/scenes/dsSceneCapture.cpp; sourceTree = "<group>"; };
-		CC7DC51C1D91E69F00E86824 /* dsSceneCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneCapture.h; path = ../../../../source/scenes/dsSceneCapture.h; sourceTree = "<group>"; };
-		CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneIcosphere.cpp; path = ../../../../source/scenes/dsSceneIcosphere.cpp; sourceTree = "<group>"; };
-		CC7DC51E1D91E69F00E86824 /* dsSceneIcosphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneIcosphere.h; path = ../../../../source/scenes/dsSceneIcosphere.h; sourceTree = "<group>"; };
 		CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneLoading.cpp; path = ../../../../source/scenes/dsSceneLoading.cpp; sourceTree = "<group>"; };
 		CC7DC5201D91E69F00E86824 /* dsSceneLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneLoading.h; path = ../../../../source/scenes/dsSceneLoading.h; sourceTree = "<group>"; };
-		CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneScratch.cpp; path = ../../../../source/scenes/dsSceneScratch.cpp; sourceTree = "<group>"; };
-		CC7DC5221D91E69F00E86824 /* dsSceneScratch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneScratch.h; path = ../../../../source/scenes/dsSceneScratch.h; sourceTree = "<group>"; };
 		CC7DC5281D91E6F200E86824 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libjpeg.a; sourceTree = "<group>"; };
 		CC7DC5291D91E6F200E86824 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libpng.a; sourceTree = "<group>"; };
 		CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BXON.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/bxon/BXON.xcodeproj"; sourceTree = "<absolute>"; };
@@ -243,6 +239,19 @@
 		CC7DC5441D91E70A00E86824 /* Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Graphics.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Graphics/Graphics.xcodeproj"; sourceTree = "<absolute>"; };
 		CC7DC5471D91E70A00E86824 /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = "/Users/zeroshift/Workspace/git/nck-demo/project/xcode/../../../nctoolkit/project/xcode/Core/Core.xcodeproj"; sourceTree = "<absolute>"; };
 		CC7ED01218DF350900706A97 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CC8207D01EEA077D003EF92A /* dsHUDWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsHUDWindow.cpp; path = ../../../../source/scenes/dsHUDWindow.cpp; sourceTree = "<group>"; };
+		CC8207D11EEA077D003EF92A /* dsHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsHUDWindow.h; path = ../../../../source/scenes/dsHUDWindow.h; sourceTree = "<group>"; };
+		CC8207D21EEA077D003EF92A /* dsHUDWJupiterDiagram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsHUDWJupiterDiagram.cpp; path = ../../../../source/scenes/dsHUDWJupiterDiagram.cpp; sourceTree = "<group>"; };
+		CC8207D31EEA077D003EF92A /* dsHUDWJupiterDiagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsHUDWJupiterDiagram.h; path = ../../../../source/scenes/dsHUDWJupiterDiagram.h; sourceTree = "<group>"; };
+		CC8207D41EEA077D003EF92A /* dsInsideSatellite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsInsideSatellite.cpp; path = ../../../../source/scenes/dsInsideSatellite.cpp; sourceTree = "<group>"; };
+		CC8207D51EEA077D003EF92A /* dsInsideSatellite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsInsideSatellite.h; path = ../../../../source/scenes/dsInsideSatellite.h; sourceTree = "<group>"; };
+		CC8207D61EEA077D003EF92A /* dsOutputStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsOutputStage.cpp; path = ../../../../source/scenes/dsOutputStage.cpp; sourceTree = "<group>"; };
+		CC8207D71EEA077D003EF92A /* dsOutputStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsOutputStage.h; path = ../../../../source/scenes/dsOutputStage.h; sourceTree = "<group>"; };
+		CC8207D81EEA077D003EF92A /* dsSceneGridTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dsSceneGridTerrain.cpp; path = ../../../../source/scenes/dsSceneGridTerrain.cpp; sourceTree = "<group>"; };
+		CC8207D91EEA077D003EF92A /* dsSceneGridTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dsSceneGridTerrain.h; path = ../../../../source/scenes/dsSceneGridTerrain.h; sourceTree = "<group>"; };
+		CC8207E21EEA07C3003EF92A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CC8207E41EEA07E5003EF92A /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libogg.a; sourceTree = "<group>"; };
+		CC8207E51EEA07E6003EF92A /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../../../../nctoolkit/project/extern/macosx/lib_64/libvorbis.a; sourceTree = "<group>"; };
 		CCBBB72718DD0F9700430F06 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CCC9B5551897111200771D4E /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC9B5581897111200771D4E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -262,6 +271,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8207E61EEA07E6003EF92A /* libogg.a in Frameworks */,
+				CC8207E71EEA07E6003EF92A /* libvorbis.a in Frameworks */,
+				CC8207E31EEA07C3003EF92A /* AudioToolbox.framework in Frameworks */,
 				CC7DC5801D91E72000E86824 /* libAudio.a in Frameworks */,
 				CC7DC5811D91E72000E86824 /* libBXON.a in Frameworks */,
 				CC7DC5821D91E72000E86824 /* libCore.a in Frameworks */,
@@ -295,16 +307,18 @@
 		CC7DC5181D91E68B00E86824 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				CC7DC5191D91E69F00E86824 /* dsScene80Grid.cpp */,
-				CC7DC51A1D91E69F00E86824 /* dsScene80Grid.h */,
-				CC7DC51B1D91E69F00E86824 /* dsSceneCapture.cpp */,
-				CC7DC51C1D91E69F00E86824 /* dsSceneCapture.h */,
-				CC7DC51D1D91E69F00E86824 /* dsSceneIcosphere.cpp */,
-				CC7DC51E1D91E69F00E86824 /* dsSceneIcosphere.h */,
+				CC8207D01EEA077D003EF92A /* dsHUDWindow.cpp */,
+				CC8207D11EEA077D003EF92A /* dsHUDWindow.h */,
+				CC8207D21EEA077D003EF92A /* dsHUDWJupiterDiagram.cpp */,
+				CC8207D31EEA077D003EF92A /* dsHUDWJupiterDiagram.h */,
+				CC8207D41EEA077D003EF92A /* dsInsideSatellite.cpp */,
+				CC8207D51EEA077D003EF92A /* dsInsideSatellite.h */,
+				CC8207D61EEA077D003EF92A /* dsOutputStage.cpp */,
+				CC8207D71EEA077D003EF92A /* dsOutputStage.h */,
+				CC8207D81EEA077D003EF92A /* dsSceneGridTerrain.cpp */,
+				CC8207D91EEA077D003EF92A /* dsSceneGridTerrain.h */,
 				CC7DC51F1D91E69F00E86824 /* dsSceneLoading.cpp */,
 				CC7DC5201D91E69F00E86824 /* dsSceneLoading.h */,
-				CC7DC5211D91E69F00E86824 /* dsSceneScratch.cpp */,
-				CC7DC5221D91E69F00E86824 /* dsSceneScratch.h */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -437,6 +451,9 @@
 		CCC9B5571897111200771D4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC8207E41EEA07E5003EF92A /* libogg.a */,
+				CC8207E51EEA07E6003EF92A /* libvorbis.a */,
+				CC8207E21EEA07C3003EF92A /* AudioToolbox.framework */,
 				CC7DC52C1D91E70A00E86824 /* BXON.xcodeproj */,
 				CC7DC52F1D91E70A00E86824 /* Audio.xcodeproj */,
 				CC7DC5321D91E70A00E86824 /* XML.xcodeproj */,
@@ -682,20 +699,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC7DC5241D91E69F00E86824 /* dsSceneCapture.cpp in Sources */,
 				CC7DC5121D91E65800E86824 /* dsData.cpp in Sources */,
 				CC7DC5131D91E65800E86824 /* dsMain.cpp in Sources */,
 				CC7DC5101D91E65800E86824 /* dsAudioPlayer.cpp in Sources */,
-				CC7DC5251D91E69F00E86824 /* dsSceneIcosphere.cpp in Sources */,
+				CC8207DC1EEA077D003EF92A /* dsHUDWindow.cpp in Sources */,
+				CC8207DD1EEA077D003EF92A /* dsHUDWJupiterDiagram.cpp in Sources */,
 				CC7DC50F1D91E65800E86824 /* dsAudioFFT.cpp in Sources */,
-				CC7DC5271D91E69F00E86824 /* dsSceneScratch.cpp in Sources */,
 				CC7DC5171D91E65800E86824 /* dsUtils.cpp in Sources */,
 				CC7DC5261D91E69F00E86824 /* dsSceneLoading.cpp in Sources */,
+				CC8207E01EEA077D003EF92A /* dsSceneGridTerrain.cpp in Sources */,
 				CC7DC5111D91E65800E86824 /* dsCompound.cpp in Sources */,
 				CC7DC5141D91E65800E86824 /* dsSettings.cpp in Sources */,
+				CC8207DF1EEA077D003EF92A /* dsOutputStage.cpp in Sources */,
+				CC8207DE1EEA077D003EF92A /* dsInsideSatellite.cpp in Sources */,
 				CC7DC5161D91E65800E86824 /* dsSubtitles.cpp in Sources */,
 				CC7DC5151D91E65800E86824 /* dsStage.cpp in Sources */,
-				CC7DC5231D91E69F00E86824 /* dsScene80Grid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
