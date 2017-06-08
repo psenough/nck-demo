@@ -14,7 +14,7 @@ _DS_BEGIN
 class Stage
 {
 public:
-    Stage(Data * data) { m_Data = data; };
+    Stage(Data * data) { m_Data = data; m_Order = 0; };
     virtual ~Stage() {};
     virtual void Load() = 0;
     virtual void Render(int64_t start, int64_t end, int64_t time) = 0;
@@ -22,7 +22,10 @@ public:
 
     void AddStage(int64_t start, int64_t end, Stage * stage);
     void BuildTimeline();
+    void SetOrder(int order) { m_Order = order; }
+    int GetOrder() { return m_Order; }
 protected:
+    int m_Order;
     Data * m_Data;
     Math::TimelineNode<DS::Stage*> m_Stages;
 };

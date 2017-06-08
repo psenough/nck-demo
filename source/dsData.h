@@ -8,6 +8,7 @@
 #define DS_DATA_H
 
 #include "dsCompound.h"
+#include <tinyxml.h>
 
 _DS_BEGIN
 
@@ -34,6 +35,7 @@ public:
     ReloadResult ReloadTextures();
     ReloadResult ReloadCompounds();
     ReloadResult ReloadShaders();
+    ReloadResult ReloadTimeline();
 
     Graph::Device * GetGraphicsDevice();
     Gui::ShapeRenderer * GetShapeRenderer();
@@ -53,7 +55,12 @@ public:
     float GetAspect();
     float GetHeight();
     float GetWidth();
+
+    void LoadTimeline();
+
 private:
+    int64_t lastTimelineChange;
+    TiXmlDocument sceneTimeline;
     Core::Window * window;
     Graph::Device * gDevice;
     Gui::WidgetRenderer * widgetRenderer;

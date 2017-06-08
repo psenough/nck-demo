@@ -19,7 +19,7 @@ AudioPlayer::AudioPlayer(int sampleRate, int bufferSamples, int bufferCount) {
     fft = NULL;
     buffer = new Core::QueueBuffer();
     device = NULL;
-    decodeBuffer = new uint8_t[sampleRate * sizeof(int16_t) * channels]; //at least 1 second buffer
+    decodeBuffer = new uint8_t[2 * sampleRate * sizeof(int16_t) * channels]; // at least 2 second buffer
     mutex = Core::CreateMutex();
 }
 

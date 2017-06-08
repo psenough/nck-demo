@@ -28,6 +28,7 @@ Data::Data(Core::Window * wnd, Graph::Device * gDev) {
 
     shapeRenderer = new Gui::ShapeRenderer(gDev);
     widgetRenderer = new Gui::BlenderWidgetRenderer(gDevice, shapeRenderer, fontMap, fontTexture);
+    lastTimelineChange = 0;
 }
 
 Data::~Data() {
@@ -87,6 +88,17 @@ ReloadResult Data::ReloadShaders() {
     std::list<std::string> errors;
     total = gDevice->ReloadPrograms(&success, &errors);
     return ReloadResult(total, success, errors.size());
+}
+
+ReloadResult Data::ReloadTimeline() {
+    std::string timelineSrc = "script://timeline.cpp";
+    if (Core::FileReader::Exists(timelineSrc)) {
+        int64_t t = Core::GetFileLastModified(timelineSrc);
+        if (t > lastTimelineChange) {
+
+        }
+    }
+    return ReloadResult(0, 0, 0);
 }
 
 Graph::Device * Data::GetGraphicsDevice() {
@@ -184,4 +196,15 @@ float Data::GetHeight() {
 float Data::GetWidth() {
     return window->GetWidth();
 }
+
+
+void Data::LoadTimeline() {
+    std::string timelineSrc = "script://timeline.cpp";
+    if (Core::FileReader::Exists(timelineSrc)) {
+        std::string fullPath = Core::ResolveFilename(timelineSrc);
+        sceneTimeline.LoadFile(timelineSrc.c_str());
+        lastTimelineChange = Core::GetFileLastModified(timelineSrc);
+    }
+}
+
 _DS_END

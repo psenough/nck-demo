@@ -19,6 +19,9 @@
     <Filter Include="Source Files\demo">
       <UniqueIdentifier>{708ca4f3-4cd4-4b5c-b16b-fc35ebe4240f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\app\HUD">
+      <UniqueIdentifier>{c0cc9c3a-86ac-4401-9583-c4b8cf2f3f73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\win32\appicon.ico">
@@ -67,6 +70,18 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneGridTerrain.h">
       <Filter>Source Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsHUDWindow.h">
+      <Filter>Source Files\app\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.h">
+      <Filter>Source Files\app\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsInsideSatellite.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsOutputStage.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -100,6 +115,18 @@
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneGridTerrain.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsHUDWindow.cpp">
+      <Filter>Source Files\app\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.cpp">
+      <Filter>Source Files\app\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsInsideSatellite.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsOutputStage.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,6 +11,7 @@ _DS_BEGIN
 Compound::Compound(Graph::Device * dev) {
     m_Compound = NULL;
     m_Device = dev;
+    processor = NULL;
 }
 
 Compound::~Compound(){

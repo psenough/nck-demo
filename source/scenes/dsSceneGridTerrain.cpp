@@ -19,10 +19,13 @@ void dsSceneGridTerrain::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
     Gui::ShapeRenderer * shp = m_Data->GetShapeRenderer();
 
+  
     const float aspect = m_Data->GetAspect();
     const float width = m_Data->GetWidth();
     const float height = m_Data->GetHeight();
     const float t = (time - start) / 1e6;
+
+    dev->Viewport(0, 0, width, height);
 
     Scene::Camera * cam = terrainModel->Get()->GetCamera("Camera");
     cam->GetObject()->Play(t * 24.0);
