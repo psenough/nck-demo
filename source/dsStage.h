@@ -20,14 +20,32 @@ public:
     virtual void Render(int64_t start, int64_t end, int64_t time) = 0;
     virtual void RenderFBO(int64_t start, int64_t end, int64_t time) {};
 
-    void AddStage(int64_t start, int64_t end, Stage * stage);
-    void BuildTimeline();
-    void SetOrder(int order) { m_Order = order; }
-    int GetOrder() { return m_Order; }
+    virtual void AddStage(int64_t start, int64_t end, Stage * stage);
+    virtual void BuildTimeline();
+    virtual void SetOrder(int order) { m_Order = order; }
+    virtual int GetOrder() { return m_Order; }
+    Data * GetData() { return m_Data; }
 protected:
     int m_Order;
     Data * m_Data;
     Math::TimelineNode<DS::Stage*> m_Stages;
+};
+
+class StageProxy : public Stage{
+public:
+    StageProxy(Data * data);
+    StageProxy(Stage * stage, int64_t offset = 0);
+    ~StageProxy();
+    void Load();
+    void Render(int64_t start, int64_t end, int64_t time);
+    void RenderFBO(int64_t start, int64_t end, int64_t time);
+    void SetOffset(int64_t offset);
+    void SetStage(Stage * stage);
+    void SetOrder(int order) { m_Stage->SetOrder(order); }
+    int GetOrder() { return m_Stage->GetOrder(); }
+protected:
+    int64_t m_Offset;
+    Stage * m_Stage;
 };
 
 _DS_END

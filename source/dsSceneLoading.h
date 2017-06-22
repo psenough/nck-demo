@@ -1,7 +1,7 @@
 #ifndef DS_SCENE_LOADING_H
 #define DS_SCENE_LOADING_H
 
-#include "../dsStage.h"
+#include "dsStage.h"
 
 class dsSceneLoading : public DS::Stage {
 public:

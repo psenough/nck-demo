@@ -70,7 +70,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -118,16 +118,19 @@
     <ClInclude Include="..\..\..\source\dsConfig.h" />
     <ClInclude Include="..\..\..\source\dsAudioFFT.h" />
     <ClInclude Include="..\..\..\source\dsData.h" />
+    <ClInclude Include="..\..\..\source\dsMain.h" />
+    <ClInclude Include="..\..\..\source\dsSceneLoading.h" />
     <ClInclude Include="..\..\..\source\dsStage.h" />
     <ClInclude Include="..\..\..\source\dsSettings.h" />
     <ClInclude Include="..\..\..\source\dsSubtitles.h" />
+    <ClInclude Include="..\..\..\source\dsTimeline.h" />
     <ClInclude Include="..\..\..\source\dsUtils.h" />
     <ClInclude Include="..\..\..\source\scenes\dsHUDWindow.h" />
     <ClInclude Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.h" />
     <ClInclude Include="..\..\..\source\scenes\dsInsideSatellite.h" />
     <ClInclude Include="..\..\..\source\scenes\dsOutputStage.h" />
-    <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSceneGridTerrain.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsSceneButterfly.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -136,16 +139,18 @@
     <ClCompile Include="..\..\..\source\dsCompound.cpp" />
     <ClCompile Include="..\..\..\source\dsData.cpp" />
     <ClCompile Include="..\..\..\source\dsMain.cpp" />
+    <ClCompile Include="..\..\..\source\dsSceneLoading.cpp" />
     <ClCompile Include="..\..\..\source\dsStage.cpp" />
     <ClCompile Include="..\..\..\source\dsSettings.cpp" />
     <ClCompile Include="..\..\..\source\dsSubtitles.cpp" />
+    <ClCompile Include="..\..\..\source\dsTimeline.cpp" />
     <ClCompile Include="..\..\..\source\dsUtils.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsHUDWindow.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsInsideSatellite.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsOutputStage.cpp" />
-    <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSceneGridTerrain.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsSceneButterfly.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\nctoolkit\project\vs2015\audio\audio.vcxproj">

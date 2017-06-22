@@ -56,7 +56,7 @@ public:
     float GetHeight();
     float GetWidth();
 
-    void LoadTimeline();
+    //void LoadTimeline();
 
 private:
     int64_t lastTimelineChange;

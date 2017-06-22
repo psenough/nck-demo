@@ -197,8 +197,8 @@ float Data::GetWidth() {
     return window->GetWidth();
 }
 
-
-void Data::LoadTimeline() {
+/*
+void Data::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline) {
     std::string timelineSrc = "script://timeline.cpp";
     if (Core::FileReader::Exists(timelineSrc)) {
         std::string fullPath = Core::ResolveFilename(timelineSrc);
@@ -206,5 +206,6 @@ void Data::LoadTimeline() {
         lastTimelineChange = Core::GetFileLastModified(timelineSrc);
     }
 }
+*/
 
 _DS_END
