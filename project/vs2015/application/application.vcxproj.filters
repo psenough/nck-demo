@@ -94,6 +94,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsSceneButterfly.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneTest.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\scenes\dsHUDWindow.cpp">
@@ -145,6 +148,9 @@
       <Filter>core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneButterfly.cpp">
+      <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSceneTest.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
   </ItemGroup>

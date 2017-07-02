@@ -12,6 +12,7 @@
 #include "scenes/dsInsideSatellite.h"
 #include "scenes/dsOutputStage.h"
 #include "scenes/dsSceneButterfly.h"
+#include "scenes/dsSceneTest.h"
 
 // Para correr sem audio usar NULL
 #define AUDIO_STREAM        "audio://Ninja Tracks - Stasis.ogg" 
@@ -43,8 +44,11 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     dsSceneButterfly * test = new dsSceneButterfly(data);
     test->Load();
 
-  
-    //inside->AddStage(0e6, 60e6, test);
+    dsSceneTest * tunel = new dsSceneTest(data);
+    tunel->Load();
+
+    inside->AddStage(0e6, 60e6, tunel);
+    //
 
     inside->AddStage(1e6, 2e6, new StageProxy(test, 0));
     inside->AddStage(2e6, 3e6, new StageProxy(test, 0));
