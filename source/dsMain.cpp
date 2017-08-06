@@ -6,7 +6,7 @@
 
 #include "dsTimeline.h"
 
-//#define FULLSCREEN
+#define FULLSCREEN
 
 bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
     return a.GetLayer() < b.GetLayer();
@@ -329,7 +329,7 @@ void dsMain::DrawFFT(float x, float y, float width, float height) {
     {
         float yP = y + i * (height / steps);
         shpRender->Square(x, yP, width, 1, Math::Color4ub(0, 0, 0, 50));
-        DrawText(x + width + 10, yP, 16, false, Math::FloatToString(maxDB - (i * diffDB / steps), 3) + "dB");
+        DrawText(x + width + 10, yP, 16, false, Math::FloatToString(maxDB - (i * diffDB / steps), 1) + "dB");
     }
 
     for (int i = 0, f = freq_start; f <= freq_max; f += freq_step, i++)
@@ -366,7 +366,7 @@ void dsMain::DrawFPS(float x, float y, float width, float height) {
     {
         float yP = y + i * (height / steps);
         shpRender->Square(x, yP, width, 1, Math::Color4ub(0, 0, 0, 50));
-        DrawText(x + width + 10, yP, 16, false, Math::FloatToString(bestFPS - i*(bestFPS / steps), 3) + "fps");
+        DrawText(x + width + 10, yP, 16, false, Math::FloatToString(bestFPS - i*(bestFPS / steps), 1) + "fps");
     }
 
     dev->Color(255, 255, 255, 200);
@@ -500,7 +500,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1920, height = 1080;
-    float scale =0.6;
+    float scale = 0.6;
  
     bool fullscreen = false;
 

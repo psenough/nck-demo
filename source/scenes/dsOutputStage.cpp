@@ -26,7 +26,7 @@ void dsOutputStage::Load() {
         );
     fboManager->Attach(0, fboTexture);
 
-    aaProgram = m_Data->LoadProgram("shader://output/fxaa_brightness_contrast.cpp");
+    aaProgram = m_Data->LoadProgram("shader://output.cpp");
 }
 
 
@@ -79,6 +79,7 @@ void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
 
     aaProgram->Enable();
     aaProgram->SetVariable4f("texResolution", width, height);
+    aaProgram->SetVariable1f("time", t);
 
     float contrast = 0;
     float saturation = 0;

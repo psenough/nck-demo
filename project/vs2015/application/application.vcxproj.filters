@@ -11,9 +11,6 @@
     <Filter Include="demo\scenes">
       <UniqueIdentifier>{5f01f9f2-fbbf-4f2c-8b94-ee6a2d0e8420}</UniqueIdentifier>
     </Filter>
-    <Filter Include="demo\scenes\HUD">
-      <UniqueIdentifier>{c0cc9c3a-86ac-4401-9583-c4b8cf2f3f73}</UniqueIdentifier>
-    </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{83063b99-47e4-4af6-828b-23cd523980b4}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     <Filter Include="core\Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="demo\scenes\utils">
+      <UniqueIdentifier>{8a8c38d7-7c4a-4f1a-855f-833cee40d1ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,20 +67,8 @@
     <ClInclude Include="..\..\..\source\dsStage.h">
       <Filter>core\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsHUDWindow.h">
-      <Filter>demo\scenes\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.h">
-      <Filter>demo\scenes\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\dsMain.h">
       <Filter>core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneGridTerrain.h">
-      <Filter>demo\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsInsideSatellite.h">
-      <Filter>demo\scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\scenes\dsOutputStage.h">
       <Filter>demo\scenes</Filter>
@@ -91,30 +79,18 @@
     <ClInclude Include="..\..\..\source\dsTimeline.h">
       <Filter>demo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneButterfly.h">
-      <Filter>demo\scenes</Filter>
+    <ClInclude Include="..\..\..\source\scenes\MaterialToProgram.h">
+      <Filter>demo\scenes\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneTest.h">
+    <ClInclude Include="..\..\..\source\scenes\dsInnerHouse.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\scenes\dsHUDWindow.cpp">
-      <Filter>demo\scenes\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsHUDWJupiterDiagram.cpp">
-      <Filter>demo\scenes\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsInsideSatellite.cpp">
-      <Filter>demo\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsOutputStage.cpp">
-      <Filter>demo\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneGridTerrain.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
@@ -147,10 +123,10 @@
     <ClCompile Include="..\..\..\source\dsUtils.cpp">
       <Filter>core\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneButterfly.cpp">
-      <Filter>demo\scenes</Filter>
+    <ClCompile Include="..\..\..\source\scenes\MaterialToProgram.cpp">
+      <Filter>demo\scenes\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsSceneTest.cpp">
+    <ClCompile Include="..\..\..\source\scenes\dsInnerHouse.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
   </ItemGroup>
