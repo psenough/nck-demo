@@ -20,7 +20,8 @@ protected:
         Math::Vec4 lamp_color[8]; // rgb, distance
         Math::Vec4 lamp_params[8]; // ????
     };
-    void RenderFromView(const Math::Mat44 & viewMatrix);
+    void RenderCubeMap(const Math::Vec3 & position, int face);
+    void RenderFromView(const Math::Mat44 & viewMatrix, bool renderMet);
     void bindLampConfigToProg(LampConfig & config, Graph::Program * prog);
     LampConfig & generateLampConfig(DS::Compound * c, Math::Mat44 viewMatrix);
     Scene::Object * findNearestCamera(int keyframe);
@@ -31,6 +32,11 @@ protected:
     std::vector<Scene::Material*> mats_house;
     std::vector<Scene::Material*> mats_corridor;
     std::vector<std::pair<float, Scene::Object*> > camMarkers;
+    Graph::RTManager * cbRT;
+    Graph::TextureCubeMap * cbTex;
+    Graph::Program * cbMatProgram;
+    Scene::MCRenderer * mc_renderer;
+    std::vector<Scene::MCSphereShape> mc_spheres;
 };
 
 #endif

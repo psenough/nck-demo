@@ -6,7 +6,7 @@
 
 #include "dsTimeline.h"
 
-#define FULLSCREEN
+//#define FULLSCREEN
 
 bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
     return a.GetLayer() < b.GetLayer();

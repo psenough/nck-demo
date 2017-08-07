@@ -85,6 +85,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsInnerHouse.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsGlitchStage.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
@@ -127,6 +130,9 @@
       <Filter>demo\scenes\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsInnerHouse.cpp">
+      <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsGlitchStage.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
   </ItemGroup>

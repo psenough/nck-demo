@@ -3,11 +3,11 @@
 #include "MaterialToProgram.h"
 
 dsInnerHouse::dsInnerHouse(DS::Data * data) : DS::Stage(data) {     
-   
+    mc_renderer = NULL;
 }
 
 dsInnerHouse::~dsInnerHouse() {
-    
+    SafeDelete(mc_renderer);
 }
 
 void dsInnerHouse::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
@@ -16,6 +16,20 @@ void dsInnerHouse::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
 
 void dsInnerHouse::Load() {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
+
+    mc_renderer = new Scene::MCRenderer(dev, 40, 30, 6);
+    mc_spheres.push_back(Scene::MCSphereShape());
+    mc_spheres.push_back(Scene::MCSphereShape());
+    //mc_spheres.push_back(Scene::MCSphereShape());
+
+    mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0.0),1.0);
+    mc_spheres[1] = Scene::MCSphereShape(Math::Vec3(-1.0, -1.0, -0.25), 0.25);
+    //mc_spheres[2] = Scene::MCSphereShape(Math::Vec3(1.0, -1.0, -0.25), 0.25);
+
+    mc_renderer->ApplySpheres(mc_spheres);
+    mc_renderer->Update();
+
+    cbMatProgram = m_Data->LoadProgram("shader://cubemap.cpp");
 
     mainHouse = m_Data->LoadCompound("model://house_inner_1.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
@@ -49,6 +63,17 @@ void dsInnerHouse::Load() {
         Graph::Program * p = mtp->generate(mats_corridor[i]);
         mats_corridor[i]->SetProgram(p);
     }
+
+    int faceSize = 256;
+
+    cbRT = dev->CreateRTManager(faceSize, faceSize);
+
+    cbTex = dynamic_cast<Graph::TextureCubeMap*>(dev->CreateTexture(Graph::TEXTURE_CUBEMAP, faceSize, faceSize, 0, Graph::FORMAT_RGBA_8B, true));
+    cbTex->SetAdressMode(Graph::ADRESS_WRAP);
+    cbTex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_LINEAR);
+    cbTex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_LINEAR);
+
+    cbRT->Attach(0, cbTex);
 }
 
 
@@ -75,6 +100,10 @@ Scene::Object * dsInnerHouse::findNearestCamera(int keyframe) {
 
 void dsInnerHouse::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
+
+    Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
+    for (int i = 0; i < 6; i++)
+        RenderCubeMap(sphere->GetPosition(), i);
 
 }
 
@@ -177,10 +206,26 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     }
 
 
-    RenderFromView(viewMatrix);
+    RenderFromView(viewMatrix,true);
+
+
+    Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
+    Math::Vec3 pos = sphere->GetPosition();
+
+    dev->PushMatrix();
+    dev->Translate(pos.GetX(), pos.GetY(), pos.GetZ());
+    cbTex->Enable();
+    cbMatProgram->Enable();
+    cbMatProgram->SetVariable4f("gphCameraPos", camObj->GetPosition().GetX(), camObj->GetPosition().GetY(), camObj->GetPosition().GetZ());
+    mc_renderer->Render();
+    cbTex->Disable();
+    cbMatProgram->Disable();
+    dev->PopMatrix();
 }
 
-void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
+void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix, bool renderMeta) {
+    Graph::Device * const dev = m_Data->GetGraphicsDevice();
+
     LampConfig houseLamps = generateLampConfig(mainHouse, viewMatrix);
     for (int i = 0; i < mats_house.size(); i++) {
         Scene::Material * mat = mats_house[i];
@@ -197,4 +242,39 @@ void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
 
     mainHouse->Get()->Render();
     corridor->Get()->Render();
+}
+
+
+void dsInnerHouse::RenderCubeMap(const Math::Vec3 & position, int face)
+{
+    Graph::Device * dev = m_Data->GetGraphicsDevice();
+
+    if (cbRT->Enable(face))
+    {
+        dev->ClearColor(0, 0, 0, 1);
+        dev->Clear();
+        dev->Viewport(0, 0, cbTex->GetWidth(), cbTex->GetHeight());
+
+        dev->MatrixMode(Graph::MATRIX_PROJECTION);
+        dev->Identity();
+        dev->Perspective(1.0, 90, 0.01, 100);
+
+        dev->MatrixMode(Graph::MATRIX_VIEW);
+        dev->Identity();
+
+        Math::Mat44 mv = Math::CubemapTransform(position, face);
+
+        dev->LoadMatrix((float*)&mv);
+
+        dev->MatrixMode(Graph::MATRIX_MODEL);
+        dev->Identity();
+
+        dev->Enable(Graph::STATE_DEPTH_TEST);
+        dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+        dev->Enable(Graph::STATE_BLEND);
+    
+        RenderFromView(mv,false);
+
+        cbRT->Disable();
+    }
 }

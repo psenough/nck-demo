@@ -1,23 +1,23 @@
 
-#include "dsOutputStage.h"
+#include "dsGlitchStage.h"
 
 static bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
     return a.GetLayer() < b.GetLayer();
 }
 
-dsOutputStage::dsOutputStage(DS::Data * data) : DS::Stage(data) {
+dsGlitchStage::dsGlitchStage(DS::Data * data) : DS::Stage(data) {
     fboManager = NULL;
     fboTexture = NULL;
     aaProgram = NULL;
 }
 
-dsOutputStage::~dsOutputStage() {
+dsGlitchStage::~dsGlitchStage() {
     SafeDelete(fboManager);
     SafeDelete(fboTexture);
     SafeDelete(aaProgram);
 }
 
-void dsOutputStage::Load() {
+void dsGlitchStage::Load() {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
 
     fboManager = dev->CreateRTManager(m_Data->GetWidth(), m_Data->GetHeight());
@@ -26,11 +26,13 @@ void dsOutputStage::Load() {
         );
     fboManager->Attach(0, fboTexture);
 
-    aaProgram = m_Data->LoadProgram("shader://output.cpp");
+    aaProgram = m_Data->LoadProgram("shader://glitch.cpp");
+    noiseTexture = dynamic_cast<Graph::Texture2D*>(m_Data->LoadTexture("texture://tex2d_noise.png"));
+
 }
 
 
-void dsOutputStage::RenderFBO(int64_t start, int64_t end, int64_t time) {
+void dsGlitchStage::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
 
     std::list<Math::TimelineItem<DS::Stage*>> items;
@@ -54,7 +56,7 @@ void dsOutputStage::RenderFBO(int64_t start, int64_t end, int64_t time) {
 }
 
 
-void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
+void dsGlitchStage::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
     Gui::ShapeRenderer * const shp = m_Data->GetShapeRenderer();
 
@@ -79,20 +81,13 @@ void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
     dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Disable(Graph::STATE_CULL_FACE);
 
-    fboTexture->Enable();
+    fboTexture->Enable(0);
+    noiseTexture->Enable(1);
 
     aaProgram->Enable();
     aaProgram->SetVariable4f("texResolution", width, height);
     aaProgram->SetVariable1f("time", t);
 
-    float contrast = 0;
-    float saturation = 0;
-    float brightness = 0;
-
-    aaProgram->SetVariable4f("contrast", contrast);
-    aaProgram->SetVariable4f("saturation", saturation);
-    aaProgram->SetVariable4f("brightness", brightness);
-    
     dev->PushMatrix();
     dev->Scale(1, -1, 0);
     dev->Translate(0, -height, 0);
@@ -101,5 +96,6 @@ void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
 
     aaProgram->Disable();
 
-    fboTexture->Disable();
+    noiseTexture->Disable(1);
+    fboTexture->Disable(0);
 }
