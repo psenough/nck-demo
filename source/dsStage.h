@@ -43,7 +43,10 @@ public:
     void SetStage(Stage * stage);
     void SetOrder(int order) { m_Stage->SetOrder(order); }
     int GetOrder() { return m_Stage->GetOrder(); }
+    void SetRepeat(int64_t duration) { m_RepeatDuration = duration;}
+    int64_t SetRepeat() { return m_RepeatDuration; }
 protected:
+    int64_t m_RepeatDuration;
     int64_t m_Offset;
     Stage * m_Stage;
 };

@@ -18,6 +18,7 @@ void Stage::BuildTimeline() {
 StageProxy::StageProxy(Data * data) : Stage(data) {
     m_Offset = 0;
     m_Stage = NULL;
+    m_RepeatDuration = 0;
 }
 
 StageProxy::StageProxy(Stage * stage, int64_t offset) : Stage(stage!=NULL?stage->GetData():NULL) {
@@ -34,11 +35,17 @@ void StageProxy::Load() {
 }
 
 void StageProxy::Render(int64_t start, int64_t end, int64_t time) {
+    if (m_RepeatDuration != 0)
+        time = time - m_RepeatDuration * ((time - start) / m_RepeatDuration);
+
     if (m_Stage)
         m_Stage->Render(start, end, time + m_Offset);
 }
 
 void StageProxy::RenderFBO(int64_t start, int64_t end, int64_t time) {
+    if (m_RepeatDuration != 0)
+        time = time - m_RepeatDuration * ((time - start) / m_RepeatDuration);
+
     if (m_Stage)
         m_Stage->RenderFBO(start , end , time + m_Offset);
 }

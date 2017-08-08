@@ -1,23 +1,23 @@
 
-#include "dsOutputStage.h"
+#include "dsOutputPostProcess.h"
 
 static bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
     return a.GetLayer() < b.GetLayer();
 }
 
-dsOutputStage::dsOutputStage(DS::Data * data) : DS::Stage(data) {
+dsOutputPostProcess::dsOutputPostProcess(DS::Data * data) : DS::Stage(data) {
     fboManager = NULL;
     fboTexture = NULL;
     aaProgram = NULL;
 }
 
-dsOutputStage::~dsOutputStage() {
+dsOutputPostProcess::~dsOutputPostProcess() {
     SafeDelete(fboManager);
     SafeDelete(fboTexture);
     SafeDelete(aaProgram);
 }
 
-void dsOutputStage::Load() {
+void dsOutputPostProcess::Load() {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
 
     fboManager = dev->CreateRTManager(m_Data->GetWidth(), m_Data->GetHeight());
@@ -30,7 +30,7 @@ void dsOutputStage::Load() {
 }
 
 
-void dsOutputStage::RenderFBO(int64_t start, int64_t end, int64_t time) {
+void dsOutputPostProcess::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
 
     std::list<Math::TimelineItem<DS::Stage*>> items;
@@ -54,7 +54,7 @@ void dsOutputStage::RenderFBO(int64_t start, int64_t end, int64_t time) {
 }
 
 
-void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
+void dsOutputPostProcess::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
     Gui::ShapeRenderer * const shp = m_Data->GetShapeRenderer();
 
@@ -63,7 +63,7 @@ void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
     const float height = m_Data->GetHeight();
     const float t = (time - start) / 1.0e6;
 
-    dev->Viewport(0,0, width, height);
+    //dev->Viewport(0,0, width, height);
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
@@ -75,8 +75,8 @@ void dsOutputStage::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
-    dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+    dev->Disable(Graph::STATE_DEPTH_TEST);
+    dev->Disable(Graph::STATE_ZBUFFER_WRITE);
     dev->Disable(Graph::STATE_CULL_FACE);
 
     fboTexture->Enable();

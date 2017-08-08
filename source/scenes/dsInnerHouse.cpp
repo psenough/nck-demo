@@ -33,11 +33,11 @@ void dsInnerHouse::Load() {
 
     mainHouse = m_Data->LoadCompound("model://house_inner_1.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
-    cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
+     cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
 
     mainHouse->Get()->GetAllMaterials(&mats_house);
     corridor->Get()->GetAllMaterials(&mats_corridor);
- 
+  
     MaterialToProgram * mtp = new MaterialToProgram(m_Data->GetGraphicsDevice());
 
     std::vector<Scene::Texture*> t1;
@@ -52,7 +52,7 @@ void dsInnerHouse::Load() {
         for (int i = 0; i < t2.size(); i++) {
             t2[i]->GetTexture()->SetAnisotropyFilter(8);
         }
-    }
+    }  
     
     for (int i = 0; i < mats_house.size(); i++) {
         Graph::Program * p = mtp->generate(mats_house[i]);
@@ -63,6 +63,7 @@ void dsInnerHouse::Load() {
         Graph::Program * p = mtp->generate(mats_corridor[i]);
         mats_corridor[i]->SetProgram(p);
     }
+
 
     int faceSize = 256;
 
@@ -162,6 +163,8 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     if (camObj == NULL)
         return;
 
+    //dev->Viewport(0, 0, width, height);
+
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
     cam->SetAspect(aspect);
 
@@ -172,11 +175,15 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
+    
     cam->Enable(Graph::MATRIX_PROJECTION);
+
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
+
     dev->LoadMatrix((float*)&viewMatrix);
+
 
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
@@ -184,6 +191,7 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_CULL_FACE);
 
     mainHouse->Get()->GetObject("Borboleta")->Play(t * bFrameRate);
 
@@ -206,7 +214,7 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     }
 
 
-    RenderFromView(viewMatrix,true);
+    RenderFromView(viewMatrix);
 
 
     Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
@@ -223,8 +231,12 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     dev->PopMatrix();
 }
 
-void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix, bool renderMeta) {
+void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
+    
+    dev->Enable(Graph::STATE_DEPTH_TEST);
+    dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+    dev->Enable(Graph::STATE_BLEND);
 
     LampConfig houseLamps = generateLampConfig(mainHouse, viewMatrix);
     for (int i = 0; i < mats_house.size(); i++) {
@@ -268,12 +280,8 @@ void dsInnerHouse::RenderCubeMap(const Math::Vec3 & position, int face)
 
         dev->MatrixMode(Graph::MATRIX_MODEL);
         dev->Identity();
-
-        dev->Enable(Graph::STATE_DEPTH_TEST);
-        dev->Enable(Graph::STATE_ZBUFFER_WRITE);
-        dev->Enable(Graph::STATE_BLEND);
     
-        RenderFromView(mv,false);
+        RenderFromView(mv);
 
         cbRT->Disable();
     }

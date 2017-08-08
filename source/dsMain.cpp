@@ -141,9 +141,7 @@ void dsMain::Run() {
     while (!IsTearingDown())
     {
         dev->ClearColor(0, 0, 0, 1);
-        dev->Clear();
-        dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
-        
+        dev->Clear();       
 
         if (reloadResources) {
             rShaders = data->ReloadShaders();
@@ -166,6 +164,8 @@ void dsMain::Run() {
         ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
             i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
         }
+
+        dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
 
         ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
             i->GetObject()->Render(i->GetStart(), i->GetEnd(), time);

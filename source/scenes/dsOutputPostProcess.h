@@ -1,13 +1,13 @@
 
-#ifndef DS_OUTPUT_STAGE_H
-#define DS_OUTPUT_STAGE_H
+#ifndef DS_OUTPUT_POST_PROCESS_H
+#define DS_OUTPUT_POST_PROCESS_H
 
 #include "../dsStage.h"
 
-class dsOutputStage : public DS::Stage {
+class dsOutputPostProcess : public DS::Stage {
 public:
-    dsOutputStage(DS::Data * data);
-    virtual ~dsOutputStage();
+    dsOutputPostProcess(DS::Data * data);
+    virtual ~dsOutputPostProcess();
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);

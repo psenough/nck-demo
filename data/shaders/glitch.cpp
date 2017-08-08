@@ -72,7 +72,7 @@ void main()
     vec2 coord = uv * texResolution.xy;
     
 	vec4 output;
-    process(output,coord,texResolution.xy,floor(time*20.0)/20.0);
+    process(output,coord,texResolution.xy,time);
     
 	gl_FragColor = vec4(output.xyz,1.0);
 }

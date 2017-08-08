@@ -25,6 +25,15 @@
     <Filter Include="demo\scenes\utils">
       <UniqueIdentifier>{8a8c38d7-7c4a-4f1a-855f-833cee40d1ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="demo\scenes\post process">
+      <UniqueIdentifier>{d9857e2e-1a58-406d-bdfa-9a829b80166b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="demo\scenes\text">
+      <UniqueIdentifier>{a0257d0c-88b5-4ea7-8414-6ada2a586c10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="demo\scenes\other">
+      <UniqueIdentifier>{dca76c31-08bb-4bfc-b018-932fa723d0d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\win32\appicon.ico">
@@ -70,9 +79,6 @@
     <ClInclude Include="..\..\..\source\dsMain.h">
       <Filter>core\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsOutputStage.h">
-      <Filter>demo\scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\dsSceneLoading.h">
       <Filter>core\Source Files</Filter>
     </ClInclude>
@@ -85,16 +91,25 @@
     <ClInclude Include="..\..\..\source\scenes\dsInnerHouse.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsGlitchStage.h">
+    <ClInclude Include="..\..\..\source\scenes\dsGlitchPostProcess.h">
+      <Filter>demo\scenes\post process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsOutputPostProcess.h">
+      <Filter>demo\scenes\post process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatText.h">
+      <Filter>demo\scenes\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSolidColor.h">
+      <Filter>demo\scenes\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsPseudoHouse.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
       <Filter>demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsOutputStage.cpp">
-      <Filter>demo\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\dsAudioFFT.cpp">
       <Filter>core\Source Files</Filter>
@@ -132,7 +147,19 @@
     <ClCompile Include="..\..\..\source\scenes\dsInnerHouse.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\scenes\dsGlitchStage.cpp">
+    <ClCompile Include="..\..\..\source\scenes\dsGlitchPostProcess.cpp">
+      <Filter>demo\scenes\post process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsOutputPostProcess.cpp">
+      <Filter>demo\scenes\post process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatText.cpp">
+      <Filter>demo\scenes\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSolidColor.cpp">
+      <Filter>demo\scenes\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsPseudoHouse.cpp">
       <Filter>demo\scenes</Filter>
     </ClCompile>
   </ItemGroup>
