@@ -24,6 +24,7 @@ StageProxy::StageProxy(Data * data) : Stage(data) {
 StageProxy::StageProxy(Stage * stage, int64_t offset) : Stage(stage!=NULL?stage->GetData():NULL) {
     m_Stage = stage;
     m_Offset = offset;
+    m_RepeatDuration = 0;
 }
 
 StageProxy::~StageProxy() {

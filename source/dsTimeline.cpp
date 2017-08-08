@@ -71,11 +71,17 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
    
     output->AddStage(0e6, 14e6, new StageProxy(house, 0));
+
     StageProxy * g1 = new StageProxy(glitch, 0);
     g1->SetRepeat(100000);
     output->AddStage(14e6, 15e6, g1);
 
-
+    dsSolidColor * fadeIn0 = new dsSolidColor(data);
+    fadeIn0->SetColors(Math::Color4ub(0, 0, 0, 255), Math::Color4ub(0, 0, 0, 0), true);
+    StageProxy * fadeIn0P = new StageProxy(fadeIn0, 0);
+    fadeIn0P->SetOrder(9999);
+    output->AddStage(0, 5e6, fadeIn0P);
+    
     output->AddStage(15e6, 30e6, new StageProxy(house, 14e6));
 
 
@@ -91,22 +97,17 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
     output->AddStage(33e6, 34e6, new StageProxy(house, 30e6));
 
-    output->AddStage(34e6, 40e6, new StageProxy(pseudo, 34e6));
+    output->AddStage(34e6, 36e6, new StageProxy(pseudo, 34e6));
 
-    output->AddStage(40e6, 50e6, new StageProxy(house, 40e6));
+    output->AddStage(36e6, 50e6, new StageProxy(house, 36e6));
 
-    dsSolidColor * fadeIn0 = new dsSolidColor(data);
-    fadeIn0->SetColors(Math::Color4ub(0, 0, 0, 255), Math::Color4ub(0, 0, 0, 0),true);
-    StageProxy * fadeIn0P =  new StageProxy(fadeIn0, 0);
-    fadeIn0P->SetOrder(9999);
-    output->AddStage(0, 5e6, fadeIn0P);
+  
         
 
     StageProxy * g3 = new StageProxy(glitch, 0);
     g3->SetRepeat(100000);
     output->AddStage(50e6, 53e6, g3);
-
-
+    
     dsFloatText * ftex2 = new dsFloatText(data);
     ftex2->Set("Unable to meet clock requirements\ndisconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1);
     ftex2->SetOrder(9999);
@@ -115,6 +116,7 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     output->AddStage(53e6, 180e6, new StageProxy(house, 50e6));
 
     timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output,0)));
+
 }
 
 bool dsTimeline::LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize) {

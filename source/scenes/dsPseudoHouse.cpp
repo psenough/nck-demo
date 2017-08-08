@@ -121,7 +121,6 @@ void dsPseudoHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Enable(Graph::STATE_BLEND);
-    dev->Enable(Graph::STATE_CULL_FACE);
 
     LampConfig houseLamps = generateLampConfig(pseudo, viewMatrix);
     for (int i = 0; i < mats_pseudo.size(); i++) {

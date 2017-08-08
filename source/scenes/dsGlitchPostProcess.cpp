@@ -78,7 +78,7 @@ void dsGlitchPostProcess::Render(int64_t start, int64_t end, int64_t time) {
     dev->Identity();
 
     dev->Disable(Graph::STATE_DEPTH_TEST);
-    dev->Disable(Graph::STATE_ZBUFFER_WRITE);
+    //dev->Disable(Graph::STATE_ZBUFFER_WRITE);
     dev->Disable(Graph::STATE_CULL_FACE);
 
     fboTexture->Enable(0);

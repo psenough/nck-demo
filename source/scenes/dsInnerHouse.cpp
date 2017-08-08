@@ -188,10 +188,10 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
-    dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->Enable(Graph::STATE_ZBUFFER_WRITE);
-    dev->Enable(Graph::STATE_BLEND);
-    dev->Enable(Graph::STATE_CULL_FACE);
+   // dev->Enable(Graph::STATE_DEPTH_TEST);
+    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+    //dev->Enable(Graph::STATE_BLEND);
+    //dev->Enable(Graph::STATE_CULL_FACE);
 
     mainHouse->Get()->GetObject("Borboleta")->Play(t * bFrameRate);
 
@@ -235,7 +235,7 @@ void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
     
     dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Enable(Graph::STATE_BLEND);
 
     LampConfig houseLamps = generateLampConfig(mainHouse, viewMatrix);

@@ -71,10 +71,10 @@ void main()
 	vec2 uv = gl_TexCoord[0].xy;
     vec2 coord = uv * texResolution.xy;
     
-	vec4 output;
-    process(output,coord,texResolution.xy,time);
+	vec4 res;
+    process(res,coord,texResolution.xy,time);
     
-	gl_FragColor = vec4(output.xyz,1.0);
+	gl_FragColor = vec4(res.xyz,1.0);
 }
 
 #pragma vertex_shader_glx2
