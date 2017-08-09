@@ -1,24 +1,24 @@
 
-#ifndef DS_PSEUDO_HOUSE_H
-#define DS_PSEUDO_HOUSE_H
+#ifndef DS_DISCONNECT_TUNNEL_H
+#define DS_DISCONNECT_TUNNEL_H
 
 #include "../dsStage.h"
 #include "dsInnerHouse.h"
 
-class dsPseudoHouse : public DS::Stage, public StageCubemap {
+class dsDisconnectTunnel : public DS::Stage {
 public:
-    dsPseudoHouse(DS::Data * data, dsInnerHouse * innerHouse);
-    virtual ~dsPseudoHouse();
+    dsDisconnectTunnel(DS::Data * data, dsInnerHouse * innerHouse);
+    virtual ~dsDisconnectTunnel();
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
     void Update(int64_t start, int64_t end, int64_t time);
 
-    void CubemapCapture(const Math::Mat44 & mv);
-  
+   // void CubemapCapture(const Math::Mat44 & mv);
 
 protected:
-    class LampConfig {
+    dsInnerHouse * innerHouse;
+    /*class LampConfig {
     public:
         LampConfig() {};
         Math::Vec4 lamp_pos[8]; // position, energy
@@ -32,8 +32,9 @@ protected:
  
     DS::Compound * pseudo;
     DS::Compound * cameras;
-    dsInnerHouse * innerHouse;
+  
     std::vector<Scene::Material*> mats_pseudo;
+    */
 };
 
 #endif

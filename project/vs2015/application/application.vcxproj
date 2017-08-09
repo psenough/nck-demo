@@ -126,11 +126,15 @@
     <ClInclude Include="..\..\..\source\dsSubtitles.h" />
     <ClInclude Include="..\..\..\source\dsTimeline.h" />
     <ClInclude Include="..\..\..\source\dsUtils.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsCredits.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsDisconnectTunnel.h" />
     <ClInclude Include="..\..\..\source\scenes\dsFloatText.h" />
     <ClInclude Include="..\..\..\source\scenes\dsGlitchPostProcess.h" />
     <ClInclude Include="..\..\..\source\scenes\dsInnerHouse.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsLamps.h" />
     <ClInclude Include="..\..\..\source\scenes\dsOutputPostProcess.h" />
     <ClInclude Include="..\..\..\source\scenes\dsPseudoHouse.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsRobotCollapse.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSolidColor.h" />
     <ClInclude Include="..\..\..\source\scenes\MaterialToProgram.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
@@ -147,11 +151,15 @@
     <ClCompile Include="..\..\..\source\dsSubtitles.cpp" />
     <ClCompile Include="..\..\..\source\dsTimeline.cpp" />
     <ClCompile Include="..\..\..\source\dsUtils.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsCredits.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsDisconnectTunnel.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsFloatText.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsGlitchPostProcess.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsInnerHouse.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsLamps.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsOutputPostProcess.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsPseudoHouse.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsRobotCollapse.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSolidColor.cpp" />
     <ClCompile Include="..\..\..\source\scenes\MaterialToProgram.cpp" />
   </ItemGroup>

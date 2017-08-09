@@ -19,6 +19,7 @@ public:
     virtual void Load() = 0;
     virtual void Render(int64_t start, int64_t end, int64_t time) = 0;
     virtual void RenderFBO(int64_t start, int64_t end, int64_t time) {};
+    virtual void Update(int64_t start, int64_t end, int64_t time) {};
 
     virtual void AddStage(int64_t start, int64_t end, Stage * stage);
     virtual void BuildTimeline();
@@ -39,6 +40,8 @@ public:
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
+    void Update(int64_t start, int64_t end, int64_t time);
+
     void SetOffset(int64_t offset);
     void SetStage(Stage * stage);
     void SetOrder(int order) { m_Stage->SetOrder(order); }

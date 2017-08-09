@@ -3,6 +3,7 @@
 
 MaterialToProgram::MaterialToProgram(Graph::Device * dev) {
     m_Device = dev;
+    enableTransform = false;
 }
 
 MaterialToProgram::~MaterialToProgram() {
@@ -127,23 +128,37 @@ Graph::Program * MaterialToProgram::generate(Scene::Material * mat) {
             src += "#include \"bumpmap.cpp\"\n";
     }
 
+    if (enableTransform)
+        src += "#include \"transform.cpp\"\n";
+    
     src += "void main(){\n"
         "\tvec4 P = gl_Vertex;\n"
-        "\tvec3 N = gl_Normal;\n"
-        "\tvec3 P_MV = vec3(gl_ModelViewMatrix * P);\n"
-        "\tvec3 N_MV = normalize(gl_NormalMatrix * N);\n"
-        "\tv_nor_w = normalize((gphModelMatrix * vec4(N,0.0)).xyz);\n";
-        if (hasBumpmap) {
+        "\tvec3 N = gl_Normal;\n";
+
+    src += "\tvec3 P_MV = vec3(gl_ModelViewMatrix * P);\n"
+        "\tvec3 N_MV = normalize(gl_NormalMatrix * N);\n";
+
+    src += "\tv_nor_w = normalize((gphModelMatrix * vec4(N,0.0)).xyz);\n";
+
+    if (hasBumpmap) {
             src += "\tvec4 T = gl_MultiTexCoord1.xyzw;\n"
                 "\tvec3 T_MV = normalize(gl_NormalMatrix * T.xyz);\n"
                 "\tbumpmap_compute(P_MV,N_MV,vec4(T_MV,T.w));\n";
-        }
+    }
    
     src += "\tcore_copy_texCoord();\n"
         "\tv_pos_mv = P_MV;\n"
-        "\tv_nor_mv = N_MV;\n"
-        "\tcore_transform_to_screen(P);\n"
-        "}\n";
+        "\tv_nor_mv = N_MV;\n";
+
+    if (enableTransform) {
+        // Função de transform, mantem o aspecto, mas espatifa o resto.
+        src += "\ttransform_project_and_twist(P);\n";
+    }
+    else {
+        src += "\tcore_transform_to_screen(P);\n";
+    }
+
+    src += "}\n";
 
     Graph::Program * prog = NULL;
 

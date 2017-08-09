@@ -10,8 +10,12 @@ public:
     ~MaterialToProgram();
 
     Graph::Program * generate(Scene::Material * mat);
+
+    void SetEnableTransform(bool flag) { enableTransform = flag; }
+
 private:
     Graph::Device * m_Device;
+    bool enableTransform;
 };
 
 #endif

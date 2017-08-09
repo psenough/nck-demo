@@ -29,6 +29,14 @@ void dsOutputPostProcess::Load() {
     aaProgram = m_Data->LoadProgram("shader://output.cpp");
 }
 
+void dsOutputPostProcess::Update(int64_t start, int64_t end, int64_t time) {
+    std::list<Math::TimelineItem<DS::Stage*>> items;
+    m_Stages.Get(time, &items);
+    items.sort(compareTLItem);
+    ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
+        i->GetObject()->Update(i->GetStart(), i->GetEnd(), time);
+    }
+}
 
 void dsOutputPostProcess::RenderFBO(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
@@ -102,4 +110,6 @@ void dsOutputPostProcess::Render(int64_t start, int64_t end, int64_t time) {
     aaProgram->Disable();
 
     fboTexture->Disable();
+
+    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
 }

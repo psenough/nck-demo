@@ -13,6 +13,8 @@
 
 #include "scenes/dsInnerHouse.h"
 #include "scenes/dsPseudoHouse.h"
+#include "scenes/dsDisconnectTunnel.h"
+#include "scenes/dsCredits.h"
 
 
 // Para correr sem audio usar NULL
@@ -36,22 +38,12 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     const float width = data->GetWidth();
     const float height = data->GetHeight();
 
-    /*dsInnerHouse * house = new dsInnerHouse(data);
-    dsPseudoHouse * pseudo = new dsPseudoHouse(data, house);
-
-    pseudo->Load();
-    house->Load();
-
-    dsOutputPostProcess * output = new dsOutputPostProcess(data);
-    output->Load();
-
-    timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(pseudo, 0)));
-    */
-
     dsOutputPostProcess * output = new dsOutputPostProcess(data);
     dsInnerHouse * house = new dsInnerHouse(data);
     dsPseudoHouse * pseudo = new dsPseudoHouse(data,house);
     dsGlitchPostProcess * glitch = new dsGlitchPostProcess(data);
+    dsDisconnectTunnel * dTunnel = new dsDisconnectTunnel(data, house);
+    dsCredits * credits = new dsCredits(data);
 
     renderLoading(20);
     output->Load();
@@ -64,7 +56,8 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
     renderLoading(80);
     glitch->Load();
-
+    credits->Load();
+    dTunnel->Load();
 
 
     glitch->AddStage(0e6, 180e6, house);
@@ -95,28 +88,30 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     output->AddStage(30e6, 33e6, ftex1);
     
 
-    output->AddStage(33e6, 34e6, new StageProxy(house, 30e6));
+    output->AddStage(33e6, 34e6, new StageProxy(house, 33e6));
 
     output->AddStage(34e6, 36e6, new StageProxy(pseudo, 34e6));
 
-    output->AddStage(36e6, 50e6, new StageProxy(house, 36e6));
+    output->AddStage(36e6, 43e6, new StageProxy(house, 36e6));
 
   
         
 
     StageProxy * g3 = new StageProxy(glitch, 0);
     g3->SetRepeat(100000);
-    output->AddStage(50e6, 53e6, g3);
+    output->AddStage(43e6, 46e6, g3);
     
     dsFloatText * ftex2 = new dsFloatText(data);
     ftex2->Set("Unable to meet clock requirements\ndisconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1);
     ftex2->SetOrder(9999);
-    output->AddStage(50e6, 53e6, ftex2);
+    output->AddStage(43e6, 46e6, ftex2);
+     
+    output->AddStage(46e6, 80e6, new StageProxy(dTunnel, 0));
 
-    output->AddStage(53e6, 180e6, new StageProxy(house, 50e6));
+    output->AddStage(80e6, 90e6, new StageProxy(credits, 0));
 
-    timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output,0)));
-
+    // O post process é a track principal da timeline.
+    timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, output));
 }
 
 bool dsTimeline::LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize) {

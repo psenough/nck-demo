@@ -33,7 +33,8 @@ void dsInnerHouse::Load() {
 
     mainHouse = m_Data->LoadCompound("model://house_inner_1.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
-     cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
+    cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
+    butterfly = m_Data->LoadCompound("model://butterfly.bxon");
 
     mainHouse->Get()->GetAllMaterials(&mats_house);
     corridor->Get()->GetAllMaterials(&mats_corridor);
@@ -59,6 +60,7 @@ void dsInnerHouse::Load() {
         mats_house[i]->SetProgram(p);
     }
 
+    mtp->SetEnableTransform(true);
     for (int i = 0; i < mats_corridor.size(); i++) {
         Graph::Program * p = mtp->generate(mats_corridor[i]);
         mats_corridor[i]->SetProgram(p);
@@ -77,6 +79,49 @@ void dsInnerHouse::Load() {
     cbRT->Attach(0, cbTex);
 }
 
+void dsInnerHouse::Update(int64_t start, int64_t end, int64_t time) {
+    const float aspect = m_Data->GetAspect();
+    const float t = (time - start) / 1.0e6;
+    const float bFrameRate = 24.0;
+
+    Scene::Object * camObj = findNearestCamera(t * bFrameRate);
+
+    if (camObj == NULL)
+        return;
+
+    Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
+    cam->SetAspect(aspect);
+
+    camObj->Play(t * bFrameRate);
+    camObj->Update();
+
+    mainModelView = cam->GetMatrix();
+    mainCamPos = camObj->GetPosition();
+
+    butterfly->Get()->GetObject("Borboleta")->Play(t * bFrameRate);
+
+    {
+        Scene::Object * wing = butterfly->Get()->GetObject("B.Wing.L");
+        float speed = 0.5;
+        float dt = M_PI * (t - floor(t / speed) * speed) / speed;
+
+        wing->SetRotation(Math::EulerToQuat(Math::Vec3(-90 + sin(dt) * 60, 0, 0)*M_PI / 180.0));
+        wing->Update();
+
+        wing = butterfly->Get()->GetObject("B.Wing.R");
+        wing->SetRotation(Math::EulerToQuat(Math::Vec3(90 - sin(dt) * 60, 0, 0)*M_PI / 180.0));
+        wing->Update();
+
+        Scene::Object * objVent = mainHouse->Get()->GetObject("Ventoinha");
+        objVent->SetRotation(Math::EulerToQuat(Math::Vec3(0, 0, t)));
+        objVent->Update();
+    }
+
+    Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
+    metaPos = sphere->GetPosition();
+
+    corridor->Get()->GetObject("Porta")->Play(t*bFrameRate);
+}
 
 Scene::Object * dsInnerHouse::findNearestCamera(int keyframe) {
     std::vector< std::pair<float, Scene::Object*> > vec = camMarkers;
@@ -104,7 +149,7 @@ void dsInnerHouse::RenderFBO(int64_t start, int64_t end, int64_t time) {
 
     Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
     for (int i = 0; i < 6; i++)
-        RenderCubeMap(sphere->GetPosition(), i);
+        RenderCubeMap(sphere->GetPosition(), i, this);
 
 }
 
@@ -163,80 +208,32 @@ void dsInnerHouse::Render(int64_t start, int64_t end, int64_t time) {
     if (camObj == NULL)
         return;
 
-    //dev->Viewport(0, 0, width, height);
-
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
     cam->SetAspect(aspect);
 
-    camObj->Play(t * bFrameRate);
-    camObj->Update();
-
-    Math::Mat44 viewMatrix = cam->GetMatrix();
-
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
-    
     cam->Enable(Graph::MATRIX_PROJECTION);
 
 
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
-
-    dev->LoadMatrix((float*)&viewMatrix);
-
-
+    dev->LoadMatrix((float*)&mainModelView);
+    
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
-   // dev->Enable(Graph::STATE_DEPTH_TEST);
-    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
-    //dev->Enable(Graph::STATE_BLEND);
-    //dev->Enable(Graph::STATE_CULL_FACE);
+    RenderFromView(mainModelView);
 
-    mainHouse->Get()->GetObject("Borboleta")->Play(t * bFrameRate);
-
-    Scene::Object * objVent = mainHouse->Get()->GetObject("Ventoinha");
-    objVent->SetRotation(Math::EulerToQuat(Math::Vec3(0, 0, t)));
-    objVent->Update();
-  
-    // Borboleta
-    {
-        Scene::Object * wing = mainHouse->Get()->GetObject("B.Wing.L");
-        float speed = 0.5;
-        float dt = M_PI * (t - floor(t / speed) * speed) / speed;
-
-        wing->SetRotation(Math::EulerToQuat(Math::Vec3(-90+sin(dt) * 60, 0, 0)*M_PI / 180.0));
-        wing->Update();
-
-        wing = mainHouse->Get()->GetObject("B.Wing.R");
-        wing->SetRotation(Math::EulerToQuat(Math::Vec3(90-sin(dt) * 60,0, 0)*M_PI / 180.0));
-        wing->Update();
-    }
-
-
-    RenderFromView(viewMatrix);
-
-
-    Scene::Object * sphere = mainHouse->Get()->GetObject("MetaPlace");
-    Math::Vec3 pos = sphere->GetPosition();
-
-    dev->PushMatrix();
-    dev->Translate(pos.GetX(), pos.GetY(), pos.GetZ());
-    cbTex->Enable();
-    cbMatProgram->Enable();
-    cbMatProgram->SetVariable4f("gphCameraPos", camObj->GetPosition().GetX(), camObj->GetPosition().GetY(), camObj->GetPosition().GetZ());
-    mc_renderer->Render();
-    cbTex->Disable();
-    cbMatProgram->Disable();
-    dev->PopMatrix();
+    RenderMeta();
 }
 
 void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
     
     dev->Enable(Graph::STATE_DEPTH_TEST);
-    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_CULL_FACE);
 
     LampConfig houseLamps = generateLampConfig(mainHouse, viewMatrix);
     for (int i = 0; i < mats_house.size(); i++) {
@@ -252,12 +249,31 @@ void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
         bindLampConfigToProg(corridorLamps, prog);
     }
 
+    UpdateCorridorTransform(Math::Vec4(0, 0, 0, 0), Math::Vec4(0, 0, 0, 0));
+
+    RenderButterfly();
     mainHouse->Get()->Render();
     corridor->Get()->Render();
 }
 
+void dsInnerHouse::RenderButterfly() {
+    butterfly->Get()->Render();
+}
 
-void dsInnerHouse::RenderCubeMap(const Math::Vec3 & position, int face)
+void dsInnerHouse::RenderMeta() {
+    Graph::Device * const dev = m_Data->GetGraphicsDevice();
+    dev->PushMatrix();
+    dev->Translate(metaPos.GetX(), metaPos.GetY(), metaPos.GetZ());
+    cbTex->Enable();
+    cbMatProgram->Enable();
+    cbMatProgram->SetVariable4f("gphCameraPos", mainCamPos.GetX(), mainCamPos.GetY(), mainCamPos.GetZ());
+    mc_renderer->Render();
+    cbTex->Disable();
+    cbMatProgram->Disable();
+    dev->PopMatrix();
+}
+
+void dsInnerHouse::RenderCubeMap(const Math::Vec3 & position, int face, StageCubemap * render)
 {
     Graph::Device * dev = m_Data->GetGraphicsDevice();
 
@@ -281,8 +297,41 @@ void dsInnerHouse::RenderCubeMap(const Math::Vec3 & position, int face)
         dev->MatrixMode(Graph::MATRIX_MODEL);
         dev->Identity();
     
-        RenderFromView(mv);
+        render->CubemapCapture(mv);
 
         cbRT->Disable();
+    }
+}
+
+void dsInnerHouse::CubemapCapture(const Math::Mat44 & mv) {
+    RenderFromView(mv);
+}
+
+void dsInnerHouse::RenderCorridor(const Math::Mat44 & mv, float animateDoor) {
+    Graph::Device * const dev = m_Data->GetGraphicsDevice();
+    const float bFrameRate = 24.0;
+
+    corridor->Get()->GetObject("Porta")->Play(animateDoor*bFrameRate+861);
+
+    dev->Enable(Graph::STATE_DEPTH_TEST);
+    dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_CULL_FACE);
+
+    LampConfig corridorLamps = generateLampConfig(corridor, mv);
+    for (int i = 0; i < mats_corridor.size(); i++) {
+        Scene::Material * mat = mats_corridor[i];
+        Graph::Program * prog = mat->GetProgram();
+        bindLampConfigToProg(corridorLamps, prog);
+    }
+
+    corridor->Get()->Render();
+}
+
+void dsInnerHouse::UpdateCorridorTransform(Math::Vec4 distance, Math::Vec4 modifier) {
+    for (int i = 0; i < mats_corridor.size(); i++) {
+        Scene::Material * mat = mats_corridor[i];
+        Graph::Program * prog = mat->GetProgram();
+        prog->SetVariable4f("tr_modifier", modifier.GetX(), modifier.GetY(), modifier.GetZ(), modifier.GetW());
+        prog->SetVariable4f("tr_distance", distance.GetX(), distance.GetY(), distance.GetZ(), distance.GetW());
     }
 }

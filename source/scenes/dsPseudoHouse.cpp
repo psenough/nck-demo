@@ -33,10 +33,13 @@ void dsPseudoHouse::Load() {
 
 }
 
-
+void dsPseudoHouse::Update(int64_t start, int64_t end, int64_t time) {
+    innerHouse->Update(start, end, time);
+}
 
 void dsPseudoHouse::RenderFBO(int64_t start, int64_t end, int64_t time) {
-    Graph::Device * const dev = m_Data->GetGraphicsDevice();
+    for (int i = 0; i < 6; i++)
+        innerHouse->RenderCubeMap(Math::Vec3(0, 29.7094, 5.079279), i, this);
 }
 
 dsPseudoHouse::LampConfig & dsPseudoHouse::generateLampConfig(DS::Compound * c, Math::Mat44 viewMatrix) {
@@ -89,15 +92,8 @@ void dsPseudoHouse::Render(int64_t start, int64_t end, int64_t time) {
     if (camObj == NULL)
         return;
 
-    //dev->Viewport(0, 0, width,height);
-
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
     cam->SetAspect(aspect);
-
-    camObj->Play(t * bFrameRate);
-    camObj->Update();
-
-    Math::Mat44 viewMatrix = cam->GetMatrix();
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
@@ -107,20 +103,24 @@ void dsPseudoHouse::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
+    Math::Mat44 viewMatrix = innerHouse->GetMainMV();
     dev->LoadMatrix((float*)&viewMatrix);
 
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
     RenderFromView(viewMatrix);
+    innerHouse->RenderMeta();
 }
 
 void dsPseudoHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
 
     dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+    //dev->Enable(Graph::STATE_ZBUFFER_WRITE);
     dev->Enable(Graph::STATE_BLEND);
+    dev->Enable(Graph::STATE_CULL_FACE);
+    dev->CullMode(Graph::CULL_BACK);
 
     LampConfig houseLamps = generateLampConfig(pseudo, viewMatrix);
     for (int i = 0; i < mats_pseudo.size(); i++) {
@@ -130,5 +130,10 @@ void dsPseudoHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     }
 
     pseudo->Get()->Render();
+
+    innerHouse->RenderButterfly();
 }
 
+void dsPseudoHouse::CubemapCapture(const Math::Mat44 & mv) {
+    RenderFromView(mv);
+}

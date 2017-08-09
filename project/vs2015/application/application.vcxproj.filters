@@ -106,6 +106,18 @@
     <ClInclude Include="..\..\..\source\scenes\dsPseudoHouse.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsDisconnectTunnel.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsCredits.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsRobotCollapse.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsLamps.h">
+      <Filter>demo\scenes\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
@@ -161,6 +173,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsPseudoHouse.cpp">
       <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsDisconnectTunnel.cpp">
+      <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsCredits.cpp">
+      <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsRobotCollapse.cpp">
+      <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsLamps.cpp">
+      <Filter>demo\scenes\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

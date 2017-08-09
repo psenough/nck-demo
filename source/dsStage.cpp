@@ -59,4 +59,9 @@ void StageProxy::SetStage(Stage * stage) {
     m_Stage = stage;
 }
 
+void StageProxy::Update(int64_t start, int64_t end, int64_t time) {
+    if (m_Stage)
+        m_Stage->Update(start, end, time + m_Offset);
+}
+
 _DS_END

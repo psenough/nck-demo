@@ -6,6 +6,8 @@ varying vec3 v_nor_w;
 #ifdef VSH
 
 uniform mat4 gphModelMatrix;
+uniform mat4 gphViewMatrix;
+uniform mat4 gphProjectionMatrix;
 
 void core_transform_to_screen(vec4 P){
     gl_Position = gl_ModelViewProjectionMatrix * P;

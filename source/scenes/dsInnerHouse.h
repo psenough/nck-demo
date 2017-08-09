@@ -4,15 +4,32 @@
 
 #include "../dsStage.h"
 
-class dsInnerHouse : public DS::Stage , public Scene::Processor{
+class StageCubemap {
+public:
+    virtual ~StageCubemap() {};
+    virtual void CubemapCapture(const Math::Mat44 & mv) = 0;
+};
+
+class dsInnerHouse : public DS::Stage , public Scene::Processor, public StageCubemap {
 public:
     dsInnerHouse(DS::Data * data);
     virtual ~dsInnerHouse();
     void Load();
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
+    void Update(int64_t start, int64_t end, int64_t time);
+
+    void RenderButterfly();
+    void RenderMeta();
 
     Scene::Object * findNearestCamera(int keyframe);
+    void CubemapCapture(const Math::Mat44 & mv);
+    void RenderCubeMap(const Math::Vec3 & position, int face, StageCubemap * render);
+    void RenderCorridor(const Math::Mat44 & mv, float animateDoor);
+    void UpdateCorridorTransform(Math::Vec4 distance, Math::Vec4 modifier);
+    Math::Mat44 GetMainMV() {return mainModelView;};
+    Math::Vec3 GetMainCamPos() { return mainCamPos; };
+    Math::Vec3 GetMetaPos() { return metaPos; };
 
 protected:
     class LampConfig {
@@ -23,15 +40,7 @@ protected:
         Math::Vec4 lamp_color[8]; // rgb, distance
         Math::Vec4 lamp_params[8]; // ????
     };
-    //class RenderWhat {
-    //public:
-    //    RenderWhat() { model = 0; from = 0; to = 0; }
-    //    RenderWhat(int model, float from, float to) { this->model = model; this->from = from; this->to = to;}
-    //    int model;
-    //    float from;
-    //    float to;
-    //};
-    void RenderCubeMap(const Math::Vec3 & position, int face);
+
     void RenderFromView(const Math::Mat44 & viewMatrix);
     void bindLampConfigToProg(LampConfig & config, Graph::Program * prog);
     LampConfig & generateLampConfig(DS::Compound * c, Math::Mat44 viewMatrix);
@@ -41,6 +50,7 @@ protected:
     DS::Compound * mainHouse;
     DS::Compound * corridor;
     DS::Compound * cameras;
+    DS::Compound * butterfly;
     std::vector<Scene::Material*> mats_house;
     std::vector<Scene::Material*> mats_corridor;
     std::vector<Scene::Material*> mats_pseudo;
@@ -51,6 +61,10 @@ protected:
     Scene::MCRenderer * mc_renderer;
     std::vector<Scene::MCSphereShape> mc_spheres;
     //std::vector<RenderWhat> renderwhat;
+
+    Math::Mat44 mainModelView;
+    Math::Vec3 mainCamPos;
+    Math::Vec3 metaPos;
 };
 
 #endif

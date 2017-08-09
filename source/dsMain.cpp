@@ -70,6 +70,8 @@ void dsMain::Run() {
         dev->ClearColor(1.0, 1.0, 1.0, 1.0);
         dev->ClearFlags(Graph::BUFFER_COLOR_BIT | Graph::BUFFER_DEPTH_BIT);
 
+        dev->Enable(Graph::STATE_ZBUFFER_WRITE);
+
         // OpenGL basic stuff init.
         RenderLoading(wnd, dev);
 
@@ -155,11 +157,15 @@ void dsMain::Run() {
          
         float time_in_secs = time / 1e6;
             
-        if (time_in_secs > 150)
+        if (time_in_secs > 300)
             break;
 
         timeline.Get(time, &items); 
         items.sort(compareTLItem);
+
+        ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
+            i->GetObject()->Update(i->GetStart(), i->GetEnd(), time);
+        }
 
         ListFor(Math::TimelineItem<DS::Stage*>, items, i) {
             i->GetObject()->RenderFBO(i->GetStart(), i->GetEnd(), time);
