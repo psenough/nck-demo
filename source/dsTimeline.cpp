@@ -18,6 +18,7 @@
 
 
 // Para correr sem audio usar NULL
+
 #define AUDIO_STREAM        "audio://nck_evoke_soundtrack.ogg" 
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
@@ -42,7 +43,6 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     dsInnerHouse * house = new dsInnerHouse(data);
     dsPseudoHouse * pseudo = new dsPseudoHouse(data,house);
     dsGlitchPostProcess * glitch = new dsGlitchPostProcess(data);
-    dsDisconnectTunnel * dTunnel = new dsDisconnectTunnel(data, house);
     dsCredits * credits = new dsCredits(data);
 
     renderLoading(20);
@@ -56,11 +56,12 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
     renderLoading(80);
     glitch->Load();
-    credits->Load();
-    dTunnel->Load();
+    //credits->Load();
+    //dTunnel->Load();
 
+    output->AddStage(0e6, 180e6, new StageProxy(house, 0));
 
-    glitch->AddStage(0e6, 180e6, house);
+    /*glitch->AddStage(0e6, 180e6, house);
 
    
     output->AddStage(0e6, 14e6, new StageProxy(house, 0));
@@ -106,12 +107,29 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     ftex2->SetOrder(9999);
     output->AddStage(43e6, 46e6, ftex2);
      
-    output->AddStage(46e6, 80e6, new StageProxy(dTunnel, 0));
+    //output->AddStage(46e6, 80e6, new StageProxy(dTunnel, 0));
 
     output->AddStage(80e6, 90e6, new StageProxy(credits, 0));
 
     // O post process é a track principal da timeline.
     timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, output));
+    */
+
+    /*dsOutputPostProcess * output = new dsOutputPostProcess(data);
+    output->Load();
+
+    dsDisconnectTunnel * dTunnel = new dsDisconnectTunnel(data, NULL);
+    dsCredits * credits = new dsCredits(data);
+
+    dTunnel->Load();
+    credits->Load();*/
+
+    //timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(dTunnel)));
+
+    //output->AddStage(0e6, 90e6, new StageProxy(dTunnel, 0));
+
+    timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output)));
+
 }
 
 bool dsTimeline::LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize) {

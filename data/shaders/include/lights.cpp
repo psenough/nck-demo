@@ -61,8 +61,8 @@ void lights_compute(vec3 P, vec3 N, inout vec3 diff, inout vec3 spec){
         ret_spec += lampColor * spec * intensity;
     }
     
-    diff = ret_diff * rgb_to_srgb_approx(gphDiffuseColor.rgb) * gphDiffuseColor.w;
-    spec = ret_spec * rgb_to_srgb_approx(gphSpecularColor.rgb) * gphSpecularColor.w;
+    diff = ret_diff * gphDiffuseColor.w;
+    spec = ret_spec * gphSpecularColor.w;
 }
 
 #endif

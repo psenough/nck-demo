@@ -3,6 +3,7 @@
 #define DS_DISCONNECT_TUNNEL_H
 
 #include "../dsStage.h"
+#include "dsLamps.h"
 #include "dsInnerHouse.h"
 
 class dsDisconnectTunnel : public DS::Stage {
@@ -18,23 +19,24 @@ public:
 
 protected:
     dsInnerHouse * innerHouse;
-    /*class LampConfig {
-    public:
-        LampConfig() {};
-        Math::Vec4 lamp_pos[8]; // position, energy
-        Math::Vec4 lamp_dir[8]; // normal, type (0 - point, 1 - spot, 2 - sun, 3 -area) 
-        Math::Vec4 lamp_color[8]; // rgb, distance
-        Math::Vec4 lamp_params[8]; // ????
+    DS::Compound * corredor;
+    
+    class CorridorPart {
+        public:
+            CorridorPart(Graph::Device * dev,DS::Compound * c, Scene::LayerMask layer);
+            ~CorridorPart() {};
+
+            LampConfig lighting;
+            std::vector<Scene::Object*> lampsObjs;
+            std::vector<Scene::Object*> modelsObjs;
+            std::vector<Scene::Material*> mats;
+            Graph::Device * m_Device;
+            void Render(const Math::Mat44 & mv, float anim, const Math::Vec4 & dist, const Math::Vec4 & modif);
     };
-    void RenderFromView(const Math::Mat44 & viewMatrix);
-    void bindLampConfigToProg(LampConfig & config, Graph::Program * prog);
-    LampConfig & generateLampConfig(DS::Compound * c, Math::Mat44 viewMatrix);
- 
-    DS::Compound * pseudo;
-    DS::Compound * cameras;
-  
-    std::vector<Scene::Material*> mats_pseudo;
-    */
+
+    std::vector<CorridorPart> blocks;
+
+    std::vector<int> blocks_ids;
 };
 
 #endif

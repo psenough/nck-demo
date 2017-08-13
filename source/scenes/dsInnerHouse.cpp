@@ -19,11 +19,11 @@ void dsInnerHouse::Load() {
 
     mc_renderer = new Scene::MCRenderer(dev, 40, 30, 6);
     mc_spheres.push_back(Scene::MCSphereShape());
-    mc_spheres.push_back(Scene::MCSphereShape());
+    //mc_spheres.push_back(Scene::MCSphereShape());
     //mc_spheres.push_back(Scene::MCSphereShape());
 
     mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0.0),1.0);
-    mc_spheres[1] = Scene::MCSphereShape(Math::Vec3(-1.0, -1.0, -0.25), 0.25);
+    //mc_spheres[1] = Scene::MCSphereShape(Math::Vec3(-1.0, -1.0, -0.25), 0.25);
     //mc_spheres[2] = Scene::MCSphereShape(Math::Vec3(1.0, -1.0, -0.25), 0.25);
 
     mc_renderer->ApplySpheres(mc_spheres);
@@ -31,7 +31,7 @@ void dsInnerHouse::Load() {
 
     cbMatProgram = m_Data->LoadProgram("shader://cubemap.cpp");
 
-    mainHouse = m_Data->LoadCompound("model://house_inner_1.bxon");
+    mainHouse = m_Data->LoadCompound("model://house_inner_1b.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
     cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
     butterfly = m_Data->LoadCompound("model://butterfly.bxon");
@@ -171,7 +171,7 @@ dsInnerHouse::LampConfig & dsInnerHouse::generateLampConfig(DS::Compound * c, Ma
         Math::Vec4 pMV = Math::Vec4(obj->GetPosition(), 1.0) * viewMatrix;
         Math::Vec4 dMV = Math::Vec4(0, 0, 0, 0);
 
-        if (lamp->GetType() == Scene::LAMP_TYPE_SPOT || lamp->GetType() == Scene::LAMP_TYPE_SUN)
+        if (lamp->GetLampType() == Scene::LAMP_TYPE_SPOT || lamp->GetLampType() == Scene::LAMP_TYPE_SUN)
             dMV = (Math::Vec4(0, 0, 1, 0) * obj->GetMatrix()) * viewMatrix;
 
         r.lamp_pos[i] = Math::Vec4(Math::Vec3(pMV), lamp->GetEnergy());
