@@ -506,7 +506,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
     DS::DemoSettings * conf = new DS::DemoSettings();
     int width = 1920, height = 1080;
-    float scale = 0.6;
+    float scale = 0.9;
  
     bool fullscreen = false;
 
@@ -518,7 +518,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     width *= scale;
     height *= scale;
     
-    bool runDemo = true;//conf->Run(&width, &height, &fullscreen);
+    bool runDemo = conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
 

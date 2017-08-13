@@ -3,14 +3,15 @@
 
 uniform mat4 gphModelMatrix;
 uniform vec4 gphCameraPos;
+uniform mat4 gphModelNormalMatrix;
 
 varying vec3 v_cubemap_normal;
 varying vec3 v_cubemap_eye;
 
 void prepare_cubemap(vec4 P, vec3 N){
-    v_cubemap_normal = normalize(vec3(gphModelMatrix * vec4(N,0.0))).xyz;
+    v_cubemap_normal = normalize(mat3(gphModelNormalMatrix) * N);
     vec3 pos = (gphModelMatrix * P).xyz;
-    v_cubemap_eye = -normalize(pos - gphCameraPos.xyz);
+    v_cubemap_eye = normalize(pos - gphCameraPos.xyz);
 }
 
 void main()

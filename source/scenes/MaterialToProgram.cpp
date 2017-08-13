@@ -55,9 +55,10 @@ Graph::Program * MaterialToProgram::generate(Scene::Material * mat) {
     src += "void main(void){\n"
         "\tvec3 diff = vec3(0.0);\n"
         "\tvec3 spec = vec3(0.0);\n"
-        "\tfloat alpha = 1.0;\n"
+        "\tfloat alpha = gphAlpha;\n"
         "\tvec3 N = normalize(v_nor_mv);\n"
-        "\tvec3 texDiff = vec3(1.0);\n";
+        "\tvec3 colDiff = rgb_to_srgb_approx(gphDiffuseColor.rgb);\n"
+        "\tvec3 colSpec = rgb_to_srgb_approx(gphSpecularColor.rgb);\n";
 
     if (hasTexture) {
         MapFor(int, Scene::TextureLayer*, layers, i) {
@@ -95,9 +96,16 @@ Graph::Program * MaterialToProgram::generate(Scene::Material * mat) {
             }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_DIFFUSE_COLOR) != 0) {
-                src += "\t\ttexDiff *= mix(diff,tex.xyz," + Math::FloatToString(tl->GetFactorDiffuseColor(), 2) + ");\n";
+                src += "\t\tcolDiff = mix(colDiff,tex.xyz," + Math::FloatToString(tl->GetFactorDiffuseColor(), 2) + ");\n";
             }
 
+            if ((tl->GetFactorFlag() & Scene::FACTOR_SPECULAR_COLOR) != 0) {
+                src += "\t\tcolSpec = mix(colSpec,tex.xyz," + Math::FloatToString(tl->GetFactorSpecularColor(), 2) + ");\n";
+            }
+
+            if ((tl->GetFactorFlag() & Scene::FACTOR_ALPHA) != 0) {
+                src += "\t\talpha = mix(alpha,tex.a," + Math::FloatToString(tl->GetFactorAlpha(), 2) + ");\n";
+            }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_NORMAL) != 0) {
                 src += "\t\tN = bumpmap_mix_sample(N,tex.xyz,"+Math::FloatToString(tl->GetFactorNormal(), 2)+");\n";
@@ -113,11 +121,15 @@ Graph::Program * MaterialToProgram::generate(Scene::Material * mat) {
 
     if (hasLight) {
         src += "\tlights_compute(v_pos_mv,N,diff,spec);\n";
+        src += "\tgl_FragColor = vec4(diff * colDiff + spec * colSpec, alpha);\n"
+            "}\n";
     }
-
+    else {
+        src += "\tgl_FragColor = vec4(colDiff, alpha);\n"
+            "}\n";
+    }
     
-    src += "\tgl_FragColor = vec4(diff * texDiff+spec, alpha * gphAlpha);\n"
-        "}\n";
+
 
 
     src += "#pragma vertex_shader_glx2\n"

@@ -55,7 +55,7 @@ dsPseudoHouse::LampConfig & dsPseudoHouse::generateLampConfig(DS::Compound * c, 
         Math::Vec4 pMV = Math::Vec4(obj->GetPosition(), 1.0) * viewMatrix;
         Math::Vec4 dMV = Math::Vec4(0, 0, 0, 0);
 
-        if (lamp->GetType() == Scene::LAMP_TYPE_SPOT || lamp->GetType() == Scene::LAMP_TYPE_SUN)
+        if (lamp->GetLampType() == Scene::LAMP_TYPE_SPOT || lamp->GetLampType() == Scene::LAMP_TYPE_SUN)
             dMV = (Math::Vec4(0, 0, 1, 0) * obj->GetMatrix()) * viewMatrix;
 
         r.lamp_pos[i] = Math::Vec4(Math::Vec3(pMV), lamp->GetEnergy());
