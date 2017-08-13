@@ -18,7 +18,7 @@
 
 
 // Para correr sem audio usar NULL
-#define AUDIO_STREAM        "audio://gwely_mernans.ogg" 
+#define AUDIO_STREAM        "audio://nck_evoke_soundtrack.ogg" 
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
