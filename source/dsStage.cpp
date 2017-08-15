@@ -36,19 +36,23 @@ void StageProxy::Load() {
 }
 
 void StageProxy::Render(int64_t start, int64_t end, int64_t time) {
+    int64_t t = time;
+
     if (m_RepeatDuration != 0)
-        time = time - m_RepeatDuration * ((time - start) / m_RepeatDuration);
+        t -= m_RepeatDuration * floor(((t - start) / m_RepeatDuration));
 
     if (m_Stage)
-        m_Stage->Render(start, end, time + m_Offset);
+        m_Stage->Render(start, end, t + m_Offset);
 }
 
 void StageProxy::RenderFBO(int64_t start, int64_t end, int64_t time) {
+    int64_t t = time;
+
     if (m_RepeatDuration != 0)
-        time = time - m_RepeatDuration * ((time - start) / m_RepeatDuration);
+        t -= m_RepeatDuration * floor(((t - start) / m_RepeatDuration));
 
     if (m_Stage)
-        m_Stage->RenderFBO(start , end , time + m_Offset);
+        m_Stage->RenderFBO(start , end, t + m_Offset);
 }
 
 void StageProxy::SetOffset(int64_t offset) {
@@ -60,8 +64,13 @@ void StageProxy::SetStage(Stage * stage) {
 }
 
 void StageProxy::Update(int64_t start, int64_t end, int64_t time) {
+    int64_t t = time;
+
+    if (m_RepeatDuration != 0)
+        t -= m_RepeatDuration * floor(((t - start) / m_RepeatDuration));
+
     if (m_Stage)
-        m_Stage->Update(start, end, time + m_Offset);
+        m_Stage->Update(start, end, t + m_Offset);
 }
 
 _DS_END

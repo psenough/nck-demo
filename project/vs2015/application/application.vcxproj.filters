@@ -118,6 +118,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsLamps.h">
       <Filter>demo\scenes\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsDisconnectScreen.h">
+      <Filter>demo\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsLamps.cpp">
       <Filter>demo\scenes\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsDisconnectScreen.cpp">
+      <Filter>demo\scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #include "dsOutputPostProcess.h"
 
 static bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
-    return a.GetLayer() < b.GetLayer();
+    return a.GetObject()->GetOrder() < b.GetObject()->GetOrder();
 }
 
 dsOutputPostProcess::dsOutputPostProcess(DS::Data * data) : DS::Stage(data) {

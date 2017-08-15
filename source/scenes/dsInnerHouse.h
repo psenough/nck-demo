@@ -51,6 +51,7 @@ protected:
     DS::Compound * corridor;
     DS::Compound * cameras;
     DS::Compound * butterfly;
+    DS::Compound * gynoid;
     std::vector<Scene::Material*> mats_house;
     std::vector<Scene::Material*> mats_corridor;
     std::vector<Scene::Material*> mats_pseudo;
@@ -58,6 +59,9 @@ protected:
     Graph::RTManager * cbRT;
     Graph::TextureCubeMap * cbTex;
     Graph::Program * cbMatProgram;
+    Graph::Program * armatureProg;
+    Math::Mat44 * armBoneMatrix;
+    int armBonesCount;
     Scene::MCRenderer * mc_renderer;
     std::vector<Scene::MCSphereShape> mc_spheres;
     //std::vector<RenderWhat> renderwhat;
@@ -65,6 +69,8 @@ protected:
     Math::Mat44 mainModelView;
     Math::Vec3 mainCamPos;
     Math::Vec3 metaPos;
+    bool renderGynoid;
+    bool renderButterfly;
 };
 
 #endif
