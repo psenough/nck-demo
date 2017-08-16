@@ -8,8 +8,8 @@
 
 //#define FULLSCREEN
 
-bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
-    return a.GetLayer() < b.GetLayer();
+static bool compareTLItem(const Math::TimelineItem<DS::Stage*> & a, const Math::TimelineItem<DS::Stage*> & b) {
+    return a.GetObject()->GetOrder() < b.GetObject()->GetOrder();
 }
 
 _DS_BEGIN
@@ -24,7 +24,7 @@ dsMain::dsMain(Core::Window * window) : Threadable() {
     mutePlayback = false;
     player = NULL;
     lastTime = 0;
-    duration = 10e6;
+    duration = 3*60e6;
     showUI = false;
     sDensity = Core::Window::GetDisplayDensity();
     hScale = wnd->GetHeight() / (float)REFERENCE_HEIGHT;
@@ -518,7 +518,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     width *= scale;
     height *= scale;
     
-    bool runDemo = conf->Run(&width, &height, &fullscreen);
+    bool runDemo = true;//conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
 

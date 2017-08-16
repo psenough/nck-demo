@@ -4,7 +4,7 @@
 
 #include "../dsStage.h"
 
-class dsRobotCollapse : public DS::Stage {
+class dsRobotCollapse : public DS::Stage , public Scene::Processor {
 public:
     dsRobotCollapse(DS::Data * data);
     virtual ~dsRobotCollapse();
@@ -14,8 +14,18 @@ public:
     void RenderFBO(int64_t start, int64_t end, int64_t time);
     void Update(int64_t start, int64_t end, int64_t time);
 protected:
-    DS::Compound * model;
-    std::vector<Scene::Material*> mats;
+    void HandleFinish(BXON::Map * map, Scene::Compound * compound);
+
+    std::vector<std::pair<float, Scene::Object*> > camMarkers;
+    Scene::Object * findNearestCamera(int keyframe);
+    DS::Compound * gynoid;
+    std::vector<Scene::Material*> gynoidMats;
+
+    DS::Compound * house;
+    std::vector<Scene::Material*> houseMats;
+
+    Math::Mat44 mainModelView;
+    Math::Vec3 mainCamPos;
 };
 
 #endif

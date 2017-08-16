@@ -2,7 +2,6 @@
 #include "dsDisconnectTunnel.h"
 #include "MaterialToProgram.h"
 
-
 dsDisconnectTunnel::CorridorPart::CorridorPart(Graph::Device * dev, DS::Compound * c, Scene::LayerMask layer) {
     c->Get()->GetObjectsWithLayer(&lampsObjs,Scene::DATABLOCK_LAMP, layer);
     c->Get()->GetObjectsWithLayer(&modelsObjs, Scene::DATABLOCK_MODEL, layer);
@@ -14,6 +13,10 @@ dsDisconnectTunnel::CorridorPart::CorridorPart(Graph::Device * dev, DS::Compound
     for (int i = 0; i < modelsObjs.size(); i++) {
         Scene::Object * o = modelsObjs[i];
         Scene::Model * m = dynamic_cast<Scene::Model*>(o->GetData());
+
+        if (o->GetName().find("Porta.") != std::string::npos) {
+            door = o;
+        }
 
         std::vector<Scene::Material*> mVec = m->GetMaterials();
 
@@ -31,7 +34,6 @@ dsDisconnectTunnel::CorridorPart::CorridorPart(Graph::Device * dev, DS::Compound
     }
 }
 
-
 void dsDisconnectTunnel::CorridorPart::Render(const Math::Mat44 & mv, float anim, const Math::Vec4 & dist, const Math::Vec4 & modif) {
     lighting = LampConfig::generate(mv, lampsObjs);
 
@@ -42,6 +44,11 @@ void dsDisconnectTunnel::CorridorPart::Render(const Math::Mat44 & mv, float anim
         prog->SetVariable4f("tr_modifier", modif.GetX(), modif.GetY(), modif.GetZ(), modif.GetW());
         prog->SetVariable4f("tr_distance", dist.GetX(), dist.GetY(), dist.GetZ(), dist.GetW());
     }
+
+   if (door) {
+       door->SetRotation(Math::EulerToQuat(Math::LinearInterpolation(Math::Vec3(0, 0, -115), Math::Vec3(0, 0, 0), anim/4.0)*M_PI / 180));
+       door->Update();
+   }
 
     for (int i = 0; i < modelsObjs.size(); i++) {
         Scene::Object * o = modelsObjs[i];
@@ -54,8 +61,8 @@ void dsDisconnectTunnel::CorridorPart::Render(const Math::Mat44 & mv, float anim
     }
 }
 
-dsDisconnectTunnel::dsDisconnectTunnel(DS::Data * data, dsInnerHouse * innerHouse) : DS::Stage(data) {
-    this->innerHouse = innerHouse;
+dsDisconnectTunnel::dsDisconnectTunnel(DS::Data * data) : DS::Stage(data) {
+
 }
 
 dsDisconnectTunnel::~dsDisconnectTunnel() {
@@ -65,6 +72,7 @@ dsDisconnectTunnel::~dsDisconnectTunnel() {
 void dsDisconnectTunnel::Load() {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
     corredor = m_Data->LoadCompound("model://corredores.bxon");
+    controller = m_Data->LoadCompound("model://corredorControl.bxon");
 
     blocks.reserve(4);
     blocks.push_back(CorridorPart(dev, corredor, Scene::LAYER_1));
@@ -72,9 +80,11 @@ void dsDisconnectTunnel::Load() {
     blocks.push_back(CorridorPart(dev, corredor, Scene::LAYER_3));
     blocks.push_back(CorridorPart(dev, corredor, Scene::LAYER_4));
 
-
     blocks_ids.reserve(100);
-    for (int i = 0; i < 100; i++) {
+    blocks_ids.push_back(-1);
+    blocks_ids.push_back(-1);
+
+    for (int i = 0; i < 198; i++) {
         int val = floor(Math::RandomValue(0, 4));
         if (val == 4)
             val = 3;
@@ -83,13 +93,12 @@ void dsDisconnectTunnel::Load() {
 }
 
 void dsDisconnectTunnel::Update(int64_t start, int64_t end, int64_t time) {
-    //innerHouse->Update(start, end, time);
+
 }
 
 void dsDisconnectTunnel::RenderFBO(int64_t start, int64_t end, int64_t time) {
    
 }
-
 
 void dsDisconnectTunnel::Render(int64_t start, int64_t end, int64_t time) {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
@@ -101,32 +110,7 @@ void dsDisconnectTunnel::Render(int64_t start, int64_t end, int64_t time) {
     const float t = (time - start) / 1.0e6;
     const float bFrameRate = 24.0;
 
-    /*Scene::Camera * objCam = corredor->Get()->GetCamera("Camera.001");
-    objCam->SetAspect(aspect);
-    Math::Mat44 mv = objCam->GetMatrix();
-
-    dev->MatrixMode(Graph::MATRIX_PROJECTION);
-    dev->Identity();
-    objCam->Enable(Graph::MATRIX_PROJECTION);
-
-    dev->MatrixMode(Graph::MATRIX_VIEW);
-    dev->Identity();
-
-    dev->LoadMatrix((float*)&mv);
-
-    dev->MatrixMode(Graph::MATRIX_MODEL);
-    dev->Identity();
-
-    dev->Enable(Graph::STATE_DEPTH_TEST);
-    dev->Enable(Graph::STATE_BLEND);
-    dev->Enable(Graph::STATE_CULL_FACE);
-    */
-
-    /*dev->Color(255, 255, 255, 255);
-    corredor->Get()->Render();
-    */
-
-    const Math::Vec3 restPosition = Math::Vec3(0, -50.3652, 13.10984);
+    const Math::Vec3 restPosition = Math::Vec3(0, -42.0842, 11.7015);
 
     Scene::Object objCam(dev);
     objCam.SetRotation(Math::EulerToQuat(Math::Vec3(90,0,0)*M_PI/180.0));
@@ -152,38 +136,56 @@ void dsDisconnectTunnel::Render(int64_t start, int64_t end, int64_t time) {
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
+    float speed = 10;
+    float rot_x = 0.0;
+    float rot_y = 0.0;
+    float rot_z = 0.0;
+
+    if (controller->Get()->GetObject("speed") != NULL) {
+        Scene::Object * obj = controller->Get()->GetObject("speed");
+        obj->Play(t * bFrameRate);
+        speed = obj->GetPosition().GetX() * 10.0;
+    }
+
+    if (controller->Get()->GetObject("rotx") != NULL) {
+        Scene::Object * obj = controller->Get()->GetObject("rotx");
+        obj->Play(t * bFrameRate);
+        rot_x = obj->GetPosition().GetX();
+    }
+
+    if (controller->Get()->GetObject("roty") != NULL) {
+        Scene::Object * obj = controller->Get()->GetObject("roty");
+        obj->Play(t * bFrameRate);
+        rot_y = obj->GetPosition().GetX();
+    }
+
+    if (controller->Get()->GetObject("rotz") != NULL) {
+        Scene::Object * obj = controller->Get()->GetObject("rotz");
+        obj->Play(t * bFrameRate);
+        rot_z = obj->GetPosition().GetX();
+    }
+
     float dim_y = 50;
-    float sT = t*10;
+    float sT = t * speed;
 
     float dt = sT - floor(sT / dim_y) * dim_y;
     int offset = (int)floor(sT / dim_y);
 
-    Math::Vec4 md = Math::Vec4(sin(t*0.1)*0.5, cos(t*0.1), 0, 0) * Math::Clamp(0.0, 1.0, t / 10.0);
+    Math::Vec4 md = Math::Vec4(rot_x, rot_y, rot_z, 0);
     
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_BLEND);
     dev->Enable(Graph::STATE_CULL_FACE);
     
-    //int offset = (int)floor(sT / dim_y);
-
-    //blocks[0].Render(mv, 0.0,Math::Vec4(), Math::Vec4());
-
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4 && (i + offset) < blocks_ids.size(); i++) {
         int modelIndex = blocks_ids[i + offset];
-        blocks[modelIndex].Render(matView, 0.0, Math::Vec4(restPosition.GetX(), dim_y*2.0-dim_y * i, -dt, 0), md);
+        if (modelIndex < 0)
+            continue;
+
+        float anim = Math::Clamp(0, 4.0, dt / 10.0 + dim_y * 2-i *dim_y);
+        if (i + offset <= 2)
+            anim = 4.0;
+
+        blocks[0].Render(matView, anim, Math::Vec4(restPosition.GetX(), dim_y*2.0-dim_y * i, -dt, 0), md);
     } 
-
-    /*innerHouse->UpdateCorridorTransform(Math::Vec4(restPosition.GetX(), dim_y*2.0, -dt*2.0, 0), md);
-    innerHouse->RenderCorridor(matView, Math::Clamp(0,4.33, dt / 10.0 + 100));
-
-    innerHouse->UpdateCorridorTransform(Math::Vec4(restPosition.GetX(), dim_y, -dt, 0), md);
-    innerHouse->RenderCorridor(matView, Math::Clamp(0, 4.33, dt / 10.0 + 50));
-
-    innerHouse->UpdateCorridorTransform(Math::Vec4(restPosition.GetX(), 0, -dt, 0), md);
-    innerHouse->RenderCorridor(matView, Math::Clamp(0, 4.33, dt / 10.0));
-
-    innerHouse->UpdateCorridorTransform(Math::Vec4(restPosition.GetX(), -dim_y, -dt, 0), md);
-    innerHouse->RenderCorridor(matView, 0);
-    */
-
 }

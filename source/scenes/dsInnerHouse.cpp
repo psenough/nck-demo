@@ -19,26 +19,40 @@ void dsInnerHouse::Load() {
 
     mc_renderer = new Scene::MCRenderer(dev, 40, 30, 6);
     mc_spheres.push_back(Scene::MCSphereShape());
-    //mc_spheres.push_back(Scene::MCSphereShape());
-    //mc_spheres.push_back(Scene::MCSphereShape());
+    mc_spheres.push_back(Scene::MCSphereShape());
+    mc_spheres.push_back(Scene::MCSphereShape());
+    mc_spheres.push_back(Scene::MCSphereShape());
+    mc_spheres.push_back(Scene::MCSphereShape());
 
     mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0.0),1.0);
-    //mc_spheres[1] = Scene::MCSphereShape(Math::Vec3(-1.0, -1.0, -0.25), 0.25);
-    //mc_spheres[2] = Scene::MCSphereShape(Math::Vec3(1.0, -1.0, -0.25), 0.25);
+    mc_spheres[1] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 0.0);
+    mc_spheres[2] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 0.0);
+    mc_spheres[3] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 0.0);
+    mc_spheres[4] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 0.0);
 
     mc_renderer->ApplySpheres(mc_spheres);
     mc_renderer->Update();
 
     cbMatProgram = m_Data->LoadProgram("shader://cubemap.cpp");
+    armatureProg = m_Data->LoadProgram("shader://armature.cpp");
 
     mainHouse = m_Data->LoadCompound("model://house_inner_1b.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
     cameras = m_Data->LoadCompound("model://house_inner_cam.bxon", this);
     butterfly = m_Data->LoadCompound("model://butterfly.bxon");
+    gynoid = m_Data->LoadCompound("model://gynoid1.bxon");
 
     mainHouse->Get()->GetAllMaterials(&mats_house);
     corridor->Get()->GetAllMaterials(&mats_corridor);
-  
+
+    armBonesCount = gynoid->Get()->GetArmature("A.Gynoid")->GetBones().size();
+    armBoneMatrix = new Math::Mat44[armBonesCount];
+
+    std::vector<Scene::Material*> gynoidMats = gynoid->Get()->GetModel("Gynoid1")->GetMaterials();
+    for (int i = 0; i < gynoidMats.size(); i++) {
+        gynoidMats[i]->SetProgram(armatureProg);
+    }
+
     MaterialToProgram * mtp = new MaterialToProgram(m_Data->GetGraphicsDevice());
 
     std::vector<Scene::Texture*> t1;
@@ -89,6 +103,58 @@ void dsInnerHouse::Update(int64_t start, int64_t end, int64_t time) {
     if (camObj == NULL)
         return;
 
+    const float T_GYNOID = 56.5;
+    const float T_SHOW_SPHERES = 56.5;
+    const float T_MOVE_SPHERES = 58;
+    const float T_ROTATE_SPHERES = 62;
+    const float T_HIDE_SPHERES = 64;
+
+    const Math::Vec3 P_SPHERE_1 = Math::Vec3(0, -1.5, -0.5);
+    const Math::Vec3 P_SPHERE_2 = Math::Vec3(0, 1.5, -0.5);
+    const Math::Vec3 P_SPHERE_3 = Math::Vec3(1.5, 0.0, -0.5);
+    const Math::Vec3 P_SPHERE_4 = Math::Vec3(-1.5, 0.0, -0.5);
+    const Math::Vec3 P_TOP = Math::Vec3(0.0, 0.0, 1.5);
+    const Math::Vec3 P_CENTER = Math::Vec3(0.0, 0.0, 0.0);
+
+    renderGynoid = t > 56.5;
+    renderButterfly = t < T_ROTATE_SPHERES;
+
+    if (t >= T_SHOW_SPHERES && t < T_MOVE_SPHERES) {
+        float alpha = (t - T_SHOW_SPHERES)/(T_MOVE_SPHERES - T_SHOW_SPHERES);
+        mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 1.0);
+        mc_spheres[1] = Scene::MCSphereShape(Math::LinearInterpolation(Math::Vec3(0, 0, 0), P_SPHERE_1, alpha), 0.25 * alpha);
+        mc_spheres[2] = Scene::MCSphereShape(Math::LinearInterpolation(Math::Vec3(0, 0, 0), P_SPHERE_2, alpha), 0.25 * alpha);
+        mc_spheres[3] = Scene::MCSphereShape(Math::LinearInterpolation(Math::Vec3(0, 0, 0), P_SPHERE_3, alpha), 0.25 * alpha);
+        mc_spheres[4] = Scene::MCSphereShape(Math::LinearInterpolation(Math::Vec3(0, 0, 0), P_SPHERE_4, alpha), 0.25 * alpha);
+        mc_renderer->Clear();
+        mc_renderer->ApplySpheres(mc_spheres);
+        mc_renderer->Update();
+    } 
+    else if (t >= T_MOVE_SPHERES && t < T_ROTATE_SPHERES) {
+        float alpha = (t - T_MOVE_SPHERES) / (T_ROTATE_SPHERES - T_MOVE_SPHERES);
+        mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 1.0);
+        //TODO: Isto aqui era para as esferas rodarem.
+        mc_spheres[1] = Scene::MCSphereShape(Math::LinearInterpolation(P_SPHERE_1, P_TOP, alpha), 0.25);
+        mc_spheres[2] = Scene::MCSphereShape(Math::LinearInterpolation(P_SPHERE_2, P_TOP, alpha), 0.25);
+        mc_spheres[3] = Scene::MCSphereShape(Math::LinearInterpolation(P_SPHERE_3, P_TOP, alpha), 0.25);
+        mc_spheres[4] = Scene::MCSphereShape(Math::LinearInterpolation(P_SPHERE_4, P_TOP, alpha), 0.25);
+        mc_renderer->Clear();
+        mc_renderer->ApplySpheres(mc_spheres);
+        mc_renderer->Update();
+    }
+    else if (t >= T_ROTATE_SPHERES && t < T_HIDE_SPHERES) {
+        float alpha = Math::Clamp(0,1,(t - T_ROTATE_SPHERES) / (T_HIDE_SPHERES - T_ROTATE_SPHERES));
+        mc_spheres[0] = Scene::MCSphereShape(Math::Vec3(0, 0, 0), 1.0);
+        mc_spheres[1] = Scene::MCSphereShape(Math::LinearInterpolation(P_TOP, P_CENTER, alpha), 0.25*(1.0 - alpha));
+        mc_spheres[2] = Scene::MCSphereShape(Math::LinearInterpolation(P_TOP, P_CENTER, alpha), 0.25*(1.0 - alpha));
+        mc_spheres[3] = Scene::MCSphereShape(Math::LinearInterpolation(P_TOP, P_CENTER, alpha), 0.25*(1.0 - alpha));
+        mc_spheres[4] = Scene::MCSphereShape(Math::LinearInterpolation(P_TOP, P_CENTER, alpha), 0.25*(1.0 - alpha));
+        mc_renderer->Clear();
+        mc_renderer->ApplySpheres(mc_spheres);
+        mc_renderer->Update();
+    }
+
+
     Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
     cam->SetAspect(aspect);
 
@@ -97,6 +163,31 @@ void dsInnerHouse::Update(int64_t start, int64_t end, int64_t time) {
 
     mainModelView = cam->GetMatrix();
     mainCamPos = camObj->GetPosition();
+
+    {
+        Scene::Object * gRoot = gynoid->Get()->GetObject("Root");
+        gRoot->Play(t * bFrameRate - 1300);
+        gRoot->SetRotation(Math::Quat());
+        gRoot->Update();
+
+        Scene::Armature * a = gynoid->Get()->GetArmature("A.Gynoid");
+        a->Play("", t * bFrameRate - 1300);
+        a->Update();
+
+
+        std::vector<Scene::Bone*> bones = a->GetBones();
+        for (int i = 0; i < bones.size(); i++) {
+            armBoneMatrix[i] = Math::Translate(-bones[i]->m_RestPos) * bones[i]->m_Matrix;
+        }
+
+        /*Scene::Object * o = gynoid->Get()->GetObject("A.Gynoid");
+        o->SetRotation(Math::Quat());
+        o->Update();
+
+        Scene::Object * o2 = gynoid->Get()->GetObject("Gynoid1");
+        o2->SetRotation(Math::Quat());
+        o2->Update();*/
+    }
 
     butterfly->Get()->GetObject("Borboleta")->Play(t * bFrameRate);
 
@@ -251,9 +342,32 @@ void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
 
     UpdateCorridorTransform(Math::Vec4(0, 0, 0, 0), Math::Vec4(0, 0, 0, 0));
 
-    RenderButterfly();
+    if(renderButterfly)
+        RenderButterfly();
+
     mainHouse->Get()->Render();
     corridor->Get()->Render();
+
+    if (renderGynoid) {
+        dev->Color(255, 0, 0);
+        //armatureProg->Enable();
+        armatureProg->SetMatrixArray("bones_matrix", armBonesCount, (float*)armBoneMatrix);
+        gynoid->Get()->Render();
+        //armatureProg->Disable();
+
+        //        dev->Disable(Graph::STATE_DEPTH_TEST);
+
+        /*Scene::Object * obj = gynoid->Get()->GetObject("A.Gynoid");
+        Scene::Armature * arm = gynoid->Get()->GetArmature("A.Gynoid");
+        dev->PushMatrix();
+        obj->Bind();
+        arm->Render();
+        dev->PopMatrix();
+        */
+        dev->Color(255, 255, 255);
+
+        //dev->Enable(Graph::STATE_DEPTH_TEST);
+    }
 }
 
 void dsInnerHouse::RenderButterfly() {
@@ -262,14 +376,18 @@ void dsInnerHouse::RenderButterfly() {
 
 void dsInnerHouse::RenderMeta() {
     Graph::Device * const dev = m_Data->GetGraphicsDevice();
+
     dev->PushMatrix();
-    dev->Translate(metaPos.GetX(), metaPos.GetY(), metaPos.GetZ());
+    Math::Mat44 mTCB = Math::Translate(metaPos);
+    dev->MultMatrix((float*)&mTCB);
+
     cbTex->Enable();
     cbMatProgram->Enable();
     cbMatProgram->SetVariable4f("gphCameraPos", mainCamPos.GetX(), mainCamPos.GetY(), mainCamPos.GetZ());
     mc_renderer->Render();
     cbTex->Disable();
     cbMatProgram->Disable();
+
     dev->PopMatrix();
 }
 
