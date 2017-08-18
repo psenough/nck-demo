@@ -12,9 +12,12 @@ public:
     void Render(int64_t start, int64_t end, int64_t time);
     void RenderFBO(int64_t start, int64_t end, int64_t time);
     void Update(int64_t start, int64_t end, int64_t time);
-
 private:
+    void Mutate();
+    std::vector<Scene::Object*> refObj;
+    std::vector<Scene::Object*> changeObj;
     DS::Compound * sysLogo;
+    Graph::Program * fog;
 };
 
 #endif

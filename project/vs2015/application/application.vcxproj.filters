@@ -121,6 +121,15 @@
     <ClInclude Include="..\..\..\source\scenes\dsDisconnectScreen.h">
       <Filter>demo\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsConsoleText.h">
+      <Filter>demo\scenes\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatPopup.h">
+      <Filter>demo\scenes\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatTexture.h">
+      <Filter>demo\scenes\other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\dsTimeline.cpp">
@@ -191,6 +200,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsDisconnectScreen.cpp">
       <Filter>demo\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsConsoleText.cpp">
+      <Filter>demo\scenes\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatPopup.cpp">
+      <Filter>demo\scenes\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatTexture.cpp">
+      <Filter>demo\scenes\other</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

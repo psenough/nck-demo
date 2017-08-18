@@ -4,6 +4,7 @@
 MaterialToProgram::MaterialToProgram(Graph::Device * dev) {
     m_Device = dev;
     enableTransform = false;
+    enableArmature = false;
 }
 
 MaterialToProgram::~MaterialToProgram() {
@@ -143,9 +144,18 @@ Graph::Program * MaterialToProgram::generate(Scene::Material * mat) {
     if (enableTransform)
         src += "#include \"transform.cpp\"\n";
     
+    if(enableArmature)
+        src += "#include \"armature.cpp\"\n";
+
     src += "void main(){\n"
         "\tvec4 P = gl_Vertex;\n"
         "\tvec3 N = gl_Normal;\n";
+
+    if (enableArmature) {
+        src += "\tvec3 aP = P.xyz;\n";
+        src += "\tarmature_transform(gl_MultiTexCoord1.xyzw,gl_MultiTexCoord2.xyzw,aP,N);\n";
+        src += "\tP = vec4(aP,1.0);\n";
+    }
 
     src += "\tvec3 P_MV = vec3(gl_ModelViewMatrix * P);\n"
         "\tvec3 N_MV = normalize(gl_NormalMatrix * N);\n";

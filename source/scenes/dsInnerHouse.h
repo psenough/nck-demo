@@ -55,6 +55,7 @@ protected:
     std::vector<Scene::Material*> mats_house;
     std::vector<Scene::Material*> mats_corridor;
     std::vector<Scene::Material*> mats_pseudo;
+    std::vector<Scene::Material*> mats_gynoid;
     std::vector<std::pair<float, Scene::Object*> > camMarkers;
     Graph::RTManager * cbRT;
     Graph::TextureCubeMap * cbTex;

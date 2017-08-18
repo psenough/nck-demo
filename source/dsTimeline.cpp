@@ -10,6 +10,7 @@
 
 #include "scenes/dsSolidColor.h"
 #include "scenes/dsFloatText.h"
+#include "scenes/dsConsoleText.h"
 
 #include "scenes/dsInnerHouse.h"
 #include "scenes/dsPseudoHouse.h"
@@ -17,9 +18,10 @@
 #include "scenes/dsCredits.h"
 #include "scenes/dsDisconnectScreen.h"
 #include "scenes/dsRobotCollapse.h"
+#include "scenes/dsFloatTexture.h"
 
 // Comentar/Descomentar o audiostream desactiva/activa o suporte de audio.
-//#define AUDIO_STREAM        "audio://jeenio1.ogg" 
+#define AUDIO_STREAM        "audio://soundtrack.ogg" 
 #define AUDIO_SAMPLERATE    44100
 #define AUDIO_BUFFERS       4
 #define AUDIO_FFT           2048
@@ -50,8 +52,7 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     dsCredits * credits = new dsCredits(data);
     dsRobotCollapse * robotHouse = new dsRobotCollapse(data);
 
-    //dsPseudoHouse * pseudo = new dsPseudoHouse(data,house);
-
+    
     renderLoading(20);
     output->Load();
     glitch->Load();
@@ -66,6 +67,7 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     renderLoading(80);
     robotHouse->Load();
     credits->Load();
+    dScreen->Load();
 
     // Fade In
     {
@@ -92,94 +94,120 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     }
 
     // Close door
-    output->AddStage(T_S(58.5), TM_S(1,10), new StageProxy(house, T_S(56.5)));
+    output->AddStage(T_S(58.5), TM_S(1,35), new StageProxy(house, T_S(56.5)));
 
-    // Disconnection message
-    {
-        output->AddStage(TM_S(1, 10), TM_S(1, 14), new StageProxy(dScreen));
-
-        dsFloatText * ftex1 = new dsFloatText(data);
-        ftex1->Set("Disconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1,Math::Color4ub(0,0,0));
-        ftex1->SetOrder(9999);
-        output->AddStage(TM_S(1, 10), TM_S(1, 14), ftex1);
-    }
-
-    output->AddStage(TM_S(1,14), TM_S(1, 27), new StageProxy(house, T_S(68)));
-
+   
 
     // Disconnection Tunnel
     output->AddStage(TM_S(1, 27), TM_S(1, 57), new StageProxy(dTunnel, 0));
 
+    //output->Load();
+    //dScreen->Load();
 
-    output->AddStage(TM_S(1, 57), TM_S(2, 30), new StageProxy(robotHouse, 0));
+    // Fade out para branco
+    {
+        dsSolidColor * fadeIn = new dsSolidColor(data);
+        fadeIn->SetColors(Math::Color4ub(255, 255, 255, 0), Math::Color4ub(255, 255, 255, 255), true);
+        fadeIn->SetOrder(9999);
+        output->AddStage(TM_S(1, 53), TM_S(1, 57), fadeIn);
+    }
+
+    output->AddStage(TM_S(1, 57), TM_S(2, 7), dScreen);
+
+    // Fade out para branco
+    {
+        dsSolidColor * fadeIn = new dsSolidColor(data);
+        fadeIn->SetColors(Math::Color4ub(255, 255, 255, 255), Math::Color4ub(255, 255, 255, 0), true);
+        fadeIn->SetOrder(9999);
+        output->AddStage(TM_S(1, 57), TM_S(1, 58), fadeIn);
+    }
 
 
-    output->AddStage(TM_S(2, 30), TM_S(2, 40), new StageProxy(credits, 0));
+    {
+        dsConsoleText * txt1 = new dsConsoleText(data);
+        txt1->SetText("Insufficient resources to maintain connection", Math::Vec2(0.5, 0.60), 20);
+        output->AddStage(TM_S(1,57), TM_S(2, 2), txt1);
+    }
+
+    {
+        dsConsoleText * txt1 = new dsConsoleText(data);
+        txt1->SetText("Disconnecting...", Math::Vec2(0.5, 0.60), 20);
+        output->AddStage(TM_S(2,2), TM_S(2,7), txt1);
+    }
+
+    // Fade out para preto
+    {
+        dsSolidColor * fadeIn = new dsSolidColor(data);
+        fadeIn->SetColors(Math::Color4ub(0, 0, 0, 0), Math::Color4ub(0, 0, 0, 255), true);
+        fadeIn->SetOrder(9999);
+        output->AddStage(TM_S(2, 6.5), TM_S(2, 7), fadeIn);
+    }
+
+    //timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output)));
 
 
-    //pseudo->Load();
-    //credits->Load();
-    //dTunnel->Load();
 
-    /*glitch->AddStage(0e6, 180e6, house);
-        output->AddStage(0e6, 14e6, new StageProxy(house, 0));
+    output->AddStage(TM_S(2, 7), TM_S(2, 30), new StageProxy(robotHouse, 0));
 
-    StageProxy * g1 = new StageProxy(glitch, 0);
-    g1->SetRepeat(100000);
-    output->AddStage(14e6, 15e6, g1);
 
-   
+    // Credits 
+    {
+        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim;
     
-    output->AddStage(15e6, 30e6, new StageProxy(house, 14e6));
+        dsFloatTexture * ft1 = new dsFloatTexture(data);
+        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetDimensions(dim.GetX(), dim.GetY());
+        
+        ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_1.png"));
+
+        output->AddStage(TM_S(2, 7), TM_S(2, 11), ft1);
+    }
+
+    {
+        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim;
+
+        dsFloatTexture * ft1 = new dsFloatTexture(data);
+        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetDimensions(dim.GetX(), dim.GetY());
+
+        ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_2.png"));
+
+        output->AddStage(TM_S(2, 11), TM_S(2, 15), ft1);
+    }
+
+    {
+        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim;
+
+        dsFloatTexture * ft1 = new dsFloatTexture(data);
+        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetDimensions(dim.GetX(), dim.GetY());
+
+        ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_3.png"));
+
+        output->AddStage(TM_S(2, 15), TM_S(2, 19), ft1);
+    }
+
+    //output->AddStage(TM_S(2, 30), TM_S(2, 40), new StageProxy(credits, 0));
 
 
-    StageProxy * g2 = new StageProxy(glitch, 0);
-    g2->SetRepeat(100000);
-    output->AddStage(30e6, 33e6,g2);
 
-    dsFloatText * ftex1 = new dsFloatText(data);
-    ftex1->Set("You are attempting to connect to\nan higher timebase than base reality", Math::Vec2(width*0.5, height*0.5), height*0.1);
-    ftex1->SetOrder(9999);
-    output->AddStage(30e6, 33e6, ftex1);
-    
-
-    output->AddStage(33e6, 34e6, new StageProxy(house, 33e6));
-
-    output->AddStage(34e6, 36e6, new StageProxy(pseudo, 34e6));
-
-    output->AddStage(36e6, 43e6, new StageProxy(house, 36e6));
-
-    StageProxy * g3 = new StageProxy(glitch, 0);
-    g3->SetRepeat(100000);
-    output->AddStage(43e6, 46e6, g3);
-    
-    dsFloatText * ftex2 = new dsFloatText(data);
-    ftex2->Set("Unable to meet clock requirements\ndisconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1);
-    ftex2->SetOrder(9999);
-    output->AddStage(43e6, 46e6, ftex2);
-     
-    //
-
-    output->AddStage(80e6, 90e6, new StageProxy(credits, 0));
-
-    // O post process é a track principal da timeline.
-    timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, output));
-    */
-
-    /*dsOutputPostProcess * output = new dsOutputPostProcess(data);
-    output->Load();
-
-    dsDisconnectTunnel * dTunnel = new dsDisconnectTunnel(data, NULL);
-    dsCredits * credits = new dsCredits(data);
-
-    dTunnel->Load();
-    credits->Load();*/
-
-    //timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(dTunnel)));
-
-    //output->AddStage(0e6, 90e6, new StageProxy(dTunnel, 0));
 
     timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output)));
+    
+
+    // Disconnection message
+    /*{
+    output->AddStage(TM_S(1, 10), TM_S(1, 14), new StageProxy(dScreen));
+
+    dsFloatText * ftex1 = new dsFloatText(data);
+    ftex1->Set("Disconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1,Math::Color4ub(0,0,0));
+    ftex1->SetOrder(9999);
+    output->AddStage(TM_S(1, 10), TM_S(1, 14), ftex1);
+    }*/
+    //output->AddStage(TM_S(1,14), TM_S(1, 27), new StageProxy(house, T_S(68)));
 
 }
 

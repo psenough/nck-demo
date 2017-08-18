@@ -1,6 +1,7 @@
 
 #include "dsDisconnectTunnel.h"
 #include "MaterialToProgram.h"
+#include "nckMathUtils.h"
 
 dsDisconnectTunnel::CorridorPart::CorridorPart(Graph::Device * dev, DS::Compound * c, Scene::LayerMask layer) {
     c->Get()->GetObjectsWithLayer(&lampsObjs,Scene::DATABLOCK_LAMP, layer);
@@ -43,7 +44,7 @@ void dsDisconnectTunnel::CorridorPart::Render(const Math::Mat44 & mv, float anim
         LampConfig::bind(lighting, prog);
         prog->SetVariable4f("tr_modifier", modif.GetX(), modif.GetY(), modif.GetZ(), modif.GetW());
         prog->SetVariable4f("tr_distance", dist.GetX(), dist.GetY(), dist.GetZ(), dist.GetW());
-    }
+   }
 
    if (door) {
        door->SetRotation(Math::EulerToQuat(Math::LinearInterpolation(Math::Vec3(0, 0, -115), Math::Vec3(0, 0, 0), anim/4.0)*M_PI / 180));
@@ -176,7 +177,7 @@ void dsDisconnectTunnel::Render(int64_t start, int64_t end, int64_t time) {
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_BLEND);
     dev->Enable(Graph::STATE_CULL_FACE);
-    
+   
     for (int i = 0; i < 4 && (i + offset) < blocks_ids.size(); i++) {
         int modelIndex = blocks_ids[i + offset];
         if (modelIndex < 0)

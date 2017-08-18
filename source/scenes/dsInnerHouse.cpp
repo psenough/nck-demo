@@ -34,7 +34,7 @@ void dsInnerHouse::Load() {
     mc_renderer->Update();
 
     cbMatProgram = m_Data->LoadProgram("shader://cubemap.cpp");
-    armatureProg = m_Data->LoadProgram("shader://armature.cpp");
+    //armatureProg = m_Data->LoadProgram("shader://armature.cpp");
 
     mainHouse = m_Data->LoadCompound("model://house_inner_1b.bxon");
     corridor = m_Data->LoadCompound("model://house_inner_2.bxon");
@@ -44,14 +44,15 @@ void dsInnerHouse::Load() {
 
     mainHouse->Get()->GetAllMaterials(&mats_house);
     corridor->Get()->GetAllMaterials(&mats_corridor);
+    gynoid->Get()->GetAllMaterials(&mats_gynoid);
 
     armBonesCount = gynoid->Get()->GetArmature("A.Gynoid")->GetBones().size();
     armBoneMatrix = new Math::Mat44[armBonesCount];
 
-    std::vector<Scene::Material*> gynoidMats = gynoid->Get()->GetModel("Gynoid1")->GetMaterials();
-    for (int i = 0; i < gynoidMats.size(); i++) {
-        gynoidMats[i]->SetProgram(armatureProg);
-    }
+    //std::vector<Scene::Material*> gynoidMats = gynoid->Get()->GetModel("Gynoid1")->GetMaterials();
+    //for (int i = 0; i < gynoidMats.size(); i++) {
+    //    gynoidMats[i]->SetProgram(armatureProg);
+    //}
 
     MaterialToProgram * mtp = new MaterialToProgram(m_Data->GetGraphicsDevice());
 
@@ -78,6 +79,12 @@ void dsInnerHouse::Load() {
     for (int i = 0; i < mats_corridor.size(); i++) {
         Graph::Program * p = mtp->generate(mats_corridor[i]);
         mats_corridor[i]->SetProgram(p);
+    }
+
+    mtp->SetEnableArmature(true);
+    for (int i = 0; i < mats_gynoid.size(); i++) {
+        Graph::Program * p = mtp->generate(mats_gynoid[i]);
+        mats_gynoid[i]->SetProgram(p);
     }
 
 
@@ -167,14 +174,12 @@ void dsInnerHouse::Update(int64_t start, int64_t end, int64_t time) {
     {
         Scene::Object * gRoot = gynoid->Get()->GetObject("Root");
         gRoot->Play(t * bFrameRate - 1300);
-        gRoot->SetRotation(Math::Quat());
         gRoot->Update();
 
         Scene::Armature * a = gynoid->Get()->GetArmature("A.Gynoid");
         a->Play("", t * bFrameRate - 1300);
         a->Update();
-
-
+        
         std::vector<Scene::Bone*> bones = a->GetBones();
         for (int i = 0; i < bones.size(); i++) {
             armBoneMatrix[i] = Math::Translate(-bones[i]->m_RestPos) * bones[i]->m_Matrix;
@@ -349,9 +354,16 @@ void dsInnerHouse::RenderFromView(const Math::Mat44 & viewMatrix) {
     corridor->Get()->Render();
 
     if (renderGynoid) {
-        dev->Color(255, 0, 0);
+        for (int i = 0; i < mats_gynoid.size(); i++) {
+            Scene::Material * mat = mats_gynoid[i];
+            Graph::Program * prog = mat->GetProgram();
+            prog->SetMatrixArray("bones_matrix", armBonesCount, (float*)armBoneMatrix);
+            bindLampConfigToProg(houseLamps, prog);
+        }
+
+        //dev->Color(255, 0, 0);
         //armatureProg->Enable();
-        armatureProg->SetMatrixArray("bones_matrix", armBonesCount, (float*)armBoneMatrix);
+        //armatureProg->SetMatrixArray("bones_matrix", armBonesCount, (float*)armBoneMatrix);
         gynoid->Get()->Render();
         //armatureProg->Disable();
 

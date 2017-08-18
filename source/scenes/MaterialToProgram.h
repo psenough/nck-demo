@@ -13,9 +13,11 @@ public:
 
     void SetEnableTransform(bool flag) { enableTransform = flag; }
 
+    void SetEnableArmature(bool flag) { enableArmature = flag; }
 private:
     Graph::Device * m_Device;
     bool enableTransform;
+    bool enableArmature;
 };
 
 #endif
