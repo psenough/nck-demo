@@ -19,6 +19,12 @@
     <Filter Include="Source Files\demo">
       <UniqueIdentifier>{708ca4f3-4cd4-4b5c-b16b-fc35ebe4240f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\scenes">
+      <UniqueIdentifier>{ad7733c8-0e69-414c-b4bb-06a4700b11de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\timeline">
+      <UniqueIdentifier>{03f7f12d-a3a4-4b77-9489-c55fc3f01d82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\win32\appicon.ico">
@@ -31,8 +37,32 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\win32\resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
+      <Filter>Source Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsTimeline.h">
+      <Filter>Source Files\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsSolidColor.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsConsoleText.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatPopup.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatText.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsFloatTexture.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scenes\dsOutputPostProcess.h">
+      <Filter>Source Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsConfig.h">
+      <Filter>Source Files\demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\dsAudioFFT.h">
       <Filter>Header Files</Filter>
@@ -43,13 +73,13 @@
     <ClInclude Include="..\..\..\source\dsCompound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dsConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\dsData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\dsSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\dsStage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\dsSubtitles.h">
@@ -58,11 +88,8 @@
     <ClInclude Include="..\..\..\source\dsUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\dsStage.h">
+    <ClInclude Include="..\..\..\source\win32\resource.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\scenes\dsSceneLoading.h">
-      <Filter>Source Files\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +122,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\scenes\dsSceneLoading.cpp">
       <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\dsTimeline.cpp">
+      <Filter>Source Files\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsSolidColor.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsConsoleText.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatPopup.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatText.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsFloatTexture.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\scenes\dsOutputPostProcess.cpp">
+      <Filter>Source Files\scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
