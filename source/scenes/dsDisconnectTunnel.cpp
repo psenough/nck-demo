@@ -187,6 +187,6 @@ void dsDisconnectTunnel::Render(int64_t start, int64_t end, int64_t time) {
         if (i + offset <= 2)
             anim = 4.0;
 
-        blocks[0].Render(matView, anim, Math::Vec4(restPosition.GetX(), dim_y*2.0-dim_y * i, -dt, 0), md);
+        blocks[modelIndex].Render(matView, anim, Math::Vec4(restPosition.GetX(), dim_y*2.0-dim_y * i, -dt, 0), md);
     } 
 }

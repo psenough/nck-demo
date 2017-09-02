@@ -52,7 +52,7 @@ void dsFloatTexture::Render(int64_t start, int64_t end, int64_t time) {
         texture->Enable();
     
     dev->Color(255, 255, 255, 255 * currentAlpha);
-    DS::RenderSquare(dev, width, height, false);
+    DS::RenderSquare(dev, this->width, this->height, false);
     
     if (texture)
         texture->Disable();

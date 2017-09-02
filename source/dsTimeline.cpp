@@ -39,6 +39,10 @@ dsTimeline::~dsTimeline() {
 
 }
 
+float dsTimeline::GetMaxDuration() {
+    return 160.0;
+}
+
 void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline) 
 {    
     const float width = data->GetWidth();
@@ -49,11 +53,11 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
     dsGlitchPostProcess * glitch = new dsGlitchPostProcess(data);
     dsDisconnectTunnel * dTunnel = new dsDisconnectTunnel(data);
     dsDisconnectScreen * dScreen = new dsDisconnectScreen(data);
-    dsCredits * credits = new dsCredits(data);
+    //dsCredits * credits = new dsCredits(data);
     dsRobotCollapse * robotHouse = new dsRobotCollapse(data);
+  
 
-    
-    renderLoading(20);
+   renderLoading(20);
     output->Load();
     glitch->Load();
     dScreen->Load();
@@ -66,7 +70,7 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
     renderLoading(80);
     robotHouse->Load();
-    credits->Load();
+    //credits->Load();
     dScreen->Load();
 
     // Fade In
@@ -152,63 +156,60 @@ void dsTimeline::LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline)
 
     // Credits 
     {
-        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
-        Math::Vec2 pos = Math::Vec2(width, height) - dim;
-    
+        Math::Vec2 dim = Math::Vec2(width * 0.3, width * 0.3);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim + Math::Vec2(-dim.GetX()*0.15, dim.GetX()*0.1);
+        Math::Vec2 pos_s = pos - Math::Vec2(0, dim.GetX()*0.05);
+
         dsFloatTexture * ft1 = new dsFloatTexture(data);
-        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetAnimation(pos_s, pos, T_S(1.0), T_S(1.0));
         ft1->SetDimensions(dim.GetX(), dim.GetY());
-        
+
         ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_1.png"));
 
         output->AddStage(TM_S(2, 7), TM_S(2, 11), ft1);
     }
 
     {
-        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
-        Math::Vec2 pos = Math::Vec2(width, height) - dim;
+        Math::Vec2 dim = Math::Vec2(width * 0.3, width * 0.3);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim + Math::Vec2(-dim.GetX()*0.15, dim.GetX()*0.1);
+        Math::Vec2 pos_s = pos - Math::Vec2(0, dim.GetX()*0.05);
 
         dsFloatTexture * ft1 = new dsFloatTexture(data);
-        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetAnimation(pos_s, pos, T_S(1.0), T_S(1.0));
         ft1->SetDimensions(dim.GetX(), dim.GetY());
 
         ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_2.png"));
 
-        output->AddStage(TM_S(2, 11), TM_S(2, 15), ft1);
+        output->AddStage(TM_S(2, 13), TM_S(2, 17), ft1);
     }
 
     {
-        Math::Vec2 dim = Math::Vec2(width * 0.2, height * 0.2);
-        Math::Vec2 pos = Math::Vec2(width, height) - dim;
+        Math::Vec2 dim = Math::Vec2(width * 0.3, width * 0.3);
+        Math::Vec2 pos = Math::Vec2(width, height) - dim + Math::Vec2(-dim.GetX()*0.15, dim.GetX()*0.1);
+        Math::Vec2 pos_s = pos - Math::Vec2(0, dim.GetX()*0.05);
 
         dsFloatTexture * ft1 = new dsFloatTexture(data);
-        ft1->SetAnimation(pos, pos, 0.5, 0.5);
+        ft1->SetAnimation(pos_s, pos, T_S(1.0), T_S(1.0));
         ft1->SetDimensions(dim.GetX(), dim.GetY());
 
         ft1->SetTexture(data->LoadTexture("texture://tex2d_credits_3.png"));
 
-        output->AddStage(TM_S(2, 15), TM_S(2, 19), ft1);
+        output->AddStage(TM_S(2, 19), TM_S(2, 23), ft1);
     }
 
-    //output->AddStage(TM_S(2, 30), TM_S(2, 40), new StageProxy(credits, 0));
 
-
-
+    // Fade out para preto
+    {
+        dsSolidColor * fadeIn = new dsSolidColor(data);
+        fadeIn->SetColors(Math::Color4ub(0, 0, 0, 0), Math::Color4ub(0, 0, 0, 255), true);
+        fadeIn->SetOrder(9999);
+        output->AddStage(TM_S(2, 30), TM_S(2, 34), fadeIn);
+    }
 
     timeline->Insert(Math::TimelineItem<DS::Stage*>(0e6, 180e6, new StageProxy(output)));
+
     
-
-    // Disconnection message
-    /*{
-    output->AddStage(TM_S(1, 10), TM_S(1, 14), new StageProxy(dScreen));
-
-    dsFloatText * ftex1 = new dsFloatText(data);
-    ftex1->Set("Disconnecting", Math::Vec2(width*0.5, height*0.5), height*0.1,Math::Color4ub(0,0,0));
-    ftex1->SetOrder(9999);
-    output->AddStage(TM_S(1, 10), TM_S(1, 14), ftex1);
-    }*/
-    //output->AddStage(TM_S(1,14), TM_S(1, 27), new StageProxy(house, T_S(68)));
-
+    
 }
 
 bool dsTimeline::LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize) {

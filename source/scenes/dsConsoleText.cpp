@@ -41,7 +41,7 @@ void dsConsoleText::Render(int64_t start, int64_t end, int64_t time) {
 
     int charsCount = speed * (time - start) / 1e6;
 
-    const float fontSize = 64.0 * (1920.0 / width);
+    const float fontSize = 64.0 * (width / 1920.0);
 
     std::string tmp = text.substr(0, MIN(charsCount, text.length()));
 

@@ -157,7 +157,7 @@ void dsMain::Run() {
          
         float time_in_secs = time / 1e6;
             
-        if (time_in_secs > 300)
+        if (time_in_secs > this->GetMaxDuration())
             break;
 
         timeline.Get(time, &items); 
@@ -518,7 +518,7 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
     width *= scale;
     height *= scale;
     
-    bool runDemo = true;//conf->Run(&width, &height, &fullscreen);
+    bool runDemo = conf->Run(&width, &height, &fullscreen);
 
     SafeDelete(conf);
 
