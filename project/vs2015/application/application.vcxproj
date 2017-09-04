@@ -136,6 +136,9 @@
     <ClInclude Include="..\..\..\source\scenes\dsOutputPostProcess.h" />
     <ClInclude Include="..\..\..\source\scenes\dsPseudoHouse.h" />
     <ClInclude Include="..\..\..\source\scenes\dsRobotCollapse.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsConsoleText.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsFloatPopup.h" />
+    <ClInclude Include="..\..\..\source\scenes\dsFloatTexture.h" />
     <ClInclude Include="..\..\..\source\scenes\dsSolidColor.h" />
     <ClInclude Include="..\..\..\source\scenes\MaterialToProgram.h" />
     <ClInclude Include="..\..\..\source\win32\resource.h" />
@@ -162,6 +165,9 @@
     <ClCompile Include="..\..\..\source\scenes\dsOutputPostProcess.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsPseudoHouse.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsRobotCollapse.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsConsoleText.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsFloatPopup.cpp" />
+    <ClCompile Include="..\..\..\source\scenes\dsFloatTexture.cpp" />
     <ClCompile Include="..\..\..\source\scenes\dsSolidColor.cpp" />
     <ClCompile Include="..\..\..\source\scenes\MaterialToProgram.cpp" />
   </ItemGroup>

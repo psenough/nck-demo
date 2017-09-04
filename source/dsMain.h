@@ -27,6 +27,7 @@ public:
 
     virtual void LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline) = 0;
     virtual bool LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize) = 0;
+    virtual float GetMaxDuration() = 0; // Max demo duration in seconds.
 
     double UpdateFPS();
     

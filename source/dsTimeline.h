@@ -16,6 +16,8 @@ public:
 
     void LoadTimeline(Math::TimelineNode<DS::Stage*> * timeline);
     bool LoadMusic(std::string * filename, int * sampleRate, int * buffers, int * fftSize);
+
+    float GetMaxDuration();
 };
 
 _DS_END
